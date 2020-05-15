@@ -4,28 +4,29 @@
 
 In the new structure there will be 5 buildpacks as opposed to 3 they will be as follows.
 
-go-compiler this buildpack will function the same as the current go-compiler.
-go-mod-install this buildpack is a division of the current go-mod buildpack and will only be responsible for installing the apps go modules.
-dep this will be a division of the current dep buildpack and will be responsible for only downloading the dep dependency.
-dep-install this will be be another division of the current dep buildpack and will be responsible for installing the apps go modules using dep.
-go-build this buildpack will be responsible for building the go binary and writing a start command for the app.
+* `go-dist`: functions the same as the current go-compiler
+* go-mod-vendor: executes `go mod vendor` to put dependencies into a common vendored location
+* dep: responsible for installing the dep dependency
+* dep-ensure: executes `dep ensure` to put dependencies into a common vendored location
+* go-build: builds the go binary and writes a start command for the app
+
 The order groupings would look as follows.
 ```toml
 [[order]]
   [[order.group]]
-    id = "go-compiler"
+    id = "go-dist"
   [[order.group]]
-    id = "go-mod-install"
+    id = "go-mod-vendor"
   [[order.group]]
     id = "go-build"
 
 [[order]]
   [[order.group]]
-    id = "go-compiler"
+    id = "go-dist"
   [[order.group]]
     id = "dep"
   [[order.group]]
-    id = "dep-install"
+    id = "dep-ensure"
   [[order.group]]
     id = "go-build"
 ```

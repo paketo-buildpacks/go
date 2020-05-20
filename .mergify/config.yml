@@ -1,0 +1,11 @@
+pull_request_rules:
+  - name: Auto merge pull requests from github-actions bot
+    conditions:
+      - author=github-actions[bot]
+      # TBD when language-family has integration/acceptance tests
+      # - status-success=Integration Test
+    actions:
+      merge:
+        strict: true
+        method: rebase
+      delete_head_branch: {}

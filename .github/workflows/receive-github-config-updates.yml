@@ -26,7 +26,7 @@ jobs:
     - name: Run the sync action
       uses: paketo-buildpacks/github-config/actions/sync@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
       with:
         config-repo: config-repo
         current-repo: current-repo

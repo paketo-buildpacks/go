@@ -43,7 +43,7 @@ jobs:
     - name: Open Pull Request
       run: |
         curl "https://api.github.com/repos/${{ github.repository}}/pulls" \
-          -H "Authorization: token ${{ github.token }}" \
+          -H "Authorization: token ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}" \
           -X POST \
           --data '{
             "head": "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}",

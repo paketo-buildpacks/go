@@ -1,4 +1,4 @@
-name: Create Release
+name: Create Draft Release
 
 on:
   push:
@@ -10,6 +10,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
+    - name: Reset Draft Release
+      uses: paketo-buildpacks/github-config/actions/release/reset-draft@master
+      with:
+        repo: ${{ github.repository }}
+        token: ${{ github.token }}
     - name: Checkout
       uses: actions/checkout@v2
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -41,10 +46,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.tag.outputs.tag }}
-        release_name: ${{ steps.tag.outputs.tag }}
+        tag_name: v${{ steps.tag.outputs.tag }}
+        release_name: v${{ steps.tag.outputs.tag }}
         body: ${{ steps.create-release-notes.outputs.release_body }}
-        draft: false
+        draft: true
         prerelease: false
     - name: Upload Release Asset
       id: upload-release-asset

@@ -55,6 +55,6 @@ jobs:
             {
               "path": "${{ github.workspace }}/build/buildpackage.cnb",
               "name": "${{ github.event.repository.name }}-${{ steps.tag.outputs.tag }}.cnb",
-              "content_type: application/x-tar"
+              "content_type": "application/x-tar"
             }
           ]

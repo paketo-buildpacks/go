@@ -25,7 +25,7 @@ jobs:
           -b "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
 
     - name: Update buildpack.toml
-      uses: paketo-buildpacks/github-config/actions/dependency/update@receive-dependency-update
+      uses: paketo-buildpacks/github-config/actions/dependency/update@master
 
     - name: Commit
       run: |

@@ -39,9 +39,9 @@ jobs:
       run: |
         git remote add origin-ssh "git@github.com:${{ github.repository }}.git"
         eval "$(ssh-agent)"
-        echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
         echo "${{ secrets.PAKETO_BOT_SSH_KEY }}" | ssh-add -
-        git push origin "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
+        GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git \
+          push origin "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
 
     - name: Open Pull Request
       run: |

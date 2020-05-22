@@ -40,25 +40,21 @@ jobs:
         RELEASE_BODY="${RELEASE_BODY//$'\n'/'%0A'}"
         RELEASE_BODY="${RELEASE_BODY//$'\r'/'%0D'}"
         echo "::set-output name=release_body::$RELEASE_BODY"
-    - name: Create Release
-      id: create-release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+    - name: Create Draft Release
+      uses: paketo-buildpacks/github-config/actions/release/create@master
       with:
+        repo: ${{ github.repository }}
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         tag_name: v${{ steps.tag.outputs.tag }}
-        release_name: v${{ steps.tag.outputs.tag }}
+        target_commitish: ${{ github.sha }}
+        name: v${{ steps.tag.outputs.tag }}
         body: ${{ steps.create-release-notes.outputs.release_body }}
         draft: true
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ${{ github.workspace }}/build/buildpackage.cnb
-        asset_name: ${{ github.event.repository.name }}-${{ steps.tag.outputs.tag }}.cnb
-        asset_content_type: application/x-tar
-
+        assets: |
+          [
+            {
+              "path": "${{ github.workspace }}/build/buildpackage.cnb",
+              "name": "${{ github.event.repository.name }}-${{ steps.tag.outputs.tag }}.cnb",
+              "content_type: application/x-tar"
+            }
+          ]

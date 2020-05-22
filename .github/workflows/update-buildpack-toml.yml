@@ -37,8 +37,11 @@ jobs:
 
     - name: Push Branch
       run: |
-        git push \
-          --set-upstream origin "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
+        git remote add origin-ssh "git@github.com:${{ github.repository }}.git"
+        eval "$(ssh-agent)"
+        echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
+        echo "${{ secrets.PAKETO_BOT_SSH_KEY }}" | ssh-add -
+        git push origin "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
 
     - name: Open Pull Request
       run: |

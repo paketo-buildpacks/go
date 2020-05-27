@@ -48,4 +48,6 @@ The updated order grouping will look like the following:
     optional = true
 ```
 
+## Unresolved Questions and Bikeshedding (Optional)
+
 {{REMOVE THIS SECTION BEFORE RATIFICATION!}}

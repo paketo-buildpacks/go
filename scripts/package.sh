@@ -86,7 +86,7 @@ function tools::jam::install() {
     os="darwin"
   fi
 
-  curl "https://github.com/cloudfoundry/packit/releases/download/v0.0.10/jam-${os}" \
+  curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.10/jam-${os}" \
     --silent \
     --location \
     --output "${BIN_DIR}/jam"

@@ -28,7 +28,7 @@ jobs:
       run: |
         mkdir -p "${{ github.workspace }}/bin"
         export PATH="${PATH}:${{ github.workspace }}/bin"
-        curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.10/jam-linux" \
+        curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.14/jam-linux" \
           --silent \
           --location \
           --output "${{ github.workspace }}/bin/jam"

@@ -78,7 +78,7 @@ function repo::prepare() {
 }
 
 function tools::jam::install() {
-  echo "-> Installing v0.0.10 jam..."
+  echo "-> Installing v0.0.14 jam..."
 
   local os
   os="${OS}"
@@ -86,7 +86,7 @@ function tools::jam::install() {
     os="darwin"
   fi
 
-  curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.10/jam-${os}" \
+  curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.14/jam-${os}" \
     --silent \
     --location \
     --output "${BIN_DIR}/jam"

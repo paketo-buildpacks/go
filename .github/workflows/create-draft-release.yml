@@ -6,9 +6,24 @@ on:
     - master
 
 jobs:
+  integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.14
+    - name: Checkout
+      uses: actions/checkout@v2
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
+    - name: Run Integration Tests
+      run: ./scripts/integration.sh
+
   release:
     name: Release
     runs-on: ubuntu-latest
+    needs: integration
     steps:
     - name: Reset Draft Release
       uses: paketo-buildpacks/github-config/actions/release/reset-draft@master
@@ -17,7 +32,7 @@ jobs:
         token: ${{ github.token }}
     - name: Checkout
       uses: actions/checkout@v2
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Tag
       id: tag
       uses: paketo-buildpacks/github-config/actions/tag@master

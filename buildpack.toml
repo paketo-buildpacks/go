@@ -20,12 +20,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-compiler"
-    sha256 = "0d2c8ad02df610f3a1998956655f27bdd82074ade1427f598ac6fabc6a0e94bf"
-    source = "https://github.com/paketo-buildpacks/go-compiler/archive/v0.0.154.tar.gz"
-    source_sha256 = "af1df52c377e321a7354375e2af10bf08958e96917c0caa7a5e5146ea9f10799"
+    sha256 = "a11e07c2c66df26c046e9367fe6a3ceea0857d39d5868fff502ad4a7012440f6"
+    source = "https://github.com/paketo-buildpacks/go-compiler/archive/v0.0.155.tar.gz"
+    source_sha256 = "3fa599a65a866cc71995e1172b8f795d284b4878ac3b092daad45141f0d80926"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/go-compiler/releases/download/v0.0.154/go-compiler-0.0.154.tgz"
-    version = "0.0.154"
+    uri = "https://github.com/paketo-buildpacks/go-compiler/releases/download/v0.0.155/go-compiler-0.0.155.tgz"
+    version = "0.0.155"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-mod"
@@ -40,7 +40,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-compiler"
-    version = "0.0.154"
+    version = "0.0.155"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod"
@@ -50,7 +50,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-compiler"
-    version = "0.0.154"
+    version = "0.0.155"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"

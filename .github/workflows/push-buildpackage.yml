@@ -1,0 +1,23 @@
+name: Push Buildpackage
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push:
+    name: Push
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download
+      id: download
+      uses: paketo-buildpacks/github-config/actions/buildpackage/download@master
+    - name: Push
+      env:
+        GCR_PUSH_BOT_JSON_KEY: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
+      run: |
+        echo "${GCR_PUSH_BOT_JSON_KEY}" | docker login --username _json_key --password-stdin https://gcr.io
+        docker image import "${GITHUB_WORKSPACE}/${{ steps.download.outputs.buildpackage }}" "gcr.io/${{ github.repository }}:${{ steps.download.outputs.tag }}"
+        docker tag "gcr.io/${{ github.repository }}:${{ steps.download.outputs.tag }}" "gcr.io/${{ github.repository }}:latest"
+        docker push "gcr.io/${{ github.repository }}:${{ steps.download.outputs.tag }}"
+        docker push "gcr.io/${{ github.repository }}:latest"

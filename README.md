@@ -1,6 +1,7 @@
-# Go Cloud Native Buildpack
+# Go Paketo Buildpack
+## `gcr.io/paketo-buildpacks/go`
 
-The Go Cloud Native Buildpack provides a set of collaborating buildpacks that
+The Go Paketo Buildpack provides a set of collaborating buildpacks that
 enable the building of a Go-based application. These buildpacks include:
 - [Go Compiler CNB](https://github.com/paketo-buildpacks/go-compiler)
 - [Go Mod CNB](https://github.com/paketo-buildpacks/go-mod)

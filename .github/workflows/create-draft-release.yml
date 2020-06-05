@@ -1,0 +1,75 @@
+name: Create Draft Release
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.14
+    - name: Checkout
+      uses: actions/checkout@v2
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
+    - name: Run Integration Tests
+      run: ./scripts/integration.sh
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: integration
+    steps:
+    - name: Reset Draft Release
+      uses: paketo-buildpacks/github-config/actions/release/reset-draft@master
+      with:
+        repo: ${{ github.repository }}
+        token: ${{ github.token }}
+    - name: Checkout
+      uses: actions/checkout@v2
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
+    - name: Tag
+      id: tag
+      uses: paketo-buildpacks/github-config/actions/tag@master
+    - name: Package
+      run: ./scripts/package.sh --version "${{ steps.tag.outputs.tag }}"
+    - name: Create Release Notes
+      id: create-release-notes
+      run: |
+        mkdir -p "${{ github.workspace }}/bin"
+        export PATH="${PATH}:${{ github.workspace }}/bin"
+        curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.14/jam-linux" \
+          --silent \
+          --location \
+          --output "${{ github.workspace }}/bin/jam"
+        chmod +x "${{ github.workspace }}/bin/jam"
+        RELEASE_BODY=$(jam summarize --buildpack "${{ github.workspace }}/build/buildpack.tgz" --format markdown)
+        # Coz of this messed up issue
+        # https://github.community/t5/GitHub-Actions/set-output-Truncates-Multiline-Strings/m-p/38372#M3322
+        RELEASE_BODY="${RELEASE_BODY//'%'/'%25'}"
+        RELEASE_BODY="${RELEASE_BODY//$'\n'/'%0A'}"
+        RELEASE_BODY="${RELEASE_BODY//$'\r'/'%0D'}"
+        echo "::set-output name=release_body::$RELEASE_BODY"
+    - name: Create Draft Release
+      uses: paketo-buildpacks/github-config/actions/release/create@master
+      with:
+        repo: ${{ github.repository }}
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        tag_name: v${{ steps.tag.outputs.tag }}
+        target_commitish: ${{ github.sha }}
+        name: v${{ steps.tag.outputs.tag }}
+        body: ${{ steps.create-release-notes.outputs.release_body }}
+        draft: true
+        assets: |
+          [
+            {
+              "path": "build/buildpackage.cnb",
+              "name": "${{ github.event.repository.name }}-${{ steps.tag.outputs.tag }}.cnb",
+              "content_type": "application/x-tar"
+            }
+          ]

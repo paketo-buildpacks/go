@@ -1,0 +1,57 @@
+name: Update Buildpack Dependency
+
+on:
+  repository_dispatch:
+    types: dependency-update
+
+jobs:
+  update-buildpack-toml:
+    runs-on: ubuntu-latest
+    name: Update buildpack.toml
+    steps:
+
+    - name: Parse ID and Version
+      id: dependency
+      run: |
+        echo "::set-output name=id::$(jq -r .client_payload.dependency.id ${{ github.event_path }})"
+        echo "::set-output name=version::$(jq -r .client_payload.dependency.version ${{ github.event_path }})"
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Checkout Branch
+      run: |
+        git checkout \
+          -b "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
+
+    - name: Update buildpack.toml
+      uses: paketo-buildpacks/github-config/actions/dependency/update@master
+
+    - name: Commit
+      run: |
+        git config --global user.email "paketobuildpacks@gmail.com"
+        git config --global user.name "paketo-bot"
+        git commit \
+          --all \
+          --message "Updating ${{ steps.dependency.outputs.id }} to ${{ steps.dependency.outputs.version }} in buildpack.toml"
+
+    - name: Push Branch
+      run: |
+        git remote add origin-ssh "git@github.com:${{ github.repository }}.git"
+        eval "$(ssh-agent)"
+        echo "${{ secrets.PAKETO_BOT_SSH_KEY }}" | ssh-add -
+        GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git \
+          push origin "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
+
+    - name: Open Pull Request
+      run: |
+        curl "https://api.github.com/repos/${{ github.repository}}/pulls" \
+          -H "Authorization: token ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}" \
+          -X POST \
+          --data '{
+            "head": "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}",
+            "base": "master",
+            "title": "Update ${{ steps.dependency.outputs.id }}",
+            "body": "Updates ${{ steps.dependency.outputs.id }} to ${{ steps.dependency.outputs.version }}"
+          }'
+

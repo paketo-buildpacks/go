@@ -1,0 +1,35 @@
+name: Sync
+
+on:
+  repository_dispatch:
+    types: working-dir-update
+
+jobs:
+  build:
+    name: Sync
+    runs-on: ubuntu-latest
+    steps:
+
+    # checkout paketo github-config as src-repo
+    - name: Checkout paketo github-config repo
+      uses: actions/checkout@v2
+      with:
+        repository: paketo-buildpacks/github-config
+        path: config-repo
+
+    # checkout this repo
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        path: current-repo
+
+    - name: Run the sync action
+      uses: paketo-buildpacks/github-config/actions/sync@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+      with:
+        config-repo: config-repo
+        current-repo: current-repo
+        config-path: "/language-family"
+        ssh-private-key: ${{ secrets.PAKETO_BOT_SSH_KEY }}
+      id: do-sync

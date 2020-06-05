@@ -1,57 +1,57 @@
 api = "0.2"
 
 [buildpack]
+  homepage = "https://github.com/paketo-buildpacks/go"
   id = "paketo-buildpacks/go"
   name = "Go Buildpack"
   version = "{{.Version}}"
-  homepage = "https://github.com/paketo-buildpacks/go"
 
 [metadata]
   include_files = ["buildpack.toml"]
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dep"
-    sha256 = "fd8af9a737879e273de30fb09f1447ff126125f2b48cfe7fa68426755cfb3bae"
-    source = "https://github.com/cloudfoundry/dep-cnb/archive/v0.0.109.tar.gz"
-    source_sha256 = "ed0b71d9798ceae94d1c41a04e1e70751608c36f261a7f277d1d0b201898211d"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
-    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dep/org.cloudfoundry.dep_0.0.109_linux_noarch_any-stack_fd8af9a7.tgz"
-    version = "0.0.109"
+    sha256 = "87bcd37fb4f1d1f83c594e8fffd3fb62511e21f5a95ed73c54855ebed5639f2a"
+    source = "https://github.com/paketo-buildpacks/dep/archive/v0.0.138.tar.gz"
+    source_sha256 = "50959e95cfba3ebfd7d743bff6923c06d675b34a56e03dd38f67d4d6a244dbfe"
+    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.tiny", "io.paketo.stacks.tiny"]
+    uri = "https://github.com/paketo-buildpacks/dep/releases/download/v0.0.138/dep-0.0.138.tgz"
+    version = "0.0.138"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-compiler"
-    sha256 = "c6b20a040747c7cc057ef10f9b422a1b06f3c264babacda6cf8fa4a390c54e93"
-    source = "https://github.com/cloudfoundry/go-compiler-cnb/archive/v0.0.112.tar.gz"
-    source_sha256 = "94326d463731b2edddb3c7b1c129fae8b7fda3fd857b338174f2ea3743888b29"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
-    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.go-compiler/org.cloudfoundry.go-compiler_0.0.112_linux_noarch_any-stack_c6b20a04.tgz"
-    version = "0.0.112"
+    sha256 = "caa1e8ae0106e5f95bc1ef3579c53a5a4fb49826125d99993e4e8964538c094b"
+    source = "https://github.com/paketo-buildpacks/go-compiler/archive/v0.0.159.tar.gz"
+    source_sha256 = "53604147d994585cc0a871981ff5006e7dac02951ccfca68b7cd8387c2e7056a"
+    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
+    uri = "https://github.com/paketo-buildpacks/go-compiler/releases/download/v0.0.159/go-compiler-0.0.159.tgz"
+    version = "0.0.159"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-mod"
-    sha256 = "24be57783860925252a86e019a5215b871c0e86ed7c5b2a4eea15946d44a9956"
-    source = "https://github.com/cloudfoundry/go-mod-cnb/archive/v0.0.96.tar.gz"
-    source_sha256 = "7f4c08d414e794cdec71220956aa15821a8d491ec8d35023178357c9a94b1d7e"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
-    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.go-mod/org.cloudfoundry.go-mod_0.0.96_linux_noarch_any-stack_24be5778.tgz"
-    version = "0.0.96"
+    sha256 = "813048e6b6d9cbb04bbcb54c6233618d4111bdeb84b78deaea4e72d7ec9b1b39"
+    source = "https://github.com/paketo-buildpacks/go-mod/archive/v0.0.128.tar.gz"
+    source_sha256 = "0128bf4aeaf2fe37806bd8f8a6fccfff81aa4f6eb8f5ab3321260403de6ce8fb"
+    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
+    uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.128/go-mod-0.0.128.tgz"
+    version = "0.0.128"
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/go-compiler"
-    version = "0.0.112"
+    version = "0.0.159"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod"
-    version = "0.0.96"
+    version = "0.0.128"
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/go-compiler"
-    version = "0.0.112"
+    version = "0.0.159"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.109"
+    version = "0.0.138"

@@ -14,7 +14,7 @@ api = "0.2"
     sha256 = "87bcd37fb4f1d1f83c594e8fffd3fb62511e21f5a95ed73c54855ebed5639f2a"
     source = "https://github.com/paketo-buildpacks/dep/archive/v0.0.138.tar.gz"
     source_sha256 = "50959e95cfba3ebfd7d743bff6923c06d675b34a56e03dd38f67d4d6a244dbfe"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.tiny", "io.paketo.stacks.tiny"]
+    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
     uri = "https://github.com/paketo-buildpacks/dep/releases/download/v0.0.138/dep-0.0.138.tgz"
     version = "0.0.138"
 
@@ -23,7 +23,7 @@ api = "0.2"
     sha256 = "1b089a1401533f3949c236d23bcea0969050c612459fd63baf9728416184c08a"
     source = "https://github.com/paketo-buildpacks/go-compiler/archive/v0.0.158.tar.gz"
     source_sha256 = "39a98fc6ff024845f7557165239f8f9b1caa30e4e311dcce13a02f37ea3dfab4"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
+    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
     uri = "https://github.com/paketo-buildpacks/go-compiler/releases/download/v0.0.158/go-compiler-0.0.158.tgz"
     version = "0.0.158"
 
@@ -32,7 +32,7 @@ api = "0.2"
     sha256 = "e06e57d5001d5369d89035d83a549a87452f6b171196ede1830a068a260a0f9b"
     source = "https://github.com/paketo-buildpacks/go-mod/archive/v0.0.127.tar.gz"
     source_sha256 = "5c940eb3ad1529484084e3a292b028cbe2713adac0420fb0907c8e15e0d1f12d"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.tiny", "io.paketo.stacks.tiny"]
+    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
     uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.127/go-mod-0.0.127.tgz"
     version = "0.0.127"
 

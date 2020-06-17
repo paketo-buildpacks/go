@@ -51,7 +51,6 @@ jobs:
           --data '{
             "head": "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}",
             "base": "master",
-            "title": "Update ${{ steps.dependency.outputs.id }}",
-            "body": "Updates ${{ steps.dependency.outputs.id }} to ${{ steps.dependency.outputs.version }}"
+            "title": "Updates ${{ steps.dependency.outputs.id }} to ${{ steps.dependency.outputs.version }}"
           }'
 

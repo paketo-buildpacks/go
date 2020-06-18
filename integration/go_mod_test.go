@@ -72,7 +72,7 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(string(content)).To(MatchRegexp("PATH=.*/layers/paketo-buildpacks_go-mod/app-binary/bin:"))
 
-			Expect(logs).To(ContainLines(ContainSubstring("Go Compiler Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Go Mod Buildpack")))
 		})
 	})

@@ -73,7 +73,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			Expect(string(content)).To(ContainSubstring("Hello, World!"))
 			Expect(string(content)).To(MatchRegexp("PATH=.*/layers/paketo-buildpacks_dep/app-binary/bin:"))
 
-			Expect(logs).To(ContainLines(ContainSubstring("Go Compiler Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Dep Buildpack")))
 		})
 	})

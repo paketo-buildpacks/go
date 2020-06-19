@@ -11,12 +11,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dep"
-    sha256 = "58e3a5d55389cc7204bc3a0440e59a1c78fd497e8380ec05c9ce10c4e1f949e4"
-    source = "https://github.com/paketo-buildpacks/dep/archive/v0.0.143.tar.gz"
-    source_sha256 = "1c37b1eb0557471527f7c8d321658d8dbf93a5a9e6cfaae62d4f35150688a63a"
+    sha256 = "12764a882ab16a6b60d5cfbf69bf8553ac083c4c2589f17e2f052864e592922f"
+    source = "https://github.com/paketo-buildpacks/dep/archive/v0.0.144.tar.gz"
+    source_sha256 = "4177fd64472dc79db7302e0cc91e9cf8ed41255b839156dc730abeea6aaeaec6"
     stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/dep/releases/download/v0.0.143/dep-0.0.143.tgz"
-    version = "0.0.143"
+    uri = "https://github.com/paketo-buildpacks/dep/releases/download/v0.0.144/dep-0.0.144.tgz"
+    version = "0.0.144"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-dist"
@@ -54,4 +54,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.143"
+    version = "0.0.144"

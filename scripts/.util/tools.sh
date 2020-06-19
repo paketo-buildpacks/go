@@ -129,6 +129,6 @@ function util::tools::packager::install () {
 
     if [[ ! -f "${dir}/packager" ]]; then
         util::print::title "Installing packager"
-        GOBIN="${dir}" go install github.com/cloudfoundry/libcfbuildpack/packager
+        GOBIN="${dir}" go get github.com/cloudfoundry/libcfbuildpack/packager
     fi
 }

@@ -70,6 +70,8 @@ github.com/paketo-buildpacks/packit v0.0.14 h1:ySq6WC/WKsOmUdsg9Uh1ggpDkyV0opJuJ
 github.com/paketo-buildpacks/packit v0.0.14/go.mod h1:b40wtWWAcgB47+vYGDD9KKhzOtBjI8KPqGxwGvV+XNs=
 github.com/paketo-buildpacks/packit v0.0.15 h1:BYcZAyHcKF+n9DKroAiYC1CgbCHIshcerxeMYq5rq4A=
 github.com/paketo-buildpacks/packit v0.0.15/go.mod h1:b40wtWWAcgB47+vYGDD9KKhzOtBjI8KPqGxwGvV+XNs=
+github.com/paketo-buildpacks/packit v0.0.16 h1:UMo3r4uAA/tj9qhQgPd6Kg7Lt7jc5YIUHoyNFzwqV+0=
+github.com/paketo-buildpacks/packit v0.0.16/go.mod h1:b40wtWWAcgB47+vYGDD9KKhzOtBjI8KPqGxwGvV+XNs=
 github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=
 github.com/sclevine/spec v1.4.0/go.mod h1:LvpgJaFyvQzRvc1kaDs0bulYwzC70PbiYjC4QnFHkOM=
 github.com/ulikunitz/xz v0.5.7 h1:YvTNdFzX6+W5m9msiYg/zpkSURPPtOlzbqYjrFn7Yt4=

@@ -20,12 +20,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-dist"
-    sha256 = "49951c9d7588c33d5977edb5a675bfb615830bd15107540a50d0f80d090f070a"
-    source = "https://github.com/paketo-buildpacks/go-dist/archive/v0.0.172.tar.gz"
-    source_sha256 = "f15dafb5b80b96228e6f7a12712969156dcd109d1c6ec64bf3257578840b1a3d"
+    sha256 = "0c78be03a84b5a754896154d3ebba92bd12afe24400bbf7a76fdfc21e3e5bdde"
+    source = "https://github.com/paketo-buildpacks/go-dist/archive/v0.0.173.tar.gz"
+    source_sha256 = "e26bd6d3fedb2f7c5280c75342c2e2e305c332a22566c5dc8f3560f0b6508cf4"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/go-dist/releases/download/v0.0.172/go-dist-0.0.172.tgz"
-    version = "0.0.172"
+    uri = "https://github.com/paketo-buildpacks/go-dist/releases/download/v0.0.173/go-dist-0.0.173.tgz"
+    version = "0.0.173"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-mod"
@@ -40,7 +40,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.172"
+    version = "0.0.173"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod"
@@ -50,7 +50,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.172"
+    version = "0.0.173"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"

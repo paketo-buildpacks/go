@@ -64,3 +64,13 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/dep"
     version = "0.0.145"
+
+[[order]]
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-dist"
+    version = "0.0.176"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-build"
+    version = "0.0.3"

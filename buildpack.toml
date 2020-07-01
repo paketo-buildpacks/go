@@ -36,6 +36,15 @@ api = "0.2"
     uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.133/go-mod-0.0.133.tgz"
     version = "0.0.133"
 
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/go-build"
+    sha256 = "a50896f50023a490c104faca1b6053817792419ef78249738d445152e13c40e4"
+    source = "https://github.com/paketo-buildpacks/go-build/archive/v0.0.3.tar.gz"
+    source_sha256 = "131c1175fb5427f60cd2ff1a75542b1cd8b7f0d99eac9c6ee87d789a1bdf8ef4"
+    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://github.com/paketo-buildpacks/go-build/releases/download/v0.0.3/go-build-0.0.3.tgz"
+    version = "0.0.3"
+
 [[order]]
 
   [[order.group]]

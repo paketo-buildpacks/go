@@ -32,4 +32,3 @@ jobs:
         current-repo: current-repo
         config-path: "/language-family"
         ssh-private-key: ${{ secrets.PAKETO_BOT_SSH_KEY }}
-      id: do-sync

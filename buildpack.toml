@@ -38,12 +38,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-build"
-    sha256 = "5f2660f33f23a895af82c031ce85ccb603416d28ffc23d8abe690ae899a96578"
-    source = "https://github.com/paketo-buildpacks/go-build/archive/v0.0.4.tar.gz"
-    source_sha256 = "99a0d3935659df90c9c985b6722b2bf04650d6b2418eda011c35c96e59b3c9a2"
+    sha256 = "c55e1ec10d8e49043cac4569c1091018d78ee5a1b524914f03e1d1b454944bfb"
+    source = "https://github.com/paketo-buildpacks/go-build/archive/v0.0.5.tar.gz"
+    source_sha256 = "428f87229a853266e46b0878ebb16fefe73bd00437663298eed4e625ffe9e551"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/go-build/releases/download/v0.0.4/go-build-0.0.4.tgz"
-    version = "0.0.4"
+    uri = "https://github.com/paketo-buildpacks/go-build/releases/download/v0.0.5/go-build-0.0.5.tgz"
+    version = "0.0.5"
 
 [[order]]
 
@@ -73,4 +73,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.4"
+    version = "0.0.5"

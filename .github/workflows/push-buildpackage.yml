@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: Download
       id: download
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
       uses: paketo-buildpacks/github-config/actions/buildpackage/download@master
     - name: Push
       env:

@@ -29,12 +29,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-mod"
-    sha256 = "550b0f73732e9f1788df338153f74c401c66e5fdcb89aef4f5ef9e582dd870c3"
-    source = "https://github.com/paketo-buildpacks/go-mod/archive/v0.0.135.tar.gz"
-    source_sha256 = "4f3a9015ee182fc44ce971b189e0401a09fa0f119a204209560df9776f88e34f"
+    sha256 = "c9f814811a855121d3320067c1abe328739896be51f316ae9ee5945fcf162a72"
+    source = "https://github.com/paketo-buildpacks/go-mod/archive/v0.0.136.tar.gz"
+    source_sha256 = "0eacd36eea4eb2019b63e85acca71b44d612092f1e48431c41aaaee4b417eff3"
     stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.135/go-mod-0.0.135.tgz"
-    version = "0.0.135"
+    uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.136/go-mod-0.0.136.tgz"
+    version = "0.0.136"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/go-build"
@@ -53,7 +53,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod"
-    version = "0.0.135"
+    version = "0.0.136"
 
 [[order]]
 

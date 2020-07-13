@@ -9,42 +9,6 @@ api = "0.2"
 [metadata]
   include_files = ["buildpack.toml"]
 
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dep"
-    sha256 = "eaa6611be4b1ddf92734ef3293630922d9ab62879930b329a19311527b96d94a"
-    source = "https://github.com/paketo-buildpacks/dep/archive/v0.0.148.tar.gz"
-    source_sha256 = "2e860cdccde6d6c1097aecefdbe9abd4a72aff3ada635832d4f9c80794de743c"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/dep/releases/download/v0.0.148/dep-0.0.148.tgz"
-    version = "0.0.148"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/go-dist"
-    sha256 = "c545d49173e5a0eb07411a6793a623c4bf38f1b54085ae2f64f25a60942e6b72"
-    source = "https://github.com/paketo-buildpacks/go-dist/archive/v0.0.181.tar.gz"
-    source_sha256 = "f6948e908586780657f3c8d8ee1fe9cfa5949a84efa695971966143a9472a9c8"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/go-dist/releases/download/v0.0.181/go-dist-0.0.181.tgz"
-    version = "0.0.181"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/go-mod"
-    sha256 = "c9f814811a855121d3320067c1abe328739896be51f316ae9ee5945fcf162a72"
-    source = "https://github.com/paketo-buildpacks/go-mod/archive/v0.0.136.tar.gz"
-    source_sha256 = "0eacd36eea4eb2019b63e85acca71b44d612092f1e48431c41aaaee4b417eff3"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.136/go-mod-0.0.136.tgz"
-    version = "0.0.136"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/go-build"
-    sha256 = "5f624fec3812185fc3354399119ba63b949e2a78d2ef65baec5303e55e9b296d"
-    source = "https://github.com/paketo-buildpacks/go-build/archive/v0.0.8.tar.gz"
-    source_sha256 = "fe535008289a50fad81307a9c1ea13d425612048f55889822bf87b368c5f4f79"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/go-build/releases/download/v0.0.8/go-build-0.0.8.tgz"
-    version = "0.0.8"
-
 [[order]]
 
   [[order.group]]

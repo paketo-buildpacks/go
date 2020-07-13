@@ -45,6 +45,15 @@ api = "0.2"
     uri = "https://github.com/paketo-buildpacks/go-build/releases/download/v0.0.5/go-build-0.0.5.tgz"
     version = "0.0.5"
 
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/dep-ensure"
+    sha256 = "a9bdc37aed29599ece0f185b6322f63998b0b78c18482181a2084183fe75a08f"
+    source = "https://github.com/paketo-buildpacks/dep-ensure/archive/v0.0.4.tar.gz"
+    source_sha256 = "32d7c0100febd2fcf9aaa94d450ea0d404346a4a1cb45df0d15ca9858c7cf3c5"
+    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://github.com/paketo-buildpacks/dep-ensure/releases/download/v0.0.4/dep-ensure-0.0.4.tgz"
+    version = "0.0.4"
+
 [[order]]
 
   [[order.group]]

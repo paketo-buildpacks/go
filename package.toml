@@ -1,12 +1,11 @@
 [buildpack]
-uri = "build/buildpack.tgz"
-
+  uri = "build/buildpack.tgz"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/dep:0.0.148"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-dist:0.0.181"
+  image = "gcr.io/paketo-buildpacks/go-dist:0.0.182"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-mod:0.0.136"

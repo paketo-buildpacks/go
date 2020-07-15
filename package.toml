@@ -12,3 +12,6 @@
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-build:0.0.9"
+
+[[dependencies]]
+  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.6"

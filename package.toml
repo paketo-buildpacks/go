@@ -11,4 +11,4 @@
   image = "gcr.io/paketo-buildpacks/go-mod:0.0.136"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-build:0.0.8"
+  image = "gcr.io/paketo-buildpacks/go-build:0.0.9"

@@ -40,7 +40,7 @@ jobs:
       run: ./scripts/package.sh --version "${{ steps.tag.outputs.tag }}"
     - name: Create Release Notes
       id: create-release-notes
-      uses: paketo-buildpacks/github-config/actions/release/notes/language-family@master
+      uses: paketo-buildpacks/github-config/actions/release/notes@master
     - name: Create Draft Release
       uses: paketo-buildpacks/github-config/actions/release/create@master
       with:

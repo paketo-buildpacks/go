@@ -16,8 +16,8 @@ api = "0.2"
     version = "0.0.183"
 
   [[order.group]]
-    id = "paketo-buildpacks/go-mod"
-    version = "0.0.136"
+    id = "paketo-buildpacks/go-mod-vendor"
+    version = "0.0.140"
 
 [[order]]
 

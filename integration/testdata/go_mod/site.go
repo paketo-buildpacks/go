@@ -37,9 +37,5 @@ func main() {
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintln(res, "go, world")
-
-	fmt.Fprintln(res, ".")
-	fmt.Fprintln(res, fmt.Sprintf("PATH=%s", os.Getenv("PATH")))
-	fmt.Fprintln(res, ".")
+	fmt.Fprint(res, "Hello world!")
 }

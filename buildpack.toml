@@ -27,7 +27,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.148"
+    version = "0.0.149"
 
 [[order]]
 

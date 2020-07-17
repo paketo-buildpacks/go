@@ -2,7 +2,7 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dep:0.0.148"
+  image = "gcr.io/paketo-buildpacks/dep:0.0.149"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-dist:0.0.184"

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -33,12 +34,16 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			image     occam.Image
 			container occam.Container
 
-			name string
+			name   string
+			source string
 		)
 
 		it.Before(func() {
 			var err error
 			name, err = occam.RandomName()
+			Expect(err).NotTo(HaveOccurred())
+
+			source, err = occam.Source(filepath.Join("testdata", "dep"))
 			Expect(err).NotTo(HaveOccurred())
 		})
 
@@ -46,6 +51,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			Expect(docker.Container.Remove.Execute(container.ID)).To(Succeed())
 			Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
 			Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
+			Expect(os.RemoveAll(source)).To(Succeed())
 		})
 
 		it("creates a working OCI image", func() {
@@ -54,7 +60,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			image, logs, err = pack.WithNoColor().Build.
 				WithBuildpacks(goBuildpack).
 				WithNoPull().
-				Execute(name, filepath.Join("testdata", "dep"))
+				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
 
 			container, err = docker.Container.Run.Execute(image.ID)
@@ -71,10 +77,12 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			content, err := ioutil.ReadAll(response.Body)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(string(content)).To(ContainSubstring("Hello, World!"))
-			Expect(string(content)).To(MatchRegexp("PATH=.*/layers/paketo-buildpacks_dep/app-binary/bin:"))
 
 			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Dep Buildpack")))
+
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Go Build Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
 		})
 	})
 }

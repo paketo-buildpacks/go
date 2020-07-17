@@ -8,10 +8,8 @@
   image = "gcr.io/paketo-buildpacks/go-dist:0.0.183"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-mod:0.0.136"
+  image = "gcr.io/paketo-buildpacks/go-mod-vendor:0.0.140"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-build:0.0.10"
 
-[[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-mod-vendor:0.0.140"

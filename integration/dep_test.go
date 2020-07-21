@@ -80,8 +80,9 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 
 			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Dep Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Dep Ensure Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
 
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Go Build Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
 		})
 	})

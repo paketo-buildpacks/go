@@ -43,5 +43,3 @@ The above plan has several benefits over the existing structure.
 - The structure is much more modular allowing for much more customization and insertion of custom buildpacks.
 - It separates the concerns of the buildpacks allowing them to be simpler and easier to maintain, while also helping separate different points of failure.
 - It condenses common binary building logic into one buildpack in the form of go-build.
-
-{{REMOVE THIS SECTION BEFORE RATIFICATION!}}

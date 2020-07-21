@@ -5,7 +5,7 @@
   image = "gcr.io/paketo-buildpacks/dep:0.0.150"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-dist:0.0.186"
+  image = "gcr.io/paketo-buildpacks/go-dist:0.0.190"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-mod-vendor:0.0.143"

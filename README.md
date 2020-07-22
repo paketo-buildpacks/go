@@ -5,8 +5,9 @@
 The Go Paketo Buildpack provides a set of collaborating buildpacks that
 enable the building of a Go-based application. These buildpacks include:
 - [Go Distribution CNB](https://github.com/paketo-buildpacks/go-dist)
-- [Go Mod CNB](https://github.com/paketo-buildpacks/go-mod)
+- [Go Mod Vendor CNB](https://github.com/paketo-buildpacks/go-mod-vendor)
 - [Dep CNB](https://github.com/paketo-buildpacks/dep)
+- [Dep Ensure CNB](https://github.com/paketo-buildpacks/dep-ensure)
 - [Go Build CNB](https://github.com/paketo-buildpacks/go-build)
 
 The buildpack supports building applications that use either the built-in [Go

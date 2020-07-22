@@ -4,7 +4,6 @@ api = "0.2"
   homepage = "https://github.com/paketo-buildpacks/go"
   id = "paketo-buildpacks/go"
   name = "Go Buildpack"
-  version = "{{.Version}}"
 
 [metadata]
   include_files = ["buildpack.toml"]
@@ -13,7 +12,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.190"
+    version = "0.0.191"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
@@ -21,32 +20,32 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.12"
+    version = "0.0.13"
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.190"
+    version = "0.0.191"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.151"
+    version = "0.0.152"
 
   [[order.group]]
     id = "paketo-buildpacks/dep-ensure"
-    version = "0.0.8"
+    version = "0.0.9"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.12"
+    version = "0.0.13"
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.190"
+    version = "0.0.191"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.12"
+    version = "0.0.13"

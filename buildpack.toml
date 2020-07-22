@@ -37,4 +37,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.12"
+    version = "0.0.13"

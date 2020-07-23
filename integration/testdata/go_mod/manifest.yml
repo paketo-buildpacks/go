@@ -1,8 +1,0 @@
-applications:
-- name: go_mod_app
-  memory: 512M
-  instances: 1
-  buildpacks:
-    - go_buildpack
-  env:
-    GOVERSION: go1.11

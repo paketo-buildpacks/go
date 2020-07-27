@@ -30,7 +30,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.155"
+    version = "0.0.156"
 
   [[order.group]]
     id = "paketo-buildpacks/dep-ensure"

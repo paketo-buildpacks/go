@@ -2,7 +2,7 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dep:0.0.156"
+  image = "gcr.io/paketo-buildpacks/dep:0.0.158"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.14"

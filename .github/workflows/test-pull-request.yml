@@ -19,3 +19,23 @@ jobs:
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Run Integration Tests
       run: ./scripts/integration.sh
+
+  approve:
+    name: Auto Approve
+    runs-on: ubuntu-latest
+    needs: integration
+    steps:
+    - name: Parse Author and Number
+      id: event
+      run: |
+        echo "::set-output name=author::$(jq -r .pull_request.user.login ${{ github.event_path }})"
+        echo "::set-output name=number::$(jq -r .number ${{ github.event_path }})"
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Approve
+      uses: paketo-buildpacks/github-config/actions/pull-request/approve@master
+      with:
+        user: paketo-bot
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        author: ${{ steps.event.outputs.author }}
+        number: ${{ steps.event.outputs.number }}

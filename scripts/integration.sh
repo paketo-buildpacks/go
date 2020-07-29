@@ -30,21 +30,29 @@ function tools::install() {
 }
 
 function images::pull() {
-  util::print::title "Pulling build image..."
-  docker pull "${CNB_BUILD_IMAGE:=gcr.io/paketo-buildpacks/build:full-cnb-cf}"
+    util::print::title "Pulling builder image..."
+    docker pull "${CNB_BUILDER_IMAGE:=index.docker.io/paketobuildpacks/builder:base}"
 
-  util::print::title "Pulling run image..."
-  docker pull "${CNB_RUN_IMAGE:=gcr.io/paketo-buildpacks/run:full-cnb-cf}"
+    util::print::title "Setting default pack builder image..."
+    pack set-default-builder "${CNB_BUILDER_IMAGE}"
 
-  util::print::title "Pulling cflinuxfs3 builder image..."
-  docker pull "${CNB_BUILDER_IMAGE:=gcr.io/paketo-buildpacks/builder:cflinuxfs3}"
+    local run_image lifecycle_image
+    run_image="$(
+      docker inspect "${CNB_BUILDER_IMAGE}" \
+        | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
+        | jq -r '.stack.runImage.image'
+    )"
+    lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
+      docker inspect "${CNB_BUILDER_IMAGE}" \
+        | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
+        | jq -r '.lifecycle.version'
+    )"
 
-  export CNB_BUILD_IMAGE
-  export CNB_RUN_IMAGE
-  export CNB_BUILDER_IMAGE
+    util::print::title "Pulling run image..."
+    docker pull "${run_image}"
 
-  util::print::title "Setting default pack builder image..."
-  pack set-default-builder "${CNB_BUILDER_IMAGE}"
+    util::print::title "Pulling lifecycle image..."
+    docker pull "${lifecycle_image}"
 }
 
 function tests::run() {

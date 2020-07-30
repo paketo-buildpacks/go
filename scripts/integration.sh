@@ -30,20 +30,30 @@ function tools::install() {
 }
 
 function images::pull() {
+    local builder
+
+    if [[ -f "${BUILDPACKDIR}/integration.json" ]]; then
+      builder="$(jq -r .builder "${BUILDPACKDIR}/integration.json")"
+    fi
+
+    if [[ "${builder}" == "null" || -z "${builder}" ]]; then
+      builder="index.docker.io/paketobuildpacks/builder:base"
+    fi
+
     util::print::title "Pulling builder image..."
-    docker pull "${CNB_BUILDER_IMAGE:=index.docker.io/paketobuildpacks/builder:base}"
+    docker pull "${builder}"
 
     util::print::title "Setting default pack builder image..."
-    pack set-default-builder "${CNB_BUILDER_IMAGE}"
+    pack set-default-builder "${builder}"
 
     local run_image lifecycle_image
     run_image="$(
-      docker inspect "${CNB_BUILDER_IMAGE}" \
+      docker inspect "${builder}" \
         | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
         | jq -r '.stack.runImage.image'
     )"
     lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
-      docker inspect "${CNB_BUILDER_IMAGE}" \
+      docker inspect "${builder}" \
         | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
         | jq -r '.lifecycle.version'
     )"

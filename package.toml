@@ -5,13 +5,13 @@
   image = "gcr.io/paketo-buildpacks/dep:0.0.160"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.18"
+  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.19"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-dist:0.0.200"
+  image = "gcr.io/paketo-buildpacks/go-dist:0.0.201"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-mod-vendor:0.0.154"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-build:0.0.20"
+  image = "gcr.io/paketo-buildpacks/go-build:0.0.21"

@@ -21,8 +21,14 @@ jobs:
 
     - name: Checkout Branch
       run: |
-        git checkout \
-          -b "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
+        branch="automation/dependency-update/${{ steps.dependency.outputs.id }}"
+        git fetch origin
+        if git branch -vv -a | grep "${branch}"; then
+          git checkout -b "${branch}" "origin/${branch}"
+          git pull -r
+        else
+          git checkout -b "${branch}"
+        fi
 
     - name: Update buildpack.toml
       uses: paketo-buildpacks/github-config/actions/dependency/update@master
@@ -41,16 +47,30 @@ jobs:
         eval "$(ssh-agent)"
         echo "${{ secrets.PAKETO_BOT_SSH_KEY }}" | ssh-add -
         GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git \
-          push origin "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}"
+          push origin "automation/dependency-update/${{ steps.dependency.outputs.id }}"
 
     - name: Open Pull Request
       run: |
-        curl "https://api.github.com/repos/${{ github.repository}}/pulls" \
+        branch="automation/dependency-update/${{ steps.dependency.outputs.id }}"
+        org="$(echo "${GITHUB_REPOSITORY}" | cut -d'/' -f1)"
+        count="$(
+          curl "https://api.github.com/repos/${{ github.repository }}/pulls?head=${org}:${branch}" \
+            -H "Authorization: token ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}" \
+            --silent \
+            | jq -r 'length'
+        )"
+
+        if [[ "${count}" != "0" ]]; then
+          echo "PR already exists, updated with new commit."
+          exit 0
+        fi
+
+        curl "https://api.github.com/repos/${{ github.repository }}/pulls" \
           -H "Authorization: token ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}" \
           -X POST \
           --data '{
-            "head": "dependency-update/${{ steps.dependency.outputs.id }}/${{ steps.dependency.outputs.version }}",
+            "head": "automation/dependency-update/${{ steps.dependency.outputs.id }}",
             "base": "master",
-            "title": "Updates ${{ steps.dependency.outputs.id }} to ${{ steps.dependency.outputs.version }}"
+            "title": "Updates ${{ steps.dependency.outputs.id }}"
           }'
 

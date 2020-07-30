@@ -17,8 +17,6 @@ function util::tools::path::export() {
 }
 
 function util::tools::jam::install () {
-  echo "-> Installing v0.0.10 jam..."
-
   local dir
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -52,7 +50,7 @@ function util::tools::jam::install () {
 
   if [[ ! -f "${dir}/jam" ]]; then
     local version
-    version="v0.0.10"
+    version="v0.2.4"
 
     util::print::title "Installing jam ${version}"
     curl "https://github.com/paketo-buildpacks/packit/releases/download/${version}/jam-${os}" \
@@ -97,10 +95,10 @@ function util::tools::pack::install() {
 
   if [[ ! -f "${dir}/pack" ]]; then
     local version
-    version="v0.10.0"
+    version="v0.12.0"
 
     util::print::title "Installing pack ${version}"
-    curl "https://github.com/buildpacks/pack/releases/download/${version}/pack-v0.10.0-${os}.tgz" \
+    curl "https://github.com/buildpacks/pack/releases/download/${version}/pack-${version}-${os}.tgz" \
       --silent \
       --location \
       --output /tmp/pack.tgz

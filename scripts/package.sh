@@ -77,7 +77,7 @@ function buildpackage::create() {
 
   pack \
     package-buildpack "${BUILD_DIR}/buildpackage.cnb" \
-      --package-config "${ROOT_DIR}/package.toml" \
+      --config "${ROOT_DIR}/package.toml" \
       --format file
 }
 

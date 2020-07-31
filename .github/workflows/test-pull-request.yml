@@ -35,7 +35,7 @@ jobs:
     - name: Approve
       uses: paketo-buildpacks/github-config/actions/pull-request/approve@master
       with:
-        user: paketo-bot
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        user: paketo-bot-reviewer
+        token: ${{ secrets.PAKETO_BOT_REVIEWER_GITHUB_TOKEN }}
         author: ${{ steps.event.outputs.author }}
         number: ${{ steps.event.outputs.number }}

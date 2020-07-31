@@ -34,7 +34,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dep-ensure"
-    version = "0.0.19"
+    version = "0.0.20"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"

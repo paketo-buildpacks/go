@@ -2,16 +2,16 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dep:0.0.161"
+  image = "gcr.io/paketo-buildpacks/dep:0.0.162"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.20"
+  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.21"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-dist:0.0.202"
+  image = "gcr.io/paketo-buildpacks/go-dist:0.0.203"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-mod-vendor:0.0.155"
+  image = "gcr.io/paketo-buildpacks/go-mod-vendor:0.0.156"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/go-build:0.0.23"
+  image = "gcr.io/paketo-buildpacks/go-build:0.0.24"

@@ -30,27 +30,46 @@ function tools::install() {
 }
 
 function images::pull() {
-  util::print::title "Pulling build image..."
-  docker pull "${CNB_BUILD_IMAGE:=gcr.io/paketo-buildpacks/build:full-cnb-cf}"
+    local builder
+    builder=""
 
-  util::print::title "Pulling run image..."
-  docker pull "${CNB_RUN_IMAGE:=gcr.io/paketo-buildpacks/run:full-cnb-cf}"
+    if [[ -f "${BUILDPACKDIR}/integration.json" ]]; then
+      builder="$(jq -r .builder "${BUILDPACKDIR}/integration.json")"
+    fi
 
-  util::print::title "Pulling cflinuxfs3 builder image..."
-  docker pull "${CNB_BUILDER_IMAGE:=gcr.io/paketo-buildpacks/builder:cflinuxfs3}"
+    if [[ "${builder}" == "null" || -z "${builder}" ]]; then
+      builder="index.docker.io/paketobuildpacks/builder:base"
+    fi
 
-  export CNB_BUILD_IMAGE
-  export CNB_RUN_IMAGE
-  export CNB_BUILDER_IMAGE
+    util::print::title "Pulling builder image..."
+    docker pull "${builder}"
 
-  util::print::title "Setting default pack builder image..."
-  pack set-default-builder "${CNB_BUILDER_IMAGE}"
+    util::print::title "Setting default pack builder image..."
+    pack set-default-builder "${builder}"
+
+    local run_image lifecycle_image
+    run_image="$(
+      docker inspect "${builder}" \
+        | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
+        | jq -r '.stack.runImage.image'
+    )"
+    lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
+      docker inspect "${builder}" \
+        | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
+        | jq -r '.lifecycle.version'
+    )"
+
+    util::print::title "Pulling run image..."
+    docker pull "${run_image}"
+
+    util::print::title "Pulling lifecycle image..."
+    docker pull "${lifecycle_image}"
 }
 
 function tests::run() {
   util::print::title "Run Buildpack Runtime Integration Tests"
   pushd "${BUILDPACKDIR}" > /dev/null
-      if GOMAXPROCS=4 go test -timeout 0 ./integration/... -v -run Integration; then
+      if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./integration/... -v -run Integration; then
           util::print::success "** GO Test Succeeded **"
       else
           util::print::error "** GO Test Failed **"

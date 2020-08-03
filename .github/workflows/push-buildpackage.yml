@@ -11,9 +11,12 @@ jobs:
     steps:
     - name: Download
       id: download
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
       uses: paketo-buildpacks/github-config/actions/buildpackage/download@master
     - name: Push
       env:
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         GCR_PUSH_BOT_JSON_KEY: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
       run: |
         echo "${GCR_PUSH_BOT_JSON_KEY}" | docker login --username _json_key --password-stdin gcr.io

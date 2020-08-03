@@ -4,54 +4,48 @@ api = "0.2"
   homepage = "https://github.com/paketo-buildpacks/go"
   id = "paketo-buildpacks/go"
   name = "Go Buildpack"
-  version = "{{.Version}}"
 
 [metadata]
   include_files = ["buildpack.toml"]
 
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dep"
-    sha256 = "87bcd37fb4f1d1f83c594e8fffd3fb62511e21f5a95ed73c54855ebed5639f2a"
-    source = "https://github.com/paketo-buildpacks/dep/archive/v0.0.138.tar.gz"
-    source_sha256 = "50959e95cfba3ebfd7d743bff6923c06d675b34a56e03dd38f67d4d6a244dbfe"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.tiny", "io.paketo.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/dep/releases/download/v0.0.138/dep-0.0.138.tgz"
-    version = "0.0.138"
+[[order]]
 
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/go-compiler"
-    sha256 = "caa1e8ae0106e5f95bc1ef3579c53a5a4fb49826125d99993e4e8964538c094b"
-    source = "https://github.com/paketo-buildpacks/go-compiler/archive/v0.0.159.tar.gz"
-    source_sha256 = "53604147d994585cc0a871981ff5006e7dac02951ccfca68b7cd8387c2e7056a"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "org.cloudfoundry.stacks.cflinuxfs3", "org.cloudfoundry.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/go-compiler/releases/download/v0.0.159/go-compiler-0.0.159.tgz"
-    version = "0.0.159"
+  [[order.group]]
+    id = "paketo-buildpacks/go-dist"
+    version = "0.0.203"
 
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/go-mod"
-    sha256 = "813048e6b6d9cbb04bbcb54c6233618d4111bdeb84b78deaea4e72d7ec9b1b39"
-    source = "https://github.com/paketo-buildpacks/go-mod/archive/v0.0.128.tar.gz"
-    source_sha256 = "0128bf4aeaf2fe37806bd8f8a6fccfff81aa4f6eb8f5ab3321260403de6ce8fb"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny"]
-    uri = "https://github.com/paketo-buildpacks/go-mod/releases/download/v0.0.128/go-mod-0.0.128.tgz"
-    version = "0.0.128"
+  [[order.group]]
+    id = "paketo-buildpacks/go-mod-vendor"
+    version = "0.0.156"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-build"
+    version = "0.0.24"
 
 [[order]]
 
   [[order.group]]
-    id = "paketo-buildpacks/go-compiler"
-    version = "0.0.159"
+    id = "paketo-buildpacks/go-dist"
+    version = "0.0.203"
 
   [[order.group]]
-    id = "paketo-buildpacks/go-mod"
-    version = "0.0.128"
+    id = "paketo-buildpacks/dep"
+    version = "0.0.162"
+
+  [[order.group]]
+    id = "paketo-buildpacks/dep-ensure"
+    version = "0.0.21"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-build"
+    version = "0.0.24"
 
 [[order]]
 
   [[order.group]]
-    id = "paketo-buildpacks/go-compiler"
-    version = "0.0.159"
+    id = "paketo-buildpacks/go-dist"
+    version = "0.0.203"
 
   [[order.group]]
-    id = "paketo-buildpacks/dep"
-    version = "0.0.138"
+    id = "paketo-buildpacks/go-build"
+    version = "0.0.24"

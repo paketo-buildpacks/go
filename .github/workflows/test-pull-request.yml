@@ -3,7 +3,7 @@ name: Test Pull Request
 on:
   pull_request:
     branches:
-    - master
+    - main
 
 jobs:
   integration:
@@ -33,7 +33,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Approve
-      uses: paketo-buildpacks/github-config/actions/pull-request/approve@master
+      uses: paketo-buildpacks/github-config/actions/pull-request/approve@main
       with:
         user: paketo-bot-reviewer
         token: ${{ secrets.PAKETO_BOT_REVIEWER_GITHUB_TOKEN }}

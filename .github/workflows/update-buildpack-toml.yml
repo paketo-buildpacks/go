@@ -31,7 +31,7 @@ jobs:
         fi
 
     - name: Update buildpack.toml
-      uses: paketo-buildpacks/github-config/actions/dependency/update@master
+      uses: paketo-buildpacks/github-config/actions/dependency/update@main
 
     - name: Commit
       run: |
@@ -70,7 +70,7 @@ jobs:
           -X POST \
           --data '{
             "head": "automation/dependency-update/${{ steps.dependency.outputs.id }}",
-            "base": "master",
+            "base": "main",
             "title": "Updates ${{ steps.dependency.outputs.id }}"
           }'
 

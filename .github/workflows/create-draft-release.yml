@@ -3,7 +3,7 @@ name: Create Draft Release
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
   integration:
@@ -26,7 +26,7 @@ jobs:
     needs: integration
     steps:
     - name: Reset Draft Release
-      uses: paketo-buildpacks/github-config/actions/release/reset-draft@master
+      uses: paketo-buildpacks/github-config/actions/release/reset-draft@main
       with:
         repo: ${{ github.repository }}
         token: ${{ github.token }}
@@ -35,14 +35,14 @@ jobs:
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Tag
       id: tag
-      uses: paketo-buildpacks/github-config/actions/tag@master
+      uses: paketo-buildpacks/github-config/actions/tag@main
     - name: Package
       run: ./scripts/package.sh --version "${{ steps.tag.outputs.tag }}"
     - name: Create Release Notes
       id: create-release-notes
-      uses: paketo-buildpacks/github-config/actions/release/notes@master
+      uses: paketo-buildpacks/github-config/actions/release/notes@main
     - name: Create Draft Release
-      uses: paketo-buildpacks/github-config/actions/release/create@master
+      uses: paketo-buildpacks/github-config/actions/release/create@main
       with:
         repo: ${{ github.repository }}
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

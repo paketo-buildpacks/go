@@ -13,7 +13,7 @@ jobs:
       id: download
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-      uses: paketo-buildpacks/github-config/actions/buildpackage/download@master
+      uses: paketo-buildpacks/github-config/actions/buildpackage/download@main
     - name: Push
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

@@ -2,7 +2,8 @@ name: Push Buildpackage
 
 on:
   release:
-    types: [published]
+    types:
+    - published
 
 jobs:
   push:

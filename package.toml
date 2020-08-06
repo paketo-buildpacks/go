@@ -5,7 +5,7 @@
   image = "gcr.io/paketo-buildpacks/dep:0.0.162"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.22"
+  image = "gcr.io/paketo-buildpacks/dep-ensure:0.0.23"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/go-dist:0.0.206"

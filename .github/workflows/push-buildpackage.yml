@@ -21,7 +21,7 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/release/download-asset@main
       with:
         url: ${{ steps.event.outputs.download_url }}
-        output: "${GITHUB_WORKSPACE}/buildpackage.cnb"
+        output: "/github/workspace/buildpackage.cnb"
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
     - name: Push

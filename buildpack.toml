@@ -16,7 +16,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
-    version = "0.0.157"
+    version = "0.0.158"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
@@ -30,7 +30,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.162"
+    version = "0.0.164"
 
   [[order.group]]
     id = "paketo-buildpacks/dep-ensure"

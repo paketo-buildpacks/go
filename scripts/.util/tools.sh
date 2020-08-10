@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-# shellcheck source=./print.sh
+# shellcheck source=SCRIPTDIR/print.sh
 source "$(dirname "${BASH_SOURCE[0]}")/print.sh"
 
 function util::tools::path::export() {

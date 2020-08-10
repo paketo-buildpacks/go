@@ -5,10 +5,10 @@ set -o pipefail
 readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly BUILDPACKDIR="$(cd "${PROGDIR}/.." && pwd)"
 
-# shellcheck source=.util/tools.sh
+# shellcheck source=SCRIPTDIR/.util/tools.sh
 source "${PROGDIR}/.util/tools.sh"
 
-# shellcheck source=.util/print.sh
+# shellcheck source=SCRIPTDIR/.util/print.sh
 source "${PROGDIR}/.util/print.sh"
 
 function main() {

@@ -8,10 +8,10 @@ readonly ROOT_DIR="$(cd "$(dirname "${0}")/.." && pwd)"
 readonly BIN_DIR="${ROOT_DIR}/.bin"
 readonly BUILD_DIR="${ROOT_DIR}/build"
 
-# shellcheck source=.util/tools.sh
+# shellcheck source=SCRIPTDIR/.util/tools.sh
 source "${ROOT_DIR}/scripts/.util/tools.sh"
 
-# shellcheck source=.util/print.sh
+# shellcheck source=SCRIPTDIR/.util/print.sh
 source "${ROOT_DIR}/scripts/.util/print.sh"
 
 function main {

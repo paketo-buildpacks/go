@@ -12,7 +12,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.212"
+    version = "0.0.213"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
@@ -26,7 +26,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.212"
+    version = "0.0.213"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
@@ -44,7 +44,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.0.212"
+    version = "0.0.213"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"

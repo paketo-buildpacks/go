@@ -1,0 +1,61 @@
+name: Auto-Merge
+
+on:
+  pull_request_review:
+    types:
+    - submitted
+
+jobs:
+  pull_request:
+    name: Fetch Pull Request Details
+    if: ${{ github.event.review.user.login == 'paketo-bot-reviewer' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch
+      id: fetch
+      env:
+        NUMBER: ${{ github.event.pull_request.number }}
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+      run: |
+        payload="$(
+          curl "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${NUMBER}" \
+            --silent \
+            --location \
+            --header "Authorization: token ${GITHUB_TOKEN}"
+        )"
+
+        echo "::set-output name=mergeable_state::$(echo "${payload}" | jq -r -c .mergeable_state)"
+    outputs:
+      mergeable_state: ${{ steps.fetch.outputs.mergeable_state }}
+
+  merge:
+    name: Merge
+    needs: pull_request
+    if: ${{ needs.pull_request.outputs.mergeable_state == 'clean' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Merge
+      uses: paketo-buildpacks/github-config/actions/pull-request/merge@main
+      with:
+        user: paketo-bot
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        number: ${{ github.event.pull_request.number }}
+
+  rebase:
+    name: Rebase
+    needs: pull_request
+    if: ${{ needs.pull_request.outputs.mergeable_state == 'behind' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Rebase
+      uses: paketo-buildpacks/github-config/actions/pull-request/rebase@main
+      with:
+        user: paketo-bot
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        number: ${{ github.event.pull_request.number }}

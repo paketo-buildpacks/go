@@ -3,7 +3,7 @@ api = "0.2"
 [buildpack]
   homepage = "https://github.com/paketo-buildpacks/go"
   id = "paketo-buildpacks/go"
-  name = "Go Buildpack"
+  name = "Paketo Go Buildpack"
 
 [metadata]
   include_files = ["buildpack.toml"]

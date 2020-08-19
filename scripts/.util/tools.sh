@@ -7,13 +7,13 @@ set -o pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/print.sh"
 
 function util::tools::path::export() {
-    local dir
-    dir="${1}"
+  local dir
+  dir="${1}"
 
-    if ! echo "${PATH}" | grep -q "${dir}"; then
-        PATH="${dir}:$PATH"
-        export PATH
-    fi
+  if ! echo "${PATH}" | grep -q "${dir}"; then
+    PATH="${dir}:$PATH"
+    export PATH
+  fi
 }
 
 function util::tools::jam::install () {

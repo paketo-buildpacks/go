@@ -95,7 +95,7 @@ function util::tools::pack::install() {
 
   if [[ ! -f "${dir}/pack" ]]; then
     local version
-    version="v0.12.0"
+    version="v0.13.1"
 
     util::print::title "Installing pack ${version}"
     curl "https://github.com/buildpacks/pack/releases/download/${version}/pack-${version}-${os}.tgz" \

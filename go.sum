@@ -100,12 +100,15 @@ github.com/paketo-buildpacks/packit v0.2.5 h1:owFBBkMPRYVU9tvF+Ao7/GfZAOEJQwq/CA
 github.com/paketo-buildpacks/packit v0.2.5/go.mod h1:b40wtWWAcgB47+vYGDD9KKhzOtBjI8KPqGxwGvV+XNs=
 github.com/paketo-buildpacks/packit v0.2.6 h1:+GZSjkt+qmTyux98dr5yYM4DFdThug2FojGvGx1y4Go=
 github.com/paketo-buildpacks/packit v0.2.6/go.mod h1:75NgEq9XQGt+6n/VF8hR0wB8rTGeLmRmbTbhhL/zUow=
+github.com/paketo-buildpacks/packit v0.2.7 h1:KYv4MBU4JnTDE3P5udCskjQFbh668Gbxa6Bbe/582Uc=
+github.com/paketo-buildpacks/packit v0.2.7/go.mod h1:DO2CSp/uF+cn+9pk2zE+Y7ZpA99PPi/pBNYc2p4ZRjk=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/sclevine/agouti v3.0.0+incompatible/go.mod h1:b4WX9W9L1sfQKXeJf1mUTLZKJ48R1S7H23Ji7oFO5Bw=
 github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=
 github.com/sclevine/spec v1.4.0/go.mod h1:LvpgJaFyvQzRvc1kaDs0bulYwzC70PbiYjC4QnFHkOM=
 github.com/ulikunitz/xz v0.5.7 h1:YvTNdFzX6+W5m9msiYg/zpkSURPPtOlzbqYjrFn7Yt4=
 github.com/ulikunitz/xz v0.5.7/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
+github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=

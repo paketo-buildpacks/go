@@ -11,6 +11,7 @@ github.com/VividCortex/ewma v1.1.1/go.mod h1:2Tkkvm3sRDVXaiyucHiACn4cqf7DpdyLvmx
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/cheggaaa/pb/v3 v3.0.4 h1:QZEPYOj2ix6d5oEg63fbHmpolrnNiwjUsk+h74Yt4bM=
 github.com/cheggaaa/pb/v3 v3.0.4/go.mod h1:7rgWxLrAUcFMkvJuv09+DYi7mMUYi8nO9iOWcvGJPfw=
+github.com/cheggaaa/pb/v3 v3.0.5 h1:lmZOti7CraK9RSjzExsY53+WWfub9Qv13B5m4ptEoPE=
 github.com/cheggaaa/pb/v3 v3.0.5/go.mod h1:X1L61/+36nz9bjIsrDU52qHKOQukUQe2Ge+YvGuquCw=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cloudfoundry/packit v0.0.4/go.mod h1:9xu1MT6SrenSB4oFOXtruMapQ+vdfGXLzBZDnPjhYrM=
@@ -84,6 +85,8 @@ github.com/paketo-buildpacks/occam v0.0.16 h1:RnEizv5F5O5LL1VeOiOh8WkNosybbEPOMy
 github.com/paketo-buildpacks/occam v0.0.16/go.mod h1:i3WI2yc5Nji45iNpW+IiiEy3f2BvbIfbLi24VKVOK0I=
 github.com/paketo-buildpacks/occam v0.0.17 h1:djTYtqfREwbTy+KlwscOUjN9ZIPld1uP3sTw4Fdr0L0=
 github.com/paketo-buildpacks/occam v0.0.17/go.mod h1:9TFuRmC3OB8DlaBdd0hGPZQidnsmGmUlnLQTrltZB5Q=
+github.com/paketo-buildpacks/occam v0.0.18 h1:0n3ew3aLyk/CjZJY+QsW6UTS1d7k6seDylABnZwUuig=
+github.com/paketo-buildpacks/occam v0.0.18/go.mod h1:+QD+nyd/F1Ky+MmyxslDWio4cJCRiGXFVShVbteHr7U=
 github.com/paketo-buildpacks/packit v0.1.0 h1:4kmSfE9+ZuudfbCaT58vX0DtLNPU4QXmV9lIiGgxWZo=
 github.com/paketo-buildpacks/packit v0.1.0/go.mod h1:b40wtWWAcgB47+vYGDD9KKhzOtBjI8KPqGxwGvV+XNs=
 github.com/paketo-buildpacks/packit v0.2.0 h1:l4sFKYlmKENRNMAKATt437+Ar9WD+bM42ZckKW59rMY=
@@ -108,6 +111,7 @@ github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=
 github.com/sclevine/spec v1.4.0/go.mod h1:LvpgJaFyvQzRvc1kaDs0bulYwzC70PbiYjC4QnFHkOM=
 github.com/ulikunitz/xz v0.5.7 h1:YvTNdFzX6+W5m9msiYg/zpkSURPPtOlzbqYjrFn7Yt4=
 github.com/ulikunitz/xz v0.5.7/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
+github.com/ulikunitz/xz v0.5.8 h1:ERv8V6GKqVi23rgu5cj9pVfVzJbOqAY2Ntl88O6c2nQ=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=

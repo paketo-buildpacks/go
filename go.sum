@@ -81,6 +81,8 @@ github.com/onsi/gomega v1.7.1/go.mod h1:XdKZgCCFLUoM/7CFJVPcG8C1xQ1AJ0vpAezJrB7J
 github.com/onsi/gomega v1.9.0/go.mod h1:Ho0h+IUsWyvy1OpqCwxlQ/21gkhVunqlU8fDGcoTdcA=
 github.com/onsi/gomega v1.10.1 h1:o0+MgICZLuZ7xjH7Vx6zS/zcu93/BEp1VwkIW1mEXCE=
 github.com/onsi/gomega v1.10.1/go.mod h1:iN09h71vgCQne3DLsj+A5owkum+a2tYe+TOCB1ybHNo=
+github.com/onsi/gomega v1.10.2 h1:aY/nuoWlKJud2J6U0E3NWsjlg+0GtwXxgEqthRdzlcs=
+github.com/onsi/gomega v1.10.2/go.mod h1:iN09h71vgCQne3DLsj+A5owkum+a2tYe+TOCB1ybHNo=
 github.com/paketo-buildpacks/occam v0.0.16 h1:RnEizv5F5O5LL1VeOiOh8WkNosybbEPOMys6730yopw=
 github.com/paketo-buildpacks/occam v0.0.16/go.mod h1:i3WI2yc5Nji45iNpW+IiiEy3f2BvbIfbLi24VKVOK0I=
 github.com/paketo-buildpacks/occam v0.0.17 h1:djTYtqfREwbTy+KlwscOUjN9ZIPld1uP3sTw4Fdr0L0=

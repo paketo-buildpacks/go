@@ -36,7 +36,8 @@ function util::print::success() {
   reset="\033[0;39m"
 
   echo -e "${green}${message}${reset}" >&2
-  exit 0
+  exitcode="${2:-0}"
+  exit "${exitcode}"
 }
 
 function util::print::warn() {

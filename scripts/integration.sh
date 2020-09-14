@@ -97,8 +97,11 @@ function images::pull() {
 
 function tests::run() {
   util::print::title "Run Buildpack Runtime Integration Tests"
+
+  testout=$(mktemp)
   pushd "${BUILDPACKDIR}" > /dev/null
-    if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./integration/... -v -run Integration; then
+    if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./integration/... -v -run Integration | tee "${testout}"; then
+      util::tools::tests::checkfocus "${testout}"
       util::print::success "** GO Test Succeeded **"
     else
       util::print::error "** GO Test Failed **"

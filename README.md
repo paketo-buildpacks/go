@@ -14,4 +14,6 @@ The buildpack supports building applications that use either the built-in [Go
 modules](https://golang.org/cmd/go/#hdr-Module_maintenance) feature or
 [Dep](https://golang.github.io/dep/) for managing their dependencies.  Support
 for each of these package managers is mutually-exclusive. There is also
-support for applications that do not use a package manager.
+support for applications that do not use a package manager. Usage examples can
+be found in the
+[`samples` repository under the `go` directory](https://github.com/paketo-buildpacks/samples/tree/main/go).

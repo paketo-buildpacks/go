@@ -1,4 +1,10 @@
 # github.com/BurntSushi/toml v0.3.1
+## explicit
 github.com/BurntSushi/toml
+# github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e
+## explicit
 # github.com/satori/go.uuid v1.2.0
+## explicit
 github.com/satori/go.uuid
+# gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b
+## explicit

@@ -20,7 +20,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.34"
+    version = "0.0.35"
 
 [[order]]
 
@@ -38,7 +38,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.34"
+    version = "0.0.35"
 
 [[order]]
 
@@ -48,4 +48,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "0.0.34"
+    version = "0.0.35"

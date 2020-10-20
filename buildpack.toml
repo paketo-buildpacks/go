@@ -6,7 +6,7 @@ api = "0.2"
   name = "Paketo Go Buildpack"
 
 [metadata]
-  include_files = ["buildpack.toml"]
+  include-files = ["buildpack.toml"]
 
 [[order]]
 

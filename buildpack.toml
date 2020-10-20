@@ -6,13 +6,12 @@ api = "0.2"
   name = "Paketo Go Buildpack"
 
 [metadata]
-  include-files = ["buildpack.toml"]
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.2.2"
+    version = "0.2.3"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
@@ -26,7 +25,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.2.2"
+    version = "0.2.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
@@ -44,7 +43,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "0.2.2"
+    version = "0.2.3"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"

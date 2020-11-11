@@ -1,8 +1,8 @@
-name: Handle dispatch from github-config
+name: Update shared github-config
 
 on:
-  repository_dispatch:
-    types: working-dir-update
+  schedule:
+  - cron: '*/15 * * * *'
 
 jobs:
   build:

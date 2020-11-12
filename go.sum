@@ -87,8 +87,8 @@ github.com/paketo-buildpacks/occam v0.0.20 h1:HLrX2gisgTQGUPnu6yY7sVhvzNdxtX/C3R
 github.com/paketo-buildpacks/occam v0.0.20/go.mod h1:hX9a63hlZWjhugZOBsD41fW4tToGpWhbJr6r3gjEhDA=
 github.com/paketo-buildpacks/packit v0.3.0 h1:JnlqRkhrtpyut5BcKND/OoVB7FclicIBoWljWLQmVxQ=
 github.com/paketo-buildpacks/packit v0.3.0/go.mod h1:BQ38pCFZjrtPnJBVbH7X0DEoLyob9YKjrx0+3hlFaRY=
-github.com/paketo-buildpacks/packit v0.3.1 h1:LpyxVH4OewGduN1lZWx8X/u1TdWltEC+oslHMffpeII=
-github.com/paketo-buildpacks/packit v0.3.1/go.mod h1:BQ38pCFZjrtPnJBVbH7X0DEoLyob9YKjrx0+3hlFaRY=
+github.com/paketo-buildpacks/packit v0.3.2 h1:yHf8jZWu+q4A0DLe3/KA7PXJPUfvgzO2ENrwiVGmAhk=
+github.com/paketo-buildpacks/packit v0.3.2/go.mod h1:BQ38pCFZjrtPnJBVbH7X0DEoLyob9YKjrx0+3hlFaRY=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/sclevine/agouti v3.0.0+incompatible/go.mod h1:b4WX9W9L1sfQKXeJf1mUTLZKJ48R1S7H23Ji7oFO5Bw=
 github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=

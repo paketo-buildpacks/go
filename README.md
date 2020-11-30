@@ -17,3 +17,8 @@ for each of these package managers is mutually-exclusive. There is also
 support for applications that do not use a package manager. Usage examples can
 be found in the
 [`samples` repository under the `go` directory](https://github.com/paketo-buildpacks/samples/tree/main/go).
+
+#### The Go buildpack is compatible with the following builder(s):
+- [Paketo Full Builder](https://github.com/paketo-buildpacks/full-builder)
+- [Paketo Base Builder](https://github.com/paketo-buildpacks/base-builder)
+- [Paketo Tiny Builder](https://github.com/paketo-buildpacks/tiny-builder)

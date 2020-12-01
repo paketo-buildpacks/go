@@ -1,8 +1,11 @@
-name: Update Buildpack Dependency
+name: Update buildpack.toml
 
 on:
-  repository_dispatch:
-    types: dependency-update
+  schedule:
+  - cron: '*/15 * * * *'
+  push:
+    branches:
+    - main
 
 jobs:
   update-buildpack-toml:
@@ -10,67 +13,31 @@ jobs:
     name: Update buildpack.toml
     steps:
 
-    - name: Parse ID and Version
-      id: dependency
-      run: |
-        echo "::set-output name=id::$(jq -r .client_payload.dependency.id ${{ github.event_path }})"
-        echo "::set-output name=version::$(jq -r .client_payload.dependency.version ${{ github.event_path }})"
-
     - name: Checkout
       uses: actions/checkout@v2
 
     - name: Checkout Branch
-      run: |
-        branch="automation/dependency-update/${{ steps.dependency.outputs.id }}"
-        git fetch origin
-        if git branch -a | grep "${branch}"; then
-          git checkout -b "${branch}" "origin/${branch}"
-          git pull -r
-        else
-          git checkout -b "${branch}"
-        fi
+      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
+      with:
+        branch: automation/buildpack.toml/update
 
     - name: Update buildpack.toml
-      uses: paketo-buildpacks/github-config/actions/dependency/update@main
+      uses: paketo-buildpacks/github-config/actions/buildpack/update@main
 
     - name: Commit
-      run: |
-        git config --global user.email "paketobuildpacks@gmail.com"
-        git config --global user.name "paketo-bot"
-        git commit \
-          --all \
-          --message "Updating ${{ steps.dependency.outputs.id }} to ${{ steps.dependency.outputs.version }} in buildpack.toml"
+      uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
+      with:
+        message: "Updating buildpacks in buildpack.toml"
+        pathspec: "."
 
     - name: Push Branch
-      run: |
-        git remote add origin-ssh "git@github.com:${{ github.repository }}.git"
-        eval "$(ssh-agent)"
-        echo "${{ secrets.PAKETO_BOT_SSH_KEY }}" | ssh-add -
-        GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git \
-          push origin "automation/dependency-update/${{ steps.dependency.outputs.id }}"
+      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
+      with:
+        branch: automation/buildpack.toml/update
 
     - name: Open Pull Request
-      run: |
-        branch="automation/dependency-update/${{ steps.dependency.outputs.id }}"
-        org="$(echo "${GITHUB_REPOSITORY}" | cut -d'/' -f1)"
-        count="$(
-          curl "https://api.github.com/repos/${{ github.repository }}/pulls?head=${org}:${branch}" \
-            -H "Authorization: token ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}" \
-            --silent \
-            | jq -r 'length'
-        )"
-
-        if [[ "${count}" != "0" ]]; then
-          echo "PR already exists, updated with new commit."
-          exit 0
-        fi
-
-        curl "https://api.github.com/repos/${{ github.repository }}/pulls" \
-          -H "Authorization: token ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}" \
-          -X POST \
-          --data '{
-            "head": "automation/dependency-update/${{ steps.dependency.outputs.id }}",
-            "base": "main",
-            "title": "Updates ${{ steps.dependency.outputs.id }}"
-          }'
-
+      uses: paketo-buildpacks/github-config/actions/pull-request/open@main
+      with:
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        title: "Updates buildpacks in buildpack.toml"
+        branch: automation/buildpack.toml/update

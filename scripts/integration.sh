@@ -78,14 +78,12 @@ function images::pull() {
 
   local run_image lifecycle_image
   run_image="$(
-    docker inspect "${builder}" \
-      | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
-      | jq -r '.stack.runImage.image'
+    pack inspect-builder "${builder}" --output json \
+      | jq -r '.remote_info.run_images[0].name'
   )"
   lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
-    docker inspect "${builder}" \
-      | jq -r '.[0].Config.Labels."io.buildpacks.builder.metadata"' \
-      | jq -r '.lifecycle.version'
+    pack inspect-builder "${builder}" --output json \
+      | jq -r '.remote_info.lifecycle.version'
   )"
 
   util::print::title "Pulling run image..."

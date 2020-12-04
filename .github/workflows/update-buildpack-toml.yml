@@ -25,17 +25,20 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/buildpack/update@main
 
     - name: Commit
+      id: commit
       uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
       with:
         message: "Updating buildpacks in buildpack.toml"
         pathspec: "."
 
     - name: Push Branch
+      if: ${{ steps.commit.outputs.commit_sha != '' }}
       uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
       with:
         branch: automation/buildpack.toml/update
 
     - name: Open Pull Request
+      if: ${{ steps.commit.outputs.commit_sha != '' }}
       uses: paketo-buildpacks/github-config/actions/pull-request/open@main
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

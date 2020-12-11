@@ -333,8 +333,8 @@ github.com/opencontainers/go-digest v1.0.0-rc1 h1:WzifXhOVOEOuFYOJAW6aQqW0TooG2i
 github.com/opencontainers/go-digest v1.0.0-rc1/go.mod h1:cMLVZDEM3+U2I4VmLI6N8jQYUd2OVphdqWwCJHrFt2s=
 github.com/opencontainers/image-spec v1.0.1 h1:JMemWkRwHx4Zj+fVxWoMCFm/8sYGGrUVojFA6h/TRcI=
 github.com/opencontainers/image-spec v1.0.1/go.mod h1:BtxoFyWECRxE4U/7sNtV5W15zMzWCbyJoFRP3s7yZA0=
-github.com/paketo-buildpacks/occam v0.0.20 h1:HLrX2gisgTQGUPnu6yY7sVhvzNdxtX/C3RCQiCdKz8w=
-github.com/paketo-buildpacks/occam v0.0.20/go.mod h1:hX9a63hlZWjhugZOBsD41fW4tToGpWhbJr6r3gjEhDA=
+github.com/paketo-buildpacks/occam v0.0.21 h1:S/bxu9BAeYKbxDRZDidsyh7ds/zuYaqCk+JS97UB3n4=
+github.com/paketo-buildpacks/occam v0.0.21/go.mod h1:Sv3xbSwKNSWwqCRVbajaP2B1NpbOu55q52U0I70GSqA=
 github.com/paketo-buildpacks/packit v0.3.0 h1:JnlqRkhrtpyut5BcKND/OoVB7FclicIBoWljWLQmVxQ=
 github.com/paketo-buildpacks/packit v0.3.0/go.mod h1:BQ38pCFZjrtPnJBVbH7X0DEoLyob9YKjrx0+3hlFaRY=
 github.com/paketo-buildpacks/packit v0.4.2 h1:8WcEM8v1Y7Nwdw6xvjnb1AhZ2SluWL+efN7N5RuPEV8=

@@ -3,6 +3,7 @@ name: Update buildpack.toml
 on:
   schedule:
   - cron: '*/15 * * * *'
+  workflow_dispatch: {}
 
 jobs:
   update-buildpack-toml:

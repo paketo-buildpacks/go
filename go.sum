@@ -339,6 +339,8 @@ github.com/paketo-buildpacks/packit v0.3.0 h1:JnlqRkhrtpyut5BcKND/OoVB7FclicIBoW
 github.com/paketo-buildpacks/packit v0.3.0/go.mod h1:BQ38pCFZjrtPnJBVbH7X0DEoLyob9YKjrx0+3hlFaRY=
 github.com/paketo-buildpacks/packit v0.4.2 h1:8WcEM8v1Y7Nwdw6xvjnb1AhZ2SluWL+efN7N5RuPEV8=
 github.com/paketo-buildpacks/packit v0.4.2/go.mod h1:aqL3Yl44rPVAFA9dg0gSPKrVOBxyTUYTnhhJsOT93JA=
+github.com/paketo-buildpacks/packit v0.5.0 h1:WXLewsOY5NeqyJzIUca9GRJs02SW2qA5DiIG8RUebJk=
+github.com/paketo-buildpacks/packit v0.5.0/go.mod h1:ATLZccUzqEAyPlirdka8hs+XNqS4pyJ/tjyU1NXJKm8=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pelletier/go-toml v1.8.1 h1:1Nf83orprkJyknT6h7zbuEGUEjcyVlCxSUGTENmNCRM=
 github.com/pelletier/go-toml v1.8.1/go.mod h1:T2/BmBdy8dvIRq1a/8aqjN41wvWlN4lrapLU/GW4pbc=

@@ -22,6 +22,11 @@ api = "0.2"
     id = "paketo-buildpacks/go-build"
     version = "0.1.2"
 
+  [[order.group]]
+    id = "paketo-buildpacks/procfile"
+    optional = true
+    version = "3.0.0"
+
 [[order]]
 
   [[order.group]]
@@ -40,6 +45,11 @@ api = "0.2"
     id = "paketo-buildpacks/go-build"
     version = "0.1.2"
 
+  [[order.group]]
+    id = "paketo-buildpacks/procfile"
+    optional = true
+    version = "3.0.0"
+
 [[order]]
 
   [[order.group]]
@@ -49,3 +59,8 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/go-build"
     version = "0.1.2"
+
+  [[order.group]]
+    id = "paketo-buildpacks/procfile"
+    optional = true
+    version = "3.0.0"

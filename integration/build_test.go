@@ -88,6 +88,46 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Dep Buildpack")))
 		})
+
+		context("when there is a Procfile", func() {
+			it.Before(func() {
+				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: /layers/paketo-buildpacks_go-build/targets/bin/workspace --some-arg"), 0644)).To(Succeed())
+			})
+
+			it("uses Procfile to set start command", func() {
+				var err error
+				var logs fmt.Stringer
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(goBuildpack).
+					WithPullPolicy("never").
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(BeAvailable())
+
+				response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
+				Expect(err).NotTo(HaveOccurred())
+				defer response.Body.Close()
+
+				Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+				content, err := ioutil.ReadAll(response.Body)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(string(content)).To(Equal("Hello world!"))
+
+				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("web: /layers/paketo-buildpacks_go-build/targets/bin/workspace --some-arg")))
+			})
+		})
 	})
 
 	context("when building a go mod app that is vendored", func() {

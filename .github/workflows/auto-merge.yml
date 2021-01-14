@@ -30,7 +30,7 @@ jobs:
         echo "::set-output name=mergeable_state::$(echo "${payload}" | jq -r -c .mergeable_state)"
 
     - name: Merge
-      if: ${{ steps.pull_request.outputs.mergeable_state == 'clean' }}
+      if: ${{ steps.pull_request.outputs.mergeable_state == 'clean' || steps.pull_request.outputs.mergeable_state == 'unstable' }}
       uses: paketo-buildpacks/github-config/actions/pull-request/merge@main
       with:
         user: paketo-bot

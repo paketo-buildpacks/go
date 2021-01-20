@@ -1,0 +1,177 @@
+# {{TITLE: a human-readable title for this RFC!}}
+
+## Proposal
+The language family should have a `go generate` buildpack.
+
+<!---
+{{What changes are you purposing to the overall language family?}}
+-->
+
+## Motivation
+### Use Cases
+#### `go:generate` with a go tool
+
+##### How does this usually work in Dockerfile?
+
+#### `go:generate` with a tool installed on the system
+##### How does this work in a Dockerfile?
+
+#### `go:generate` with a binary generated during project build
+##### How does this work in a Dockerfile?
+
+<!---
+{{Why are we doing this? What pain points does this resolve? What use cases
+does it support? What is the expected outcome? Use real, concrete examples to
+make your case!}}
+-->
+
+## Implementation (Optional)
+### API
+If some file in the app source contains the directive
+```
+//go:generate some-tool
+```
+then the buildpack should require:
+```
+[[requires]]
+name = "some-tool"
+
+[[or]]
+
+[[or.requires]]
+mixin = "some-tool"
+```
+This takes advantage of the possibility of future
+[stackpacks](https://github.com/buildpacks/rfcs/blob/main/text/0069-stack-buildpacks.md)
+providing the necessary tool.
+
+This buildpack should not provide anything.
+
+### Detection criteria
+The buildpack should pass detection if the files on which the generate command
+is run contain any  `//go:generate` directives AND a `BP_GO_GENERATE`
+environment variable is set to `true`. Its default value should be `true`.
+
+We can use `go generate -n ./...` (dry run) to search for directives.
+
+### Configuration options
+Users can skip `go generate` by setting `BP_GO_GENERATE=false` at build time.
+This will cause the buildpack to fail detection. It will therefore **not**
+require the tools specified in the `//go:generate` directives.
+
+Users can specify flags to use with the `go generate` command with the
+`BP_GO_GENERATE_FLAGS` environment variable.  The most interesting flag here is
+`-run="<regex>"` which allows users to select a subset of generate directives
+to run.
+
+Users can specify files/packages that should be generated with the
+`BP_GO_GENERATE_ARGS` environment variable.  This way, users can run generation
+on only certain files at build time.
+
+### Build behaviour
+The buildpack should do the equivalent of running
+```
+go generate <user-provided flags> <user-provided args>
+```
+from the app working directory.
+
+If the user does not provide flags, it should run
+```
+go generate ./...
+```
+from the app working directory.
+
+`go generate` fails with an informative error if a tool needed for a directive
+is not found on the `PATH`. Though the buildpack API should prevent this error
+from arising.
+
+
+### Language Family Ordering
+Proposed updated order:
+```
+[[order]]
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-dist"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-generate"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-mod-vendor"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-build"
+
+[[order]]
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-dist"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-generate"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dep"
+
+  [[order.group]]
+    id = "paketo-buildpacks/dep-ensure"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-build"
+
+[[order]]
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-dist"
+    version = "0.2.6"
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-generate"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/go-build"
+    version = "0.1.2"
+```
+
+Note that in some cases, `go mod vendor` can fail if run before `go generate`
+because some non-generated files depend on packages with generated files. A
+common example would be generated fakes for tests.
+
+<!---
+{{Give a high-level overview of implementation requirements and concerns. Be
+specific about areas of code that need to change, and what their potential
+effects are. Discuss which repositories and sub-components will be affected,
+and what its overall code effect might be.}}
+-->
+
+## Source Material (Optional)
+
+- An [existing go-generate buildpack](https://github.com/stefanlesperance/go-generate)
+<!---
+{{Any source material used in the creation of the RFC should be put here.}}
+-->
+
+## Unresolved Questions and Bikeshedding (Optional)
+
+- How common are the different use-cases? Which ones should we focus on addressing?
+- Does this buildpack imply the existence of a "go get" buildpack that provides
+  arbitrary go projects on the path?
+- Should `BP_GO_GENERATE` be `true` or `false` by default?
+- Is there any way layer reuse can help us?
+- Does `go generate` natively do any caching?
+- What's the deal with "The go generate tool also sets the build tag "generate"
+  so that files may be examined by go generate but ignored during build." from
+  the [Go generate
+  docs](https://golang.org/cmd/go/#hdr-Generate_Go_files_by_processing_source)
+
+<!---
+{{Write about any arbitrary decisions that need to be made (syntax, colors,
+formatting, minor UX decisions), and any questions for the proposal that have
+not been answered.}}
+-->
+
+{{REMOVE THIS SECTION BEFORE RATIFICATION!}}

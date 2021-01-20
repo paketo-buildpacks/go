@@ -1,4 +1,4 @@
-# {{TITLE: a human-readable title for this RFC!}}
+# Go Generate Buildpack
 
 ## Proposal
 The language family should have a `go generate` buildpack.

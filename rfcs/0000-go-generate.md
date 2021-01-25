@@ -52,7 +52,8 @@ The buildpack should pass detection if the files on which the generate command
 is run contain any  `//go:generate` directives AND a `BP_GO_GENERATE`
 environment variable is set to `true`. Its default value should be `true`.
 
-We can use `go generate -n ./...` (dry run) to search for directives.
+Since go is not installed in the image during detection, we may need to re-implement
+the logic of `go generate -n <flags> ./...` (dry run) to search for directives.
 
 ### Configuration options
 Users can skip `go generate` by setting `BP_GO_GENERATE=false` at build time.
@@ -214,12 +215,8 @@ and what its overall code effect might be.}}
 - Does this buildpack imply the existence of a "go get" buildpack that provides
   arbitrary go projects on the path?
 - Should `BP_GO_GENERATE` be `true` or `false` by default?
-- Is there any way layer reuse can help us?
-- Does `go generate` natively do any caching?
-- What's the deal with "The go generate tool also sets the build tag "generate"
-  so that files may be examined by go generate but ignored during build." from
-  the [Go generate
-  docs](https://golang.org/cmd/go/#hdr-Generate_Go_files_by_processing_source)
+- How can we search for `go generate` directives without go tools during the
+detect phase? Can we avoid re-implementing `go generate`'s search method?
 
 <!---
 {{Write about any arbitrary decisions that need to be made (syntax, colors,

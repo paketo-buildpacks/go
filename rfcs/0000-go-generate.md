@@ -205,6 +205,7 @@ and what its overall code effect might be.}}
 ## Source Material (Optional)
 
 - An [existing go-generate buildpack](https://github.com/stefanlesperance/go-generate)
+- [Implementation of `go generate`](https://github.com/golang/gofrontend/blob/master/libgo/go/cmd/go/internal/generate/generate.go)
 <!---
 {{Any source material used in the creation of the RFC should be put here.}}
 -->

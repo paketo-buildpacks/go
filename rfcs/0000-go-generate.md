@@ -22,6 +22,14 @@ RUN go generate <go module name>
 
 #### `go:generate` with a tool installed on the system
 ##### How does this work in a Dockerfile?
+```
+FROM golang
+RUN apt update
+RUN apt install graphviz -y
+ADD . <destination>/<path>/<in>/<image>
+
+RUN go generate -run="^//go:generate dot" <go module name>
+```
 
 #### `go:generate` with a binary generated during project build
 ##### How does this work in a Dockerfile?

@@ -10,8 +10,15 @@ The language family should have a `go generate` buildpack.
 ## Motivation
 ### Use Cases
 #### `go:generate` with a go tool
+Install a tool with `go get`, then use it to `go generate`.
 
-##### How does this usually work in Dockerfile?
+##### How does this work in Dockerfile?
+```
+FROM golang
+ADD . <destination>/<path>/<in>/<image>
+RUN go get github.com/ryanmoran/faux
+RUN go generate <go module name>
+```
 
 #### `go:generate` with a tool installed on the system
 ##### How does this work in a Dockerfile?

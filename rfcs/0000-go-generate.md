@@ -62,11 +62,59 @@ require the tools specified in the `//go:generate` directives.
 Users can specify flags to use with the `go generate` command with the
 `BP_GO_GENERATE_FLAGS` environment variable.  The most interesting flag here is
 `-run="<regex>"` which allows users to select a subset of generate directives
-to run.
+to run. (See `go help generate` for a full description of this flag.)
 
 Users can specify files/packages that should be generated with the
 `BP_GO_GENERATE_ARGS` environment variable.  This way, users can run generation
-on only certain files at build time.
+on only certain files at build time. (See `go help generate` for a description of
+how `go generate` accepts arguments.)
+
+For example, for a given `main.go`
+```
+package main
+
+import "fmt"
+
+//go:generate go get honnef.co/go/tools/cmd/staticcheck
+//go:generate staticcheck main.go
+//go:generate staticcheck internal/helper.go
+
+func main() {
+	if "hello" == "hello" {
+		fmt.Println("hello world!")
+	}
+}
+```
+
+A user can set `BP_GO_GENERATE_FLAGS='-run="^//go:generate go get"'`. The buildpack should then run:
+```
+go generate -run="^//go:generate go get" ./...
+```
+which will only run the command: `go get honnef.co/go/tools/cmd/staticcheck`.
+
+If, instead, a user set `BP_GO_GENERATE_FLAGS='-run="^//go:generate staticcheck"', the buildpack should run:
+```
+go generate -run="^//go:generate staticcheck" ./...
+```
+which will attempt to run
+```
+staticcheck main.go
+staticcheck internal/helper.go
+```
+but should fail unless `staticcheck` has been pre-installed on the system.
+
+A user can set `BP_GO_GENERATE_ARGS=main.go` and the buildpack should then run:
+```
+go generate main.go
+```
+which will only run directives within that file.
+
+Using both in conjunction, a user can set `BP_GO_GENERATE_FLAGS='-run="^//go:generate staticcheck"` and `BP_GO_GENERATE_ARGS=main.go` and the buildpack will run:
+```
+go generate -run="^//go:generate staticcheck" main.go
+```
+
+In this way, users can specify which packages and directives to run during build. Capture groups make it simple to include directives from a few different tools (e.g. `BP_GO_GENERATE_FLAGS='-run "^//go:generate (staticcheck)|(faux)"'`.
 
 ### Build behaviour
 The buildpack should do the equivalent of running

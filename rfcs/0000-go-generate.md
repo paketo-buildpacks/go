@@ -69,6 +69,7 @@ Users can specify files/packages that should be generated with the
 on only certain files at build time. (See `go help generate` for a description of
 how `go generate` accepts arguments.)
 
+<br/><br/>
 For example, for a given `main.go`
 ```
 package main
@@ -92,7 +93,8 @@ go generate -run="^//go:generate go get" ./...
 ```
 which will only run the command: `go get honnef.co/go/tools/cmd/staticcheck`.
 
-If, instead, a user set `BP_GO_GENERATE_FLAGS='-run="^//go:generate staticcheck"', the buildpack should run:
+<br/><br/>
+If, instead, a user set `BP_GO_GENERATE_FLAGS='-run="^//go:generate staticcheck"'`, the buildpack should run:
 ```
 go generate -run="^//go:generate staticcheck" ./...
 ```
@@ -101,20 +103,23 @@ which will attempt to run
 staticcheck main.go
 staticcheck internal/helper.go
 ```
-but should fail unless `staticcheck` has been pre-installed on the system.
+but should fail unless `staticcheck` has been pre-installed on the system because the `go get` command is skipped.
 
+<br/><br/>
 A user can set `BP_GO_GENERATE_ARGS=main.go` and the buildpack should then run:
 ```
 go generate main.go
 ```
 which will only run directives within that file.
 
+<br/><br/>
 Using both in conjunction, a user can set `BP_GO_GENERATE_FLAGS='-run="^//go:generate staticcheck"` and `BP_GO_GENERATE_ARGS=main.go` and the buildpack will run:
 ```
 go generate -run="^//go:generate staticcheck" main.go
 ```
 
-In this way, users can specify which packages and directives to run during build. Capture groups make it simple to include directives from a few different tools (e.g. `BP_GO_GENERATE_FLAGS='-run "^//go:generate (staticcheck)|(faux)"'`.
+<br/><br/>
+In this way, users can specify which packages and directives to run during build. Capture groups make it simple to include directives from a few different tools (e.g. `BP_GO_GENERATE_FLAGS='-run "^//go:generate (staticcheck)|(faux)"'`).
 
 ### Build behaviour
 The buildpack should do the equivalent of running

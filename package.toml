@@ -18,4 +18,4 @@
   uri = "docker://gcr.io/paketo-buildpacks/go-build:0.2.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:3.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"

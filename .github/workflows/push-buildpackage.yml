@@ -34,12 +34,24 @@ jobs:
         sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://gcr.io/${{ github.repository }}:latest"
 
     - name: Push to DockerHub
+      id: push
       env:
         DOCKERHUB_USERNAME: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
         GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
       run: |
         REPOSITORY="${GITHUB_REPOSITORY_OWNER/-/}/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" # translates 'paketo-buildpacks/bundle-install' to 'paketobuildpacks/bundle-install'
+        IMAGE="index.docker.io/${REPOSITORY}"
         echo "${DOCKERHUB_PASSWORD}" | sudo skopeo login --username "${DOCKERHUB_USERNAME}" --password-stdin index.docker.io
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://index.docker.io/${REPOSITORY}:${{ steps.event.outputs.tag }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://index.docker.io/${REPOSITORY}:latest"
+        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:${{ steps.event.outputs.tag }}"
+        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:latest"
+        echo "::set-output name=image::${IMAGE}"
+        echo "::set-output name=digest::$(sudo skopeo inspect "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" | jq -r .Digest)"
+
+    - name: Register with CNB Registry
+      uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:main
+      with:
+        id: ${{ github.repository }}
+        version: ${{ steps.event.outputs.tag }}
+        address: ${{ steps.push.outputs.image }}@${{ steps.push.outputs.digest }}
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

@@ -22,3 +22,6 @@
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/environment-variables:3.0.0"
+
+[[dependencies]]
+  uri = "docker://gcr.io/paketo-buildpacks/image-labels:3.0.0"

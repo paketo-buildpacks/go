@@ -50,7 +50,7 @@ function util::tools::jam::install () {
 
   if [[ ! -f "${dir}/jam" ]]; then
     local version
-    version="v0.4.2"
+    version="$(jq -r .jam "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
 
     util::print::title "Installing jam ${version}"
     curl "https://github.com/paketo-buildpacks/packit/releases/download/${version}/jam-${os}" \
@@ -95,7 +95,7 @@ function util::tools::pack::install() {
 
   if [[ ! -f "${dir}/pack" ]]; then
     local version
-    version="v0.15.0"
+    version="$(jq -r .pack "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
 
     util::print::title "Installing pack ${version}"
     curl "https://github.com/buildpacks/pack/releases/download/${version}/pack-${version}-${os}.tgz" \

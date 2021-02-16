@@ -28,6 +28,11 @@ api = "0.2"
     version = "4.0.0"
 
   [[order.group]]
+    id = "paketo-buildpacks/environment-variables"
+    optional = true
+    version = "3.0.0"
+
+  [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
     version = "3.0.0"
@@ -56,6 +61,11 @@ api = "0.2"
     version = "4.0.0"
 
   [[order.group]]
+    id = "paketo-buildpacks/environment-variables"
+    optional = true
+    version = "3.0.0"
+
+  [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
     version = "3.0.0"
@@ -74,6 +84,11 @@ api = "0.2"
     id = "paketo-buildpacks/procfile"
     optional = true
     version = "4.0.0"
+
+  [[order.group]]
+    id = "paketo-buildpacks/environment-variables"
+    optional = true
+    version = "3.0.0"
 
   [[order.group]]
     id = "paketo-buildpacks/image-labels"

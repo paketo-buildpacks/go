@@ -87,10 +87,12 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Dep Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
 		})
 
-		context("using optional utiliity buildpacks", func() {
+		context("when using utility buildpacks", func() {
 			it.Before(func() {
 				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: /layers/paketo-buildpacks_go-build/targets/bin/go-online --some-arg"), 0644)).To(Succeed())
 			})
@@ -102,10 +104,15 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 					WithBuildpacks(goBuildpack).
 					WithPullPolicy("never").
 					WithEnv(map[string]string{
-						"BP_IMAGE_LABELS": "some-label=some-value",
+						"BPE_SOME_VARIABLE": "some-value",
+						"BP_IMAGE_LABELS":   "some-label=some-value",
 					}).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				Expect(image.Buildpacks[4].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[4].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).
@@ -131,8 +138,8 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("web: /layers/paketo-buildpacks_go-build/targets/bin/go-online --some-arg")))
+				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
-				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 			})
 		})
 	})

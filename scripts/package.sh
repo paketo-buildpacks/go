@@ -109,7 +109,7 @@ function buildpackage::create() {
   util::print::title "Packaging buildpack..."
 
   pack \
-    package-buildpack "${output}" \
+    buildpack package "${output}" \
       --config "${ROOT_DIR}/package.toml" \
       --format file
 }

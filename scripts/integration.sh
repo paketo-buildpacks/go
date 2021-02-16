@@ -74,7 +74,7 @@ function images::pull() {
   docker pull "${builder}"
 
   util::print::title "Setting default pack builder image..."
-  pack set-default-builder "${builder}"
+  pack config default-builder "${builder}"
 
   local run_image lifecycle_image
   run_image="$(

@@ -37,5 +37,5 @@ func main() {
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(res, "Hello world!")
+	fmt.Fprint(res, "Hello, World!")
 }

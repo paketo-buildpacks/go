@@ -3,7 +3,6 @@ package integration_test
 import (
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"os"
 	"path/filepath"
 	"testing"
@@ -70,17 +69,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Eventually(container).Should(BeAvailable())
-
-			response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
-			Expect(err).NotTo(HaveOccurred())
-			defer response.Body.Close()
-
-			Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-			content, err := ioutil.ReadAll(response.Body)
-			Expect(err).NotTo(HaveOccurred())
-			Expect(string(content)).To(ContainSubstring("Hello, World!"))
+			Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
 
 			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Dep Buildpack")))
@@ -111,10 +100,6 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				Expect(image.Buildpacks[5].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
-				Expect(image.Labels["some-label"]).To(Equal("some-value"))
-
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).
 					WithPublish("8080").
@@ -122,17 +107,11 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(BeAvailable())
+				Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
 
-				response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
-				Expect(err).NotTo(HaveOccurred())
-				defer response.Body.Close()
-
-				Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-				content, err := ioutil.ReadAll(response.Body)
-				Expect(err).NotTo(HaveOccurred())
-				Expect(string(content)).To(ContainSubstring("Hello, World!"))
+				Expect(image.Buildpacks[5].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Dep Buildpack")))

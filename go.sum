@@ -343,11 +343,10 @@ github.com/opencontainers/image-spec v1.0.1 h1:JMemWkRwHx4Zj+fVxWoMCFm/8sYGGrUVo
 github.com/opencontainers/image-spec v1.0.1/go.mod h1:BtxoFyWECRxE4U/7sNtV5W15zMzWCbyJoFRP3s7yZA0=
 github.com/paketo-buildpacks/occam v0.0.22 h1:zMG3FHJ9Ws5PleWLzgXbx8puzvvRcKTliNu11ltEexM=
 github.com/paketo-buildpacks/occam v0.0.22/go.mod h1:aPNRyPEgYp4a01O4UKAuFWYnRmY4ujeuV3x6yAa1hxs=
-github.com/paketo-buildpacks/occam v0.1.0 h1:/IcMzoqWQo9MQZwPt6UCK64MulNr553EfOC5jShO24Y=
-github.com/paketo-buildpacks/occam v0.1.0/go.mod h1:zVBTsX7yrOGtmwBv9vE59U8BWKjaygScv0DKoIgoGXk=
+github.com/paketo-buildpacks/occam v0.1.1 h1:gTnURjctcWY1fURmxh+ERm0ONFGqsGBE6VvusBysgQk=
+github.com/paketo-buildpacks/occam v0.1.1/go.mod h1:bV568K2TWVHsuDBF9akaYA7HViQRYMoU1OwhwNy6PE0=
 github.com/paketo-buildpacks/packit v0.5.0 h1:WXLewsOY5NeqyJzIUca9GRJs02SW2qA5DiIG8RUebJk=
 github.com/paketo-buildpacks/packit v0.5.0/go.mod h1:ATLZccUzqEAyPlirdka8hs+XNqS4pyJ/tjyU1NXJKm8=
-github.com/paketo-buildpacks/packit v0.6.1/go.mod h1:lAtWn4LbA5f6sxfTNdhCV1z1KWBNACNeSgCpsuLDeeo=
 github.com/paketo-buildpacks/packit v0.7.0 h1:Xvy6If3GPd+nAqk+bB4xoJ8eUitoMboKdrzhW08uXD4=
 github.com/paketo-buildpacks/packit v0.7.0/go.mod h1:b498Gw+ZwwAxhqGpeRprrLKr5m9dVdRGvdwEDq2GBEk=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
@@ -416,8 +415,6 @@ github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
 github.com/ulikunitz/xz v0.5.8 h1:ERv8V6GKqVi23rgu5cj9pVfVzJbOqAY2Ntl88O6c2nQ=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
-github.com/ulikunitz/xz v0.5.9 h1:RsKRIA2MO8x56wkkcd3LbtcE/uMszhb6DpRf+3uwa3I=
-github.com/ulikunitz/xz v0.5.9/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 github.com/ulikunitz/xz v0.5.10 h1:t92gobL9l3HE202wg3rlk19F6X+JOxl9BBrCCMYEYd8=
 github.com/ulikunitz/xz v0.5.10/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
 github.com/urfave/cli v1.20.0/go.mod h1:70zkFmudgCuE/ngEzBv17Jvp/497gISqfk5gWijbERA=

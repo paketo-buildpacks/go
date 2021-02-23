@@ -28,6 +28,8 @@ jobs:
       with:
         message: "Updating buildpacks in buildpack.toml"
         pathspec: "."
+        keyid: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY_ID }}
+        key: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY }}
 
     - name: Push Branch
       if: ${{ steps.commit.outputs.commit_sha != '' }}

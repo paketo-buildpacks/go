@@ -1,4 +1,4 @@
-name: Create Draft Release
+name: Create or Update Draft Release
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
     - main
   repository_dispatch:
     types: [ version-bump ]
+  workflow_dispatch: {}
 
 jobs:
   integration:

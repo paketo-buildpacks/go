@@ -343,8 +343,8 @@ github.com/opencontainers/image-spec v1.0.1 h1:JMemWkRwHx4Zj+fVxWoMCFm/8sYGGrUVo
 github.com/opencontainers/image-spec v1.0.1/go.mod h1:BtxoFyWECRxE4U/7sNtV5W15zMzWCbyJoFRP3s7yZA0=
 github.com/paketo-buildpacks/occam v0.0.22 h1:zMG3FHJ9Ws5PleWLzgXbx8puzvvRcKTliNu11ltEexM=
 github.com/paketo-buildpacks/occam v0.0.22/go.mod h1:aPNRyPEgYp4a01O4UKAuFWYnRmY4ujeuV3x6yAa1hxs=
-github.com/paketo-buildpacks/occam v0.1.1 h1:gTnURjctcWY1fURmxh+ERm0ONFGqsGBE6VvusBysgQk=
-github.com/paketo-buildpacks/occam v0.1.1/go.mod h1:bV568K2TWVHsuDBF9akaYA7HViQRYMoU1OwhwNy6PE0=
+github.com/paketo-buildpacks/occam v0.1.2 h1:xNJYB0ruwLsrTwdADJeGxSJvyj/oy2qcMuOvlLTJ/JE=
+github.com/paketo-buildpacks/occam v0.1.2/go.mod h1:bV568K2TWVHsuDBF9akaYA7HViQRYMoU1OwhwNy6PE0=
 github.com/paketo-buildpacks/packit v0.5.0 h1:WXLewsOY5NeqyJzIUca9GRJs02SW2qA5DiIG8RUebJk=
 github.com/paketo-buildpacks/packit v0.5.0/go.mod h1:ATLZccUzqEAyPlirdka8hs+XNqS4pyJ/tjyU1NXJKm8=
 github.com/paketo-buildpacks/packit v0.7.0 h1:Xvy6If3GPd+nAqk+bB4xoJ8eUitoMboKdrzhW08uXD4=

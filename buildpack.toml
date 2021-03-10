@@ -45,11 +45,11 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dep"
-    version = "0.0.176"
+    version = "0.0.177"
 
   [[order.group]]
     id = "paketo-buildpacks/dep-ensure"
-    version = "0.0.36"
+    version = "0.0.37"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"

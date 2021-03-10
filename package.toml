@@ -3,10 +3,10 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dep:0.0.176"
+  uri = "docker://gcr.io/paketo-buildpacks/dep:0.0.177"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.0.36"
+  uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.0.37"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/go-dist:0.3.0"

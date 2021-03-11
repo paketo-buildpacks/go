@@ -12,10 +12,10 @@
   uri = "docker://gcr.io/paketo-buildpacks/go-dist:0.3.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.1.0"
+  uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.2.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-build:0.2.2"
+  uri = "docker://gcr.io/paketo-buildpacks/go-build:0.3.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:4.0.0"

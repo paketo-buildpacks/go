@@ -28,7 +28,7 @@ jobs:
         branch: automation/github-config/update
 
     - name: Run the sync action
-      uses: paketo-buildpacks/github-config/actions/sync@sync-action
+      uses: paketo-buildpacks/github-config/actions/sync@main
       with:
         workspace: /github/workspace
         config: /github/workspace/github-config/language-family

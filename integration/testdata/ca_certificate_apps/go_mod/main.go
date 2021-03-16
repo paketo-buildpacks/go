@@ -11,8 +11,6 @@ import (
 
 func main() {
 
-	// we think this will automatically	include the CA
-	// installed by the buildpack
 	certpool, err := x509.SystemCertPool()
 	if err != nil {
 		log.Fatal("failed to get system certs")

@@ -49,11 +49,9 @@ jobs:
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
       uses: actions/checkout@v2
 
-    - name: Auto Approve
+    - name: Approve
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
       uses: paketo-buildpacks/github-config/actions/pull-request/approve@main
       with:
-        user: paketo-bot-reviewer
         token: ${{ secrets.PAKETO_BOT_REVIEWER_GITHUB_TOKEN }}
-        author: ${{ github.event.pull_request.user.login }}
         number: ${{ github.event.number }}

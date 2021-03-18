@@ -22,3 +22,11 @@ be found in the
 - [Paketo Full Builder](https://github.com/paketo-buildpacks/full-builder)
 - [Paketo Base Builder](https://github.com/paketo-buildpacks/base-builder)
 - [Paketo Tiny Builder](https://github.com/paketo-buildpacks/tiny-builder)
+
+This buildpack also includes the following utility buildpacks:
+- [Procfile CNB](https://github.com/paketo-buildpacks/procfile)
+- [Environment Variables CNB](https://github.com/paketo-buildpacks/environment-variables)
+- [Image Labels CNB](https://github.com/paketo-buildpacks/image-labels)
+- [CA Certificates CNB](https://github.com/paketo-buildpacks/ca-certificates)
+
+Check out the [Go Paketo Buildpack docs](https://paketo.io/docs/buildpacks/language-family-buildpacks/go/) for more information.

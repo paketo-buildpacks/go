@@ -30,7 +30,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "4.0.0"
+    version = "4.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
@@ -68,7 +68,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "4.0.0"
+    version = "4.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
@@ -98,7 +98,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "4.0.0"
+    version = "4.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"

@@ -1,4 +1,4 @@
-api = "0.2"
+api = "0.4"
 
 [buildpack]
   homepage = "https://github.com/paketo-buildpacks/go"

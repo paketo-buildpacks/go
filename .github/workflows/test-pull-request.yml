@@ -23,6 +23,16 @@ jobs:
     - name: Run Integration Tests
       run: ./scripts/integration.sh
 
+  upload:
+    name: Upload Workflow Event Payload
+    runs-on: ubuntu-latest
+    steps:
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: event-payload
+        path: ${{ github.event_path }}
+
   approve:
     name: Approve Bot PRs
     if: ${{ github.event.pull_request.user.login == 'paketo-bot' || github.event.pull_request.user.login == 'dependabot[bot]' }}

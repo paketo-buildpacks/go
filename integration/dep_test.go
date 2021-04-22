@@ -62,6 +62,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			image, logs, err = pack.WithNoColor().Build.
 				WithBuildpacks(goBuildpack).
 				WithPullPolicy("never").
+				WithEnv(map[string]string{"BP_GO_VERSION": "1.15.*"}).
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -87,7 +88,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 
 		context("when using utility buildpacks", func() {
 			it.Before(func() {
-				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: /layers/paketo-buildpacks_go-build/targets/bin/workspace --some-arg"), 0644)).To(Succeed())
+				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: /layers/paketo-buildpacks_go-build/targets/bin/workspace --some-arg"), 0600)).To(Succeed())
 			})
 
 			it("builds a working OCI image with start command from the Procfile and incorporating the utility buildpacks' effects", func() {
@@ -97,6 +98,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 					WithBuildpacks(goBuildpack).
 					WithPullPolicy("never").
 					WithEnv(map[string]string{
+						"BP_GO_VERSION":     "1.15.*",
 						"BPE_SOME_VARIABLE": "some-value",
 						"BP_IMAGE_LABELS":   "some-label=some-value",
 					}).
@@ -163,7 +165,10 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 				image, logs, err = pack.WithNoColor().Build.
 					WithBuildpacks(goBuildpack).
 					WithPullPolicy("never").
-					WithEnv(map[string]string{"BP_KEEP_FILES": "key.pem:cert.pem"}).
+					WithEnv(map[string]string{
+						"BP_GO_VERSION": "1.15.*",
+						"BP_KEEP_FILES": "key.pem:cert.pem",
+					}).
 					Execute(name, filepath.Join(source, "dep"))
 				Expect(err).NotTo(HaveOccurred())
 
@@ -192,19 +197,20 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 				request, err := http.NewRequest("GET", fmt.Sprintf("https://localhost:%s", container.HostPort("8080")), nil)
 				Expect(err).NotTo(HaveOccurred())
 
-				var response *http.Response
-				Eventually(func() error {
-					var err error
-					response, err = client.Do(request)
-					return err
-				}).Should(BeNil())
-				defer response.Body.Close()
+				Eventually(func() string {
+					response, err := client.Do(request)
+					if err != nil {
+						return ""
+					}
+					defer response.Body.Close()
 
-				Expect(response.StatusCode).To(Equal(http.StatusOK))
+					content, err := ioutil.ReadAll(response.Body)
+					if err != nil {
+						return ""
+					}
 
-				content, err := ioutil.ReadAll(response.Body)
-				Expect(err).NotTo(HaveOccurred())
-				Expect(string(content)).To(ContainSubstring("Hello, World!"))
+					return string(content)
+				}).Should(ContainSubstring("Hello, World!"))
 			})
 		})
 	})

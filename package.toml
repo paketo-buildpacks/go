@@ -27,4 +27,4 @@
   uri = "docker://gcr.io/paketo-buildpacks/image-labels:3.0.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.1.0"
+  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.2.0"

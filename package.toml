@@ -15,7 +15,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.2.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-build:0.3.2"
+  uri = "docker://gcr.io/paketo-buildpacks/go-build:0.3.3"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:4.1.0"

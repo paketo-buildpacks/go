@@ -31,8 +31,4 @@ jobs:
     - name: Create Docs Tag
       run: |
        git tag ${{ steps.tag.outputs.tag }}
-
-    - name: Push
-      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
-      with:
-        branch: main
+       git push origin ${{ steps.tag.outputs.tag }}

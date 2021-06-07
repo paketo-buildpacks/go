@@ -24,6 +24,15 @@ jobs:
         output: "/github/workspace/buildpackage.cnb"
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
+    - name: Validate version
+      run: |
+        buidpackTomlVersion=$(sudo skopeo inspect "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" | jq -r '.Labels."io.buildpacks.buildpackage.metadata" | fromjson | .version')
+        githubReleaseVersion="${{ steps.event.outputs.tag }}"
+        if [[ "$buidpackTomlVersion" != "$githubReleaseVersion" ]]; then
+          echo "Version in buildpack.toml ($buidpackTomlVersion) and github release ($githubReleaseVersion) are not identical"
+          exit 1
+        fi
+
     - name: Push to GCR
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

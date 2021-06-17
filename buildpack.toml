@@ -4,6 +4,10 @@ api = "0.4"
   homepage = "https://github.com/paketo-buildpacks/go"
   id = "paketo-buildpacks/go"
   name = "Paketo Go Buildpack"
+  
+[[buildpack.licenses]]
+type = "Apache-2.0"
+uri  = "https://github.com/paketo-buildpacks/go/blob/main/LICENSE"
 
 [metadata]
   include-files = ["buildpack.toml"]

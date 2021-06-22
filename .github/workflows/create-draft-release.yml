@@ -8,6 +8,8 @@ on:
     types: [ version-bump ]
   workflow_dispatch: {}
 
+concurrency: release
+
 jobs:
   integration:
     name: Integration Tests

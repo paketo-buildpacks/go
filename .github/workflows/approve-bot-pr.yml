@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["Test Pull Request"]
     types:
-      - completed
+    - completed
 
 jobs:
   download:
@@ -15,18 +15,18 @@ jobs:
       pr-author: ${{ steps.pr-data.outputs.author }}
       pr-number: ${{ steps.pr-data.outputs.number }}
     steps:
-      - name: 'Download artifact'
-        uses: paketo-buildpacks/github-config/actions/pull-request/download-artifact@main
-        with:
-          name: "event-payload"
-          repo: ${{ github.repository }}
-          run_id: ${{ github.event.workflow_run.id }}
-          workspace: "/github/workspace"
-          token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-      - id: pr-data
-        run: |
-          echo "::set-output name=author::$(cat event.json | jq -r '.pull_request.user.login')"
-          echo "::set-output name=number::$(cat event.json | jq -r '.pull_request.number')"
+    - name: 'Download artifact'
+      uses: paketo-buildpacks/github-config/actions/pull-request/download-artifact@main
+      with:
+        name: "event-payload"
+        repo: ${{ github.repository }}
+        run_id: ${{ github.event.workflow_run.id }}
+        workspace: "/github/workspace"
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+    - id: pr-data
+      run: |
+        echo "::set-output name=author::$(cat event.json | jq -r '.pull_request.user.login')"
+        echo "::set-output name=number::$(cat event.json | jq -r '.pull_request.number')"
 
   approve:
     name: Approve Bot PRs

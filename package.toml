@@ -9,13 +9,13 @@
   uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.1.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-dist:0.5.1"
+  uri = "docker://gcr.io/paketo-buildpacks/go-dist:0.5.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.2.2"
+  uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.3.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-build:0.3.4"
+  uri = "docker://gcr.io/paketo-buildpacks/go-build:0.4.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:4.2.2"

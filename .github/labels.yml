@@ -16,3 +16,12 @@
 - name: documentation
   description: This issue relates to writing documentation
   color: D4C5F9
+- name: semver:major
+  description: A change requiring a major version bump
+  color: 6b230e
+- name: semver:minor
+  description: A change requiring a minor version bump
+  color: cc6749
+- name: semver:patch
+  description: A change requiring a patch version bump
+  color: f9d0c4

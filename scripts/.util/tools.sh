@@ -108,53 +108,6 @@ function util::tools::pack::install() {
   fi
 }
 
-function util::tools::hugo::install() {
-  local dir
-  while [[ "${#}" != 0 ]]; do
-    case "${1}" in
-      --directory)
-        dir="${2}"
-        shift 2
-        ;;
-
-      *)
-        util::print::error "unknown argument \"${1}\""
-    esac
-  done
-
-  mkdir -p "${dir}"
-  util::tools::path::export "${dir}"
-
-  local os
-  case "$(uname)" in
-    "Darwin")
-      os="macOS-64bit"
-      ;;
-
-    "Linux")
-      os="Linux-64bit"
-      ;;
-
-    *)
-      echo "Unknown OS \"$(uname)\""
-      exit 1
-  esac
-
-  if [[ ! -f "${dir}/hugo" ]]; then
-    local version
-    version="$(jq -r .hugo "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
-
-    util::print::title "Installing hugo ${version}"
-    curl "https://github.com/gohugoio/hugo/releases/download/${version}/hugo_${version#v}_${os}.tar.gz" \
-      --silent \
-      --location \
-      --output /tmp/hugo.tgz
-    tar xzf /tmp/hugo.tgz -C "${dir}"
-    chmod +x "${dir}/hugo"
-    rm /tmp/hugo.tgz
-  fi
-}
-
 function util::tools::packager::install () {
     local dir
     while [[ "${#}" != 0 ]]; do

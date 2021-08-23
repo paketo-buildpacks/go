@@ -53,7 +53,7 @@ function util::tools::jam::install () {
     version="$(jq -r .jam "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
 
     util::print::title "Installing jam ${version}"
-    curl "https://github.com/paketo-buildpacks/packit/releases/download/${version}/jam-${os}" \
+    curl "https://github.com/paketo-buildpacks/jam/releases/download/${version}/jam-${os}" \
       --silent \
       --location \
       --output "${dir}/jam"

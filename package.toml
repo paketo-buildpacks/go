@@ -18,13 +18,13 @@
   uri = "docker://gcr.io/paketo-buildpacks/go-build:0.4.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.4.0"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.4.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:3.2.1"
+  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:3.2.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/image-labels:3.2.1"
+  uri = "docker://gcr.io/paketo-buildpacks/image-labels:3.2.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.4.1"
+  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.4.2"

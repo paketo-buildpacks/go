@@ -62,7 +62,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			image, logs, err = pack.WithNoColor().Build.
 				WithBuildpacks(goBuildpack).
 				WithPullPolicy("never").
-				WithEnv(map[string]string{"BP_GO_VERSION": "1.15.*"}).
+				WithEnv(map[string]string{"BP_GO_VERSION": "1.16.*"}).
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -97,7 +97,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 					WithBuildpacks(goBuildpack).
 					WithPullPolicy("never").
 					WithEnv(map[string]string{
-						"BP_GO_VERSION":     "1.15.*",
+						"BP_GO_VERSION":     "1.16.*",
 						"BPE_SOME_VARIABLE": "some-value",
 						"BP_IMAGE_LABELS":   "some-label=some-value",
 					}).
@@ -133,7 +133,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 				image, logs, err = pack.WithNoColor().Build.
 					WithBuildpacks(goBuildpack).
 					WithPullPolicy("never").
-					WithEnv(map[string]string{"BP_GO_VERSION": "1.15.*"}).
+					WithEnv(map[string]string{"BP_GO_VERSION": "1.16.*"}).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -194,7 +194,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 					WithBuildpacks(goBuildpack).
 					WithPullPolicy("never").
 					WithEnv(map[string]string{
-						"BP_GO_VERSION": "1.15.*",
+						"BP_GO_VERSION": "1.16.*",
 						"BP_KEEP_FILES": "key.pem:cert.pem",
 					}).
 					Execute(name, filepath.Join(source, "build"))

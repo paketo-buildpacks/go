@@ -371,8 +371,8 @@ github.com/paketo-buildpacks/occam v0.1.4 h1:KFYEXc0S1rEus/by2s4PEbFYfSNX5TEcjNN
 github.com/paketo-buildpacks/occam v0.1.4/go.mod h1:Rn7l2Ndm1ff0RGj0hWJwH8+iGhkEGY5nt/qpWKWB9lE=
 github.com/paketo-buildpacks/packit v0.5.0/go.mod h1:ATLZccUzqEAyPlirdka8hs+XNqS4pyJ/tjyU1NXJKm8=
 github.com/paketo-buildpacks/packit v0.13.0/go.mod h1:o3ajTEGOKZpEVRDpBH6qaIRVK92CO7WWinm87MTBlV8=
-github.com/paketo-buildpacks/packit v1.1.0 h1:8MhNFbmmpCu3yBpQSPVugfEa2IaL4/04YWXCM33bw5A=
-github.com/paketo-buildpacks/packit v1.1.0/go.mod h1:b4ZPN9PuBGFTfQMfpVXGIXiMiFiYF2slD2OEyfWflC8=
+github.com/paketo-buildpacks/packit v1.2.0 h1:HBYjZAl/rmfH/NLXmZmRWOe/Nu6XNFk7HQkKJ51E9CE=
+github.com/paketo-buildpacks/packit v1.2.0/go.mod h1:b4ZPN9PuBGFTfQMfpVXGIXiMiFiYF2slD2OEyfWflC8=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pelletier/go-toml v1.8.1/go.mod h1:T2/BmBdy8dvIRq1a/8aqjN41wvWlN4lrapLU/GW4pbc=

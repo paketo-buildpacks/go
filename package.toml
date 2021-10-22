@@ -28,3 +28,6 @@
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.4.2"
+
+[[dependencies]]
+  uri = "docker://gcr.io/paketo-buildpacks/watchexec:1.2.0"

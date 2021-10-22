@@ -20,6 +20,11 @@ api = "0.4"
     version = "2.4.2"
 
   [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    optional = true
+    version = "1.2.0"
+
+  [[order.group]]
     id = "paketo-buildpacks/go-dist"
     version = "0.7.0"
 
@@ -52,6 +57,11 @@ api = "0.4"
     id = "paketo-buildpacks/ca-certificates"
     optional = true
     version = "2.4.2"
+
+  [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    optional = true
+    version = "1.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
@@ -90,6 +100,11 @@ api = "0.4"
     id = "paketo-buildpacks/ca-certificates"
     optional = true
     version = "2.4.2"
+
+  [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    optional = true
+    version = "1.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"

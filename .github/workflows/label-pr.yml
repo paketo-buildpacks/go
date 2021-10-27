@@ -1,0 +1,17 @@
+name: Auto-label PR
+on:
+  pull_request:
+    branches:
+    - main
+
+concurrency: pr_labels
+
+jobs:
+  semver-label:
+    name: Semver Auto-Label
+    runs-on: ubuntu-latest
+    steps:
+    - name: Auto-label Semver
+      uses: paketo-buildpacks/github-config/actions/pull-request/auto-semver-label@autolabel
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

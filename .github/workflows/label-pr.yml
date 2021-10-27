@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Auto-label Semver
-      uses: paketo-buildpacks/github-config/actions/pull-request/auto-semver-label@autolabel
+      uses: paketo-buildpacks/github-config/actions/pull-request/auto-semver-label@main
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

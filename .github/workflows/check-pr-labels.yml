@@ -1,0 +1,23 @@
+name: Validate PR Labels
+on:
+  pull_request:
+    branches:
+    - main
+    types:
+    - synchronize
+    - reopened
+    - labeled
+    - unlabeled
+
+concurrency: pr_labels
+
+jobs:
+  semver:
+    name: Ensure Minimal Semver Labels
+    runs-on: ubuntu-latest
+    steps:
+    - uses: mheap/github-action-required-labels@v1
+      with:
+        count: 1
+        labels: semver:major, semver:minor, semver:patch
+        mode: exactly

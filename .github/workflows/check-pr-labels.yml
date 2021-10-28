@@ -5,6 +5,7 @@ on:
     - main
     types:
     - synchronize
+    - opened
     - reopened
     - labeled
     - unlabeled

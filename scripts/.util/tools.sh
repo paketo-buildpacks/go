@@ -108,29 +108,6 @@ function util::tools::pack::install() {
   fi
 }
 
-function util::tools::packager::install () {
-    local dir
-    while [[ "${#}" != 0 ]]; do
-      case "${1}" in
-        --directory)
-          dir="${2}"
-          shift 2
-          ;;
-
-        *)
-          util::print::error "unknown argument \"${1}\""
-      esac
-    done
-
-    mkdir -p "${dir}"
-    util::tools::path::export "${dir}"
-
-    if [[ ! -f "${dir}/packager" ]]; then
-        util::print::title "Installing packager"
-        GOBIN="${dir}" go get github.com/cloudfoundry/libcfbuildpack/packager
-    fi
-}
-
 function util::tools::tests::checkfocus() {
   testout="${1}"
   if grep -q 'Focused: [1-9]' "${testout}"; then

@@ -18,16 +18,16 @@
   uri = "docker://gcr.io/paketo-buildpacks/go-build:0.5.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:5.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:5.0.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:4.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:4.0.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/image-labels:4.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/image-labels:4.0.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:3.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:3.0.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.0.0"
+  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.0.1"

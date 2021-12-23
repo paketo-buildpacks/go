@@ -24,10 +24,10 @@
   uri = "docker://gcr.io/paketo-buildpacks/environment-variables:4.0.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/image-labels:4.0.1"
+  uri = "docker://gcr.io/paketo-buildpacks/image-labels:4.0.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:3.0.1"
+  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:3.0.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.0.1"
+  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.0.2"

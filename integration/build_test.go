@@ -208,7 +208,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 						"PORT":                 "8080",
 						"SERVICE_BINDING_ROOT": "/bindings",
 					}).
-					WithVolume(fmt.Sprintf("%s:/bindings/ca-certificates", filepath.Join(source, "binding"))).
+					WithVolumes(fmt.Sprintf("%s:/bindings/ca-certificates", filepath.Join(source, "binding"))).
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 

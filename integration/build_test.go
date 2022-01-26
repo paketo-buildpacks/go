@@ -85,8 +85,13 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		})
 
 		context("using optional utility buildpacks", func() {
+			var procfileContainer occam.Container
 			it.Before(func() {
-				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: /layers/paketo-buildpacks_go-build/targets/bin/workspace --some-arg"), 0600)).To(Succeed())
+				Expect(os.WriteFile(filepath.Join(source, "Procfile"), []byte("procfile: echo Procfile command"), 0644)).To(Succeed())
+			})
+
+			it.After(func() {
+				Expect(docker.Container.Remove.Execute(procfileContainer.ID)).To(Succeed())
 			})
 
 			it("builds a working OCI image with start command from the Procfile and incorporating the utility buildpacks' effects", func() {
@@ -103,6 +108,17 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
+				Expect(image.Buildpacks[5].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Labels["some-label"]).To(Equal("some-value"))
+
+				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
+
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).
 					WithPublish("8080").
@@ -112,17 +128,15 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 				Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
 
-				Expect(image.Buildpacks[5].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
-				Expect(image.Labels["some-label"]).To(Equal("some-value"))
+				procfileContainer, err = docker.Container.Run.
+					WithEntrypoint("procfile").
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
 
-				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("web: /layers/paketo-buildpacks_go-build/targets/bin/workspace --some-arg")))
-				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
+				containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Expect(containerLogs.String()).To(ContainSubstring("Procfile command"))
 			})
 		})
 

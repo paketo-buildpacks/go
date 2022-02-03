@@ -22,7 +22,7 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.1.1"
+    version = "2.1.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
@@ -61,7 +61,7 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.1.1"
+    version = "2.1.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
@@ -104,7 +104,7 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.1.1"
+    version = "2.1.2"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"

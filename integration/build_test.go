@@ -133,10 +133,13 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
-				Expect(err).NotTo(HaveOccurred())
-
-				Expect(containerLogs.String()).To(ContainSubstring("Procfile command"))
+				Eventually(func() string {
+					containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
+					Expect(err).NotTo(HaveOccurred())
+					return containerLogs.String()
+				}).Should(
+					ContainSubstring("Procfile command"),
+				)
 			})
 		})
 

@@ -2,7 +2,7 @@ name: Update shared github-config
 
 on:
   schedule:
-  - cron: '15 */1 * * *'
+  - cron: '30 2 * * *'
   workflow_dispatch: {}
 
 jobs:

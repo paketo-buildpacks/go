@@ -25,3 +25,6 @@
 - name: semver:patch
   description: A change requiring a patch version bump
   color: f9d0c4
+- name: good first issue
+  description: A good first issue to get started with
+  color: d3fc03

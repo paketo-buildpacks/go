@@ -6,7 +6,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dep:0.3.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.2.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.2.1"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/go-dist:0.8.4"

@@ -24,7 +24,7 @@ jobs:
       with:
         go-version: 1.17.x
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Run Integration Tests
       run: ./scripts/integration.sh
@@ -35,7 +35,7 @@ jobs:
     needs: integration
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Reset Draft Release
       id: reset

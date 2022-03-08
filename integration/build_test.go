@@ -82,6 +82,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
 		})
 
 		context("using optional utility buildpacks", func() {
@@ -170,6 +171,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
 			})
 		})
 

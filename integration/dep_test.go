@@ -83,6 +83,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
 		})
 
 		context("when using utility buildpacks", func() {
@@ -105,12 +106,14 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 						"BPE_SOME_VARIABLE":      "some-value",
 						"BP_IMAGE_LABELS":        "some-label=some-value",
 						"BP_LIVE_RELOAD_ENABLED": "true",
+						"SERVICE_BINDING_ROOT":   "/bindings",
 					}).
+					WithVolumes(fmt.Sprintf("%s:/bindings/git-credentials", filepath.Join(source, "git-credentials"))).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				Expect(image.Buildpacks[7].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[7].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Buildpacks[8].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[8].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
@@ -121,6 +124,7 @@ func testDep(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Git Buildpack")))
 
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).

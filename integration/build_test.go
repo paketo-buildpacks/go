@@ -36,8 +36,9 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			image     occam.Image
 			container occam.Container
 
-			name   string
-			source string
+			name    string
+			source  string
+			sbomDir string
 		)
 
 		it.Before(func() {
@@ -47,6 +48,10 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 			source, err = occam.Source(filepath.Join("testdata", "build"))
 			Expect(err).NotTo(HaveOccurred())
+
+			sbomDir, err = os.MkdirTemp("", "sbom")
+			Expect(err).NotTo(HaveOccurred())
+			Expect(os.Chmod(sbomDir, os.ModePerm)).To(Succeed())
 		})
 
 		it.After(func() {
@@ -54,6 +59,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
 			Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
 			Expect(os.RemoveAll(source)).To(Succeed())
+			Expect(os.RemoveAll(sbomDir)).To(Succeed())
 		})
 
 		it("creates a working OCI image", func() {
@@ -61,6 +67,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			var logs fmt.Stringer
 			image, logs, err = pack.WithNoColor().Build.
 				WithBuildpacks(goBuildpack).
+				WithSBOMOutputDir(sbomDir).
 				WithPullPolicy("never").
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
@@ -83,6 +90,15 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
+
+			// check that all required SBOM files are present
+			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_go-dist", "go", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_go-dist", "go", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_go-dist", "go", "sbom.syft.json")).To(BeARegularFile())
+
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_go-build", "targets", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_go-build", "targets", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_go-build", "targets", "sbom.syft.json")).To(BeARegularFile())
 		})
 
 		context("using optional utility buildpacks", func() {

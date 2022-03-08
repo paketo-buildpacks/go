@@ -29,6 +29,11 @@ api = "0.6"
     version = "0.8.4"
 
   [[order.group]]
+    id = "paketo-buildpacks/git"
+    optional = true
+    version = "0.4.1"
+
+  [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
     version = "0.5.0"
 
@@ -68,6 +73,11 @@ api = "0.6"
     version = "0.8.4"
 
   [[order.group]]
+    id = "paketo-buildpacks/git"
+    optional = true
+    version = "0.4.1"
+
+  [[order.group]]
     id = "paketo-buildpacks/dep"
     version = "0.3.0"
 
@@ -105,6 +115,11 @@ api = "0.6"
     id = "paketo-buildpacks/watchexec"
     optional = true
     version = "2.2.0"
+
+  [[order.group]]
+    id = "paketo-buildpacks/git"
+    optional = true
+    version = "0.4.1"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"

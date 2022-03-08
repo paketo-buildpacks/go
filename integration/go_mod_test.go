@@ -82,6 +82,7 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
 		})
 
 		context("when using utility buildpacks", func() {
@@ -104,12 +105,14 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 						"BPE_SOME_VARIABLE":      "some-value",
 						"BP_IMAGE_LABELS":        "some-label=some-value",
 						"BP_LIVE_RELOAD_ENABLED": "true",
+						"SERVICE_BINDING_ROOT":   "/bindings",
 					}).
+					WithVolumes(fmt.Sprintf("%s:/bindings/git-credentials", filepath.Join(source, "git-credentials"))).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				Expect(image.Buildpacks[6].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[6].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Buildpacks[7].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[7].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
@@ -119,6 +122,7 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Git Buildpack")))
 
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).
@@ -187,6 +191,8 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
 
 				container, err = docker.Container.Run.
 					WithPublish("8080").
@@ -273,6 +279,43 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Dep Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
+		})
+
+		it("when using git utility buildpack", func() {
+			var err error
+			var logs fmt.Stringer
+			image, logs, err = pack.WithNoColor().Build.
+				WithBuildpacks(goBuildpack).
+				WithEnv(map[string]string{
+					"PORT":                 "8080",
+					"SERVICE_BINDING_ROOT": "/bindings",
+				}).
+				WithVolumes(fmt.Sprintf("%s:/bindings/git-credentials", filepath.Join(source, "git-credentials"))).
+				WithPullPolicy("never").
+				Execute(name, source)
+			Expect(err).NotTo(HaveOccurred(), logs.String())
+
+			container, err = docker.Container.Run.
+				WithEnv(map[string]string{
+					"PORT": "8080",
+				}).
+				WithPublish("8080").
+				WithPublishAll().
+				Execute(image.ID)
+			Expect(err).NotTo(HaveOccurred())
+
+			Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
+
+			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Git Buildpack")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Dep Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))

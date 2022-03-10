@@ -33,4 +33,4 @@
   uri = "docker://gcr.io/paketo-buildpacks/git:0.4.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.3.1"

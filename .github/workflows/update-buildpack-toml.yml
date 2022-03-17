@@ -5,6 +5,8 @@ on:
   - cron: '30 */1 * * *'
   workflow_dispatch: {}
 
+concurrency: buildpack_update
+
 jobs:
   update-buildpack-toml:
     runs-on: ubuntu-latest

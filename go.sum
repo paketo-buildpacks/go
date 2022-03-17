@@ -627,8 +627,8 @@ github.com/opencontainers/runtime-tools v0.0.0-20181011054405-1d69bd0f9c39/go.mo
 github.com/opencontainers/selinux v1.6.0/go.mod h1:VVGKuOLlE7v4PJyT6h7mNWvq1rzqiriPsEqVhc+svHE=
 github.com/opencontainers/selinux v1.8.0/go.mod h1:RScLhm78qiWa2gbVCcGkC7tCGdgk3ogry1nUQF8Evvo=
 github.com/opencontainers/selinux v1.8.2/go.mod h1:MUIHuUEvKB1wtJjQdOyYRgOnLD2xAPP8dBsCoU0KuF8=
-github.com/paketo-buildpacks/occam v0.6.0 h1:dVIKYY1rs9L/EJ//7iNLJAICNeFM1ZEo3RvLAwPub94=
-github.com/paketo-buildpacks/occam v0.6.0/go.mod h1:R5vxTO4dQs0CGX2Oekk1B2MZLTuSzyp4lzLM45YzjMs=
+github.com/paketo-buildpacks/occam v0.7.0 h1:PBXJ7zLfujHw6BaLp3oTysAEekkfZ5A8BfgWGyWfUKE=
+github.com/paketo-buildpacks/occam v0.7.0/go.mod h1:R5vxTO4dQs0CGX2Oekk1B2MZLTuSzyp4lzLM45YzjMs=
 github.com/paketo-buildpacks/packit/v2 v2.1.0 h1:0ecw6v216R2lMFlE3WTfuooYvJQ/KwsNRChRW8yRYbM=
 github.com/paketo-buildpacks/packit/v2 v2.1.0/go.mod h1:Ud1X7f9O6e4eGPZlY3pj0jnSa9oDK2L/ghvjmarTLSA=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=

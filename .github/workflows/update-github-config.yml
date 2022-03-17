@@ -5,6 +5,8 @@ on:
   - cron: '30 2 * * *'
   workflow_dispatch: {}
 
+concurrency: github_config_update
+
 jobs:
   build:
     name: Create PR to update shared files

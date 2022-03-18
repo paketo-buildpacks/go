@@ -1,17 +1,33 @@
-name: Auto-label PR
+name: Set / Validate PR Labels
 on:
   pull_request:
     branches:
     - main
+    types:
+    - synchronize
+    - opened
+    - reopened
+    - labeled
+    - unlabeled
 
-concurrency: pr_labels
+concurrency: pr_labels_${{ github.event.number }}
 
 jobs:
-  semver-label:
-    name: Semver Auto-Label
+  autolabel:
+    name: Ensure Minimal Semver Labels
     runs-on: ubuntu-latest
     steps:
+    - name: Check Minimal Semver Labels
+      uses: mheap/github-action-required-labels@v1
+      with:
+        count: 1
+        labels: semver:major, semver:minor, semver:patch
+        mode: exactly
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Auto-label Semver
+      if: ${{ failure() }}
       uses: paketo-buildpacks/github-config/actions/pull-request/auto-semver-label@main
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

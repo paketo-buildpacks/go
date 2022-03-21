@@ -9,7 +9,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.2.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-dist:1.0.1"
+  uri = "docker://gcr.io/paketo-buildpacks/go-dist:1.1.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.5.1"

@@ -109,12 +109,10 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(string(contents)).To(ContainSubstring(`"name": "github.com/BurntSushi/toml"`))
 
-			/*The below assertions are commented out until anchore/syft#871 is resolved
-			or we find a workaround */
 			// check an SBOM file to make sure it contains entries for built binary
-			// contents, err = os.ReadFile(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_go-build", "targets", "sbom.cdx.json"))
-			// Expect(err).NotTo(HaveOccurred())
-			// Expect(string(contents)).To(ContainSubstring(`"name": "github.com/BurntSushi/toml"`))
+			contents, err = os.ReadFile(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_go-build", "targets", "sbom.cdx.json"))
+			Expect(err).NotTo(HaveOccurred())
+			Expect(string(contents)).To(ContainSubstring(`"name": "github.com/BurntSushi/toml"`))
 		})
 
 		context("when using utility buildpacks", func() {

@@ -3,19 +3,19 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dep:0.3.1"
+  uri = "docker://gcr.io/paketo-buildpacks/dep:0.3.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.2.2"
+  uri = "docker://gcr.io/paketo-buildpacks/dep-ensure:0.2.3"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-dist:1.1.2"
+  uri = "docker://gcr.io/paketo-buildpacks/go-dist:1.1.3"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/go-mod-vendor:0.6.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/go-build:1.1.1"
+  uri = "docker://gcr.io/paketo-buildpacks/go-build:1.1.2"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:5.1.1"

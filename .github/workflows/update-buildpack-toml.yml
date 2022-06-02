@@ -2,7 +2,7 @@ name: Update buildpack.toml
 
 on:
   schedule:
-  - cron: '30 */1 * * *'
+  - cron: '30 */6 * * *'
   workflow_dispatch: {}
 
 concurrency: buildpack_update

@@ -9,7 +9,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/dep-ensure@0.2.3"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@1.2.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@1.2.1"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@0.6.0"

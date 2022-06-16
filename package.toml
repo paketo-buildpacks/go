@@ -27,7 +27,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.1.2"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.2.3"
+  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.2.4"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/git@0.4.2"

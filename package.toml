@@ -33,4 +33,4 @@
   uri = "urn:cnb:registry:paketo-buildpacks/git@0.4.2"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.4.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.5.0"

@@ -73,3 +73,22 @@ jobs:
         version: ${{ steps.event.outputs.tag_full }}
         address: ${{ steps.push.outputs.image }}@${{ steps.push.outputs.digest }}
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+
+  failure:
+    name: Alert on Failure
+    runs-on: ubuntu-latest
+    needs: [push]
+    if: ${{ always() && needs.push.result == 'failure' }}
+    steps:
+    - name: File Failure Alert Issue
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        label: "failure:push"
+        comment_if_exists: true
+        issue_title: "Failure: Push Buildpackage workflow"
+        issue_body: |
+          Push Buildpackage workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
+        comment_body: |
+           Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}

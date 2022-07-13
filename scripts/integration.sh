@@ -59,8 +59,8 @@ function tools::install() {
 }
 
 function images::pull() {
-  local builder
-  builder=""
+  local builders
+  builders=""
 
   if [[ -f "${BUILDPACKDIR}/integration.json" ]]; then
     builders="$(jq -r .builder "${BUILDPACKDIR}/integration.json")"

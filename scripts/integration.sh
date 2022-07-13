@@ -63,34 +63,42 @@ function images::pull() {
   builder=""
 
   if [[ -f "${BUILDPACKDIR}/integration.json" ]]; then
-    builder="$(jq -r .builder "${BUILDPACKDIR}/integration.json")"
+    builders="$(jq -r .builder "${BUILDPACKDIR}/integration.json")"
+
+    if [[ "${builders}" == "null" || -z "${builders}" ]]; then
+      builders="$(jq -r 'select(.builders != null) | .builders[]' "${BUILDPACKDIR}/integration.json")"
+    fi
   fi
 
-  if [[ "${builder}" == "null" || -z "${builder}" ]]; then
-    builder="index.docker.io/paketobuildpacks/builder:buildpackless-base"
+  if [[ "${builders}" == "null" || -z "${builders}" ]]; then
+    builders="index.docker.io/paketobuildpacks/builder:buildpackless-base"
   fi
 
-  util::print::title "Pulling builder image..."
-  docker pull "${builder}"
+  while read -r builder; do
+    util::print::title "Pulling builder image ${builder}..."
+    docker pull "${builder}"
+
+    local run_image lifecycle_image
+    run_image="$(
+      pack inspect-builder "${builder}" --output json \
+        | jq -r '.remote_info.run_images[0].name'
+    )"
+    lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
+      pack inspect-builder "${builder}" --output json \
+        | jq -r '.remote_info.lifecycle.version'
+    )"
+
+    util::print::title "Pulling run image..."
+    docker pull "${run_image}"
+
+    util::print::title "Pulling lifecycle image..."
+    docker pull "${lifecycle_image}"
+  done <<< "${builders}"
 
   util::print::title "Setting default pack builder image..."
-  pack config default-builder "${builder}"
-
-  local run_image lifecycle_image
-  run_image="$(
-    pack inspect-builder "${builder}" --output json \
-      | jq -r '.remote_info.run_images[0].name'
-  )"
-  lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
-    pack inspect-builder "${builder}" --output json \
-      | jq -r '.remote_info.lifecycle.version'
-  )"
-
-  util::print::title "Pulling run image..."
-  docker pull "${run_image}"
-
-  util::print::title "Pulling lifecycle image..."
-  docker pull "${lifecycle_image}"
+  local default
+  read -r default <<< "${builders}"
+  pack config default-builder "${default}"
 }
 
 function tests::run() {

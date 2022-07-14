@@ -1,0 +1,3 @@
+{
+  "builders" : ["paketobuildpacks/builder:buildpackless-base", "paketobuildpacks/builder-jammy-buildpackless-base", "paketobuildpacks/builder-jammy-buildpackless-tiny"]
+}

@@ -1,8 +1,10 @@
 api = "0.6"
 
 [buildpack]
+  description = "A buildpack for building Go applications"
   homepage = "https://github.com/paketo-buildpacks/go"
   id = "paketo-buildpacks/go"
+  keywords = ["go", "golang"]
   name = "Paketo Go Buildpack"
 
   [[buildpack.licenses]]

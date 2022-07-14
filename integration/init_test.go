@@ -1,6 +1,8 @@
 package integration_test
 
 import (
+	"encoding/json"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
@@ -14,8 +16,18 @@ import (
 
 var goBuildpack string
 
+var config struct {
+	Builders []string `json:"builders"`
+}
+
 func TestIntegration(t *testing.T) {
 	Expect := NewWithT(t).Expect
+
+	file, err := os.Open("../integration.json")
+	Expect(err).NotTo(HaveOccurred())
+
+	Expect(json.NewDecoder(file).Decode(&config)).To(Succeed())
+	Expect(file.Close()).To(Succeed())
 
 	output, err := exec.Command("bash", "-c", "../scripts/package.sh --version 1.2.3").CombinedOutput()
 	Expect(err).NotTo(HaveOccurred(), string(output))

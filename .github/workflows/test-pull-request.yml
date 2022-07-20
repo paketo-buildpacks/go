@@ -5,7 +5,10 @@ on:
     branches:
     - main
 
-concurrency: pr-${{ github.event.number }}  # only run test suite once per PR
+concurrency:
+  # only one instance of test suite per PR at one time
+  group: pr-${{ github.event.number }}
+  cancel-in-progress: true
 
 jobs:
   builders:

@@ -20,7 +20,7 @@ jobs:
         source "${{ github.workspace }}/scripts/.util/builders.sh"
 
         builders="$(util::builders::list "${{ github.workspace }}/integration.json")"
-        printf "::set-output::name=builders::%s\n" "${builders}"
+        printf "::set-output name=builders::%s\n" "${builders}"
 
   integration:
     name: Integration Tests

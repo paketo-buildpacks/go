@@ -11,13 +11,23 @@ source "${PROGDIR}/.util/tools.sh"
 # shellcheck source=SCRIPTDIR/.util/print.sh
 source "${PROGDIR}/.util/print.sh"
 
+# shellcheck source=SCRIPTDIR/.util/builders.sh
+source "${PROGDIR}/.util/builders.sh"
+
 function main() {
+  local builderArray
+  builderArray=()
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
       --help|-h)
         shift 1
         usage
         exit 0
+        ;;
+
+      --builder|-b)
+        builderArray+=("${2}")
+        shift 2
         ;;
 
       "")
@@ -35,8 +45,32 @@ function main() {
   fi
 
   tools::install
-  images::pull
-  tests::run
+
+  if [ ${#builderArray[@]} -eq 0 ]; then
+    util::print::title "No builders provided. Finding builders in integration.json..."
+
+    local builders
+    builders="$(util::builders::list "${BUILDPACKDIR}/integration.json" | jq -r '.[]' )"
+
+    # shellcheck disable=SC2206
+    IFS=$'\n' builderArray=(${builders})
+    unset IFS
+  fi
+
+  # shellcheck disable=SC2068
+  images::pull ${builderArray[@]}
+
+  local testout
+  testout=$(mktemp)
+  for builder in "${builderArray[@]}"; do
+    util::print::title "Setting default pack builder image..."
+    pack config default-builder "${builder}"
+
+    tests::run "${builder}" "${testout}"
+  done
+
+  util::tools::tests::checkfocus "${testout}"
+  util::print::success "** GO Test Succeeded with all builders**"
 }
 
 function usage() {
@@ -46,7 +80,9 @@ integration.sh [OPTIONS]
 Runs the integration test suite.
 
 OPTIONS
-  --help  -h  prints the command usage
+  --help           -h         prints the command usage
+  --builder <name> -b <name>  sets the name of the builder(s) that are pulled / used for testing.
+                              Defaults to "builders" array in integration.json, if present.
 USAGE
 }
 
@@ -59,22 +95,7 @@ function tools::install() {
 }
 
 function images::pull() {
-  local builders
-  builders=""
-
-  if [[ -f "${BUILDPACKDIR}/integration.json" ]]; then
-    builders="$(jq -r .builder "${BUILDPACKDIR}/integration.json")"
-
-    if [[ "${builders}" == "null" || -z "${builders}" ]]; then
-      builders="$(jq -r 'select(.builders != null) | .builders[]' "${BUILDPACKDIR}/integration.json")"
-    fi
-  fi
-
-  if [[ "${builders}" == "null" || -z "${builders}" ]]; then
-    builders="index.docker.io/paketobuildpacks/builder:buildpackless-base"
-  fi
-
-  while read -r builder; do
+  for builder in "${@}"; do
     util::print::title "Pulling builder image ${builder}..."
     docker pull "${builder}"
 
@@ -93,24 +114,19 @@ function images::pull() {
 
     util::print::title "Pulling lifecycle image..."
     docker pull "${lifecycle_image}"
-  done <<< "${builders}"
-
-  util::print::title "Setting default pack builder image..."
-  local default
-  read -r default <<< "${builders}"
-  pack config default-builder "${default}"
+  done
 }
 
 function tests::run() {
   util::print::title "Run Buildpack Runtime Integration Tests"
+  util::print::info "Using ${1} as builder..."
 
-  testout=$(mktemp)
   pushd "${BUILDPACKDIR}" > /dev/null
-    if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./integration/... -v -run Integration | tee "${testout}"; then
-      util::tools::tests::checkfocus "${testout}"
-      util::print::success "** GO Test Succeeded **"
+    #shellcheck disable=SC2068
+    if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./integration/... -v -run Integration | tee "${2}"; then
+      util::print::info "** GO Test Succeeded with ${1}**"
     else
-      util::print::error "** GO Test Failed **"
+      util::print::error "** GO Test Failed with ${1}**"
     fi
   popd > /dev/null
 }

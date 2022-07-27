@@ -118,7 +118,9 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 		context("when using utility buildpacks", func() {
 			var procfileContainer occam.Container
 			it.Before(func() {
-				Expect(os.WriteFile(filepath.Join(source, "Procfile"), []byte("procfile: echo Procfile command"), 0644)).To(Succeed())
+				Expect(os.WriteFile(filepath.Join(source, "Procfile"),
+					[]byte("procfile: /layers/paketo-buildpacks_go-build/targets/bin/go-online --moon"),
+					0644)).To(Succeed())
 			})
 
 			it.After(func() {
@@ -165,16 +167,14 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 
 				procfileContainer, err = docker.Container.Run.
 					WithEntrypoint("procfile").
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(func() string {
-					containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
-					Expect(err).NotTo(HaveOccurred())
-					return containerLogs.String()
-				}).Should(
-					ContainSubstring("Procfile command"),
-				)
+				Eventually(procfileContainer).Should(BeAvailable())
+				Eventually(procfileContainer).Should(Serve(ContainSubstring("Hello, Moon!")).OnPort(8080))
 			})
 		})
 

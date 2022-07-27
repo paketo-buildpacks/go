@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,8 +10,17 @@ import (
 )
 
 func main() {
+	moonPtr := flag.Bool("moon", false, "say Hello, Moon!")
+	flag.Parse()
+
 	foo.Do()
-	http.HandleFunc("/", hello)
+
+	if *moonPtr {
+		http.HandleFunc("/", moon)
+	} else {
+		http.HandleFunc("/", world)
+	}
+
 	port := "8080"
 	if os.Getenv("PORT") != "" {
 		port = os.Getenv("PORT")
@@ -22,7 +32,12 @@ func main() {
 	}
 }
 
-func hello(res http.ResponseWriter, req *http.Request) {
+func world(res http.ResponseWriter, req *http.Request) {
 	fmt.Fprintln(res, "Hello, World!")
+	fmt.Fprintf(res, "PATH=%s", os.Getenv("PATH"))
+}
+
+func moon(res http.ResponseWriter, req *http.Request) {
+	fmt.Fprintln(res, "Hello, Moon!")
 	fmt.Fprintf(res, "PATH=%s", os.Getenv("PATH"))
 }

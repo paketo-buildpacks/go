@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
@@ -15,6 +16,9 @@ type Config struct {
 }
 
 func main() {
+	moonPtr := flag.Bool("moon", false, "say Hello, Moon!")
+	flag.Parse()
+
 	var conf Config
 	if _, err := toml.Decode("whatever", &conf); err != nil {
 		fmt.Println("toml library installed")
@@ -23,7 +27,7 @@ func main() {
 	u2 := uuid.NewV4()
 	fmt.Printf("UUIDv4: %s\n", u2)
 
-	http.HandleFunc("/", hello)
+	http.HandleFunc("/", hello(*moonPtr))
 	fmt.Println("listening...")
 
 	port := "8080"
@@ -36,6 +40,13 @@ func main() {
 	}
 }
 
-func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprint(res, "Hello, World!")
+func hello(moon bool) func(res http.ResponseWriter, req *http.Request) {
+	if moon {
+		return func(res http.ResponseWriter, req *http.Request) {
+			fmt.Fprint(res, "Hello, Moon!")
+		}
+	}
+	return func(res http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(res, "Hello, World!")
+	}
 }

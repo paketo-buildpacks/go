@@ -1,3 +1,8 @@
 {
-  "builders" : ["paketobuildpacks/builder:buildpackless-base", "paketobuildpacks/builder-jammy-buildpackless-base", "paketobuildpacks/builder-jammy-buildpackless-tiny"]
+  "builders": [
+    "paketobuildpacks/builder:buildpackless-base",
+    "paketobuildpacks/builder:buildpackless-base",
+    "paketobuildpacks/builder-jammy-buildpackless-base",
+    "paketobuildpacks/builder-jammy-buildpackless-tiny"
+  ]
 }

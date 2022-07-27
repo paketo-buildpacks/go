@@ -15,9 +15,30 @@ on:
 concurrency: release
 
 jobs:
+  builders:
+    name: Get Builders for Testing
+    runs-on: ubuntu-latest
+    outputs:
+      builders: ${{ steps.builders.outputs.builders }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Get builders from integration.json
+      id: builders
+      run: |
+        source "${{ github.workspace }}/scripts/.util/builders.sh"
+
+        builders="$(util::builders::list "${{ github.workspace }}/integration.json")"
+        printf "Output: %s\n" "${builders}"
+        printf "::set-output name=builders::%s\n" "${builders}"
   integration:
     name: Integration Tests
     runs-on: ubuntu-latest
+    needs: [builders]
+    strategy:
+      matrix:
+        builder: ${{ fromJSON(needs.builders.outputs.builders) }}
+      fail-fast: false  # don't cancel all test jobs when one fails
     steps:
     - name: Setup Go
       uses: actions/setup-go@v3
@@ -27,7 +48,7 @@ jobs:
       uses: actions/checkout@v3
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Run Integration Tests
-      run: ./scripts/integration.sh
+      run: ./scripts/integration.sh --builder ${{ matrix.builder }}
 
   release:
     name: Release

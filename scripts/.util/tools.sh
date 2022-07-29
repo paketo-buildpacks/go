@@ -16,7 +16,7 @@ function util::tools::path::export() {
   fi
 }
 
-function util::tools::jam::install () {
+function util::tools::jam::install() {
   local dir
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -58,6 +58,8 @@ function util::tools::jam::install () {
       --location \
       --output "${dir}/jam"
     chmod +x "${dir}/jam"
+  else
+    util::print::info "Using $("${dir}"/jam version)"
   fi
 }
 
@@ -105,6 +107,8 @@ function util::tools::pack::install() {
     tar xzf /tmp/pack.tgz -C "${dir}"
     chmod +x "${dir}/pack"
     rm /tmp/pack.tgz
+  else
+    util::print::info "Using pack $("${dir}"/pack version)"
   fi
 }
 

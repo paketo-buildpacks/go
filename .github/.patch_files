@@ -7,6 +7,7 @@
 .github/workflows/auto-merge.yml
 .github/workflows/check-pr-labels.yml
 .github/workflows/codeql-analysis.yml
+.github/workflows/go-get-update.yml
 .github/workflows/label-pr.yml
 .github/workflows/lint-yaml.yml
 .github/workflows/lint.yml

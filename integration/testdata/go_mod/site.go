@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"flag"
 	"fmt"
 	"net/http"
@@ -10,6 +11,10 @@ import (
 
 	"github.com/BurntSushi/toml"
 )
+
+// Embeds the .occam-key to make the images unique after the source is removed.
+//go:embed .occam-key
+var s string
 
 type Config struct {
 	Age int

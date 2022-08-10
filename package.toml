@@ -3,19 +3,19 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dep@0.5.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dep@0.6.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dep-ensure@0.4.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dep-ensure@0.4.1"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.0.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.1.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.1"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.0.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.0.1"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.2.1"

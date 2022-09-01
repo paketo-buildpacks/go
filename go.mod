@@ -6,7 +6,7 @@ require (
 	github.com/Microsoft/hcsshim v0.9.4 // indirect
 	github.com/containerd/cgroups v1.0.4 // indirect
 	github.com/moby/sys/mount v0.3.3 // indirect
-	github.com/onsi/gomega v1.20.1
+	github.com/onsi/gomega v1.20.2
 	github.com/opencontainers/runc v1.1.3 // indirect
 	github.com/paketo-buildpacks/occam v0.13.0
 	github.com/sclevine/spec v1.4.0

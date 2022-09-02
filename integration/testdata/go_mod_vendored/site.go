@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"net/http"
 	"os"
@@ -13,6 +14,9 @@ import (
 type Config struct {
 	Age int
 }
+
+//go:embed .occam-key
+var s string
 
 func main() {
 	var conf Config

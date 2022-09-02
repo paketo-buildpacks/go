@@ -81,15 +81,14 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 			Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
 
-			Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Distribution")))
+			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Build")))
 
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Dep Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Go Mod Vendor")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Procfile")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Git")))
 
 			// check that all required SBOM files are present
 			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_go-dist", "go", "sbom.cdx.json")).To(BeARegularFile())
@@ -131,11 +130,11 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
-				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Distribution")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Build")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Procfile")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
 
 				container, err = docker.Container.Run.
@@ -178,15 +177,14 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 				Eventually(container).Should(Serve(ContainSubstring("Hello, World!")).OnPort(8080))
 
-				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Distribution")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Build")))
 
-				Expect(logs).NotTo(ContainLines(ContainSubstring("Go Mod Vendor Buildpack")))
-				Expect(logs).NotTo(ContainLines(ContainSubstring("Dep Buildpack")))
-				Expect(logs).NotTo(ContainLines(ContainSubstring("Procfile Buildpack")))
-				Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-				Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
-				Expect(logs).NotTo(ContainLines(ContainSubstring("Git Buildpack")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Go Mod Vendor")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Procfile")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Git")))
 			})
 		})
 
@@ -232,9 +230,9 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, filepath.Join(source, "build"))
 				Expect(err).NotTo(HaveOccurred())
 
-				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Go Distribution Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Go Build Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for CA Certificates")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Distribution")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Go Build")))
 
 				container, err = docker.Container.Run.
 					WithPublish("8080").

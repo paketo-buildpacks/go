@@ -3,14 +3,17 @@ package main
 import (
 	"crypto/tls"
 	"crypto/x509"
+	_ "embed"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 )
 
-func main() {
+//go:embed .occam-key
+var s string
 
+func main() {
 	certpool, err := x509.SystemCertPool()
 	if err != nil {
 		log.Fatal("failed to get system certs")

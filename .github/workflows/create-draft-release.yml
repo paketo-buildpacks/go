@@ -17,7 +17,7 @@ concurrency: release
 jobs:
   builders:
     name: Get Builders for Testing
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       builders: ${{ steps.builders.outputs.builders }}
     steps:
@@ -33,7 +33,7 @@ jobs:
         printf "::set-output name=builders::%s\n" "${builders}"
   integration:
     name: Integration Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [builders]
     strategy:
       matrix:
@@ -52,7 +52,7 @@ jobs:
 
   release:
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: integration
     steps:
     - name: Checkout
@@ -109,7 +109,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [ integration, release ]
     if: ${{ always() && needs.integration.result == 'failure' || needs.release.result == 'failure' }}
     steps:

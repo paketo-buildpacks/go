@@ -8,7 +8,7 @@ on:
 jobs:
   push:
     name: Push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
 
     - name: Parse Event
@@ -76,7 +76,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [push]
     if: ${{ always() && needs.push.result == 'failure' }}
     steps:

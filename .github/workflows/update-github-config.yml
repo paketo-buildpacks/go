@@ -10,7 +10,7 @@ concurrency: github_config_update
 jobs:
   build:
     name: Create PR to update shared files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
 
     - name: Checkout

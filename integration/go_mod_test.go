@@ -153,7 +153,7 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Git")))
-				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Watchexec")))
 
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).

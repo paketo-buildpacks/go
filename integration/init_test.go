@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/paketo-buildpacks/occam"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 
@@ -15,6 +16,7 @@ import (
 var goBuildpack string
 
 func TestIntegration(t *testing.T) {
+	pack := occam.NewPack()
 	Expect := NewWithT(t).Expect
 
 	output, err := exec.Command("bash", "-c", "../scripts/package.sh --version 1.2.3").CombinedOutput()
@@ -30,4 +32,10 @@ func TestIntegration(t *testing.T) {
 	suite("GoMod", testGoMod)
 	suite("ReproducibleBuilds", testReproducibleBuilds)
 	suite.Run(t)
+
+	// Only perform the graceful stack upgrade test on the Bionic base stack
+	builder, _ := pack.Builder.Inspect.Execute()
+	if builder.BuilderName == "paketobuildpacks/builder:buildpackless-base" {
+		spec.Run(t, "StackUpgrades", testGracefulStackUpgrades, spec.Report(report.Terminal{}))
+	}
 }

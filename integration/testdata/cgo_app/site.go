@@ -15,7 +15,6 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-//go:embed .occam-key
 var s string
 
 type Config struct {

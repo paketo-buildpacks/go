@@ -74,7 +74,6 @@ func testGracefulStackUpgrades(t *testing.T, context spec.G, it spec.S) {
 			container, err = docker.Container.Run.
 				WithEnv(map[string]string{"PORT": "8080"}).
 				WithPublish("8080").
-				WithPublishAll().
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 

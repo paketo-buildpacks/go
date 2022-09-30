@@ -41,8 +41,10 @@ func main() {
 	if err != nil {
 		panic(fmt.Errorf("sql err: %v", err))
 	}
-	defer db.Close()
-	fmt.Println("db closed")
+	defer func() {
+		db.Close()
+		fmt.Println("db closed")
+	}()
 
 	port := "8080"
 	if systemPort := os.Getenv("PORT"); systemPort != "" {

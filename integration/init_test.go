@@ -3,7 +3,6 @@ package integration_test
 import (
 	"os/exec"
 	"path/filepath"
-	"strings"
 	"testing"
 	"time"
 
@@ -35,7 +34,7 @@ func TestIntegration(t *testing.T) {
 
 	// Only perform the graceful stack upgrade test on stacks that aren't jammy
 	builder, _ := pack.Builder.Inspect.Execute()
-	if !strings.Contains(builder.LocalInfo.Stack.ID, "io.buildpacks.stacks.jammy") {
+	if builder.LocalInfo.Stack.ID == "io.buildpacks.stacks.bionic" {
 		suite("StackUpgrades", testGracefulStackUpgrades)
 	}
 	suite.Run(t)

@@ -3,6 +3,7 @@ package integration_test
 import (
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -31,11 +32,11 @@ func TestIntegration(t *testing.T) {
 	suite("Build", testBuild)
 	suite("GoMod", testGoMod)
 	suite("ReproducibleBuilds", testReproducibleBuilds)
-	suite.Run(t)
 
-	// Only perform the graceful stack upgrade test on the Bionic base stack
+	// Only perform the graceful stack upgrade test on stacks that aren't jammy
 	builder, _ := pack.Builder.Inspect.Execute()
-	if builder.BuilderName == "paketobuildpacks/builder:buildpackless-base" {
-		spec.Run(t, "StackUpgrades", testGracefulStackUpgrades, spec.Report(report.Terminal{}))
+	if !strings.Contains(builder.LocalInfo.Stack.ID, "io.buildpacks.stacks.jammy") {
+		suite("StackUpgrades", testGracefulStackUpgrades)
 	}
+	suite.Run(t)
 }

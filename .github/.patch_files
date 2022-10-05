@@ -4,10 +4,6 @@
 .github/dependabot.yml
 .github/labels.yml
 .github/workflows/approve-bot-pr.yml
-.github/workflows/auto-merge.yml
-.github/workflows/check-pr-labels.yml
-.github/workflows/codeql-analysis.yml
-.github/workflows/go-get-update.yml
 .github/workflows/label-pr.yml
 .github/workflows/lint-yaml.yml
 .github/workflows/lint.yml
@@ -19,8 +15,8 @@
 LICENSE
 NOTICE
 README.md
+scripts/.util/builders.sh
 scripts/.util/print.sh
 scripts/.util/tools.json
 scripts/.util/tools.sh
-scripts/.util/builders.sh
 scripts/integration.sh

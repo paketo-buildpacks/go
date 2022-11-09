@@ -26,7 +26,7 @@ jobs:
 
         builders="$(util::builders::list "${{ github.workspace }}/integration.json")"
         printf "Output: %s\n" "${builders}"
-        printf "::set-output name=builders::%s\n" "${builders}"
+        printf "builders=%s\n" "${builders}" >> "$GITHUB_OUTPUT"
 
   integration:
     name: Integration Tests with Builders

@@ -17,10 +17,10 @@ jobs:
         FULL_VERSION="$(jq -r '.release.tag_name' "${GITHUB_EVENT_PATH}" | sed s/^v//)"
         MINOR_VERSION="$(echo "${FULL_VERSION}" | awk -F '.' '{print $1 "." $2 }')"
         MAJOR_VERSION="$(echo "${FULL_VERSION}" | awk -F '.' '{print $1 }')"
-        echo "::set-output name=tag_full::${FULL_VERSION}"
-        echo "::set-output name=tag_minor::${MINOR_VERSION}"
-        echo "::set-output name=tag_major::${MAJOR_VERSION}"
-        echo "::set-output name=download_url::$(jq -r '.release.assets[] | select(.name | endswith(".cnb")) | .url' "${GITHUB_EVENT_PATH}")"
+        echo "tag_full=${FULL_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "tag_minor=${MINOR_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "tag_major=${MAJOR_VERSION}" >> "$GITHUB_OUTPUT"
+        echo "download_url=$(jq -r '.release.assets[] | select(.name | endswith(".cnb")) | .url' "${GITHUB_EVENT_PATH}")" >> "$GITHUB_OUTPUT"
 
     - name: Download
       uses: paketo-buildpacks/github-config/actions/release/download-asset@main
@@ -63,8 +63,8 @@ jobs:
         sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:${{ steps.event.outputs.tag_minor }}"
         sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:${{ steps.event.outputs.tag_major }}"
         sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:latest"
-        echo "::set-output name=image::${IMAGE}"
-        echo "::set-output name=digest::$(sudo skopeo inspect "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" | jq -r .Digest)"
+        echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
+        echo "digest=$(sudo skopeo inspect "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" | jq -r .Digest)" >> "$GITHUB_OUTPUT"
 
     - name: Register with CNB Registry
       uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:main

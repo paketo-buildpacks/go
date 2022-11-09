@@ -30,7 +30,7 @@ jobs:
 
         builders="$(util::builders::list "${{ github.workspace }}/integration.json")"
         printf "Output: %s\n" "${builders}"
-        printf "::set-output name=builders::%s\n" "${builders}"
+        printf "builders=%s\n" "${builders}" >> "$GITHUB_OUTPUT"
   integration:
     name: Integration Tests
     runs-on: ubuntu-22.04
@@ -79,7 +79,7 @@ jobs:
         if [ -z "${tag}" ]; then
           tag="${{ steps.semver.outputs.tag }}"
         fi
-        echo "::set-output name=tag::${tag}"
+        echo "tag=${tag}" >> "$GITHUB_OUTPUT"
     - name: Package
       run: ./scripts/package.sh --version "${{ steps.tag.outputs.tag }}"
     - name: Create Release Notes

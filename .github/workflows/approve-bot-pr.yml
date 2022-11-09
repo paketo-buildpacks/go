@@ -25,8 +25,8 @@ jobs:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
     - id: pr-data
       run: |
-        echo "::set-output name=author::$(cat event.json | jq -r '.pull_request.user.login')"
-        echo "::set-output name=number::$(cat event.json | jq -r '.pull_request.number')"
+        echo "author=$(cat event.json | jq -r '.pull_request.user.login')" >> "$GITHUB_OUTPUT"
+        echo "number=$(cat event.json | jq -r '.pull_request.number')" >> "$GITHUB_OUTPUT"
 
   approve:
     name: Approve Bot PRs

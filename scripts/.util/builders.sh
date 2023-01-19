@@ -19,7 +19,7 @@ function util::builders::list() {
 
   if [[ -z "${builders}" ]]; then
     util::print::info "No builders specified. Falling back to default builder..."
-    builders="$(jq --compact-output --null-input '["index.docker.io/paketobuildpacks/builder:buildpackless-base"]')"
+    builders="$(jq --compact-output --null-input '["index.docker.io/paketobuildpacks/builder-jammy-buildpackless-base:latest"]')"
   fi
 
   echo "${builders}"

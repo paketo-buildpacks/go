@@ -67,3 +67,22 @@ jobs:
         gh pr merge ${{ needs.download.outputs.pr-number }} --auto --rebase
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+
+  failure:
+    name: Alert on Failure
+    runs-on: ubuntu-22.04
+    needs: [download, approve]
+    if: ${{ always() && needs.download.result == 'failure' || needs.approve.result == 'failure' }}
+    steps:
+    - name: File Failure Alert Issue
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        label: "failure:approve-bot-pr"
+        comment_if_exists: true
+        issue_title: "Failure: Approve bot PR workflow"
+        issue_body: |
+          Approve bot PR workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
+        comment_body: |
+          Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}

@@ -1,0 +1,37 @@
+name: Create reminder issue for buildpack releases
+
+on:
+  schedule:
+    - cron: '0 10 * * 3 '
+  workflow_dispatch: {}
+
+jobs:
+  reminder:
+    name: Reminder
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Get Month
+        id: date
+        run: |
+          echo "day_of_month=$(date +'%b %d')" >> "${GITHUB_OUTPUT}"
+
+      - name: File Issue
+        id: file-issue
+        uses: paketo-buildpacks/github-config/actions/issue/file@main
+        with:
+          token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          issue_title: "Week of (${{ steps.date.outputs.day_of_month }}): Cut buildpack releases"
+          issue_body: ""
+
+      - name: Add issue to project
+        id: issue-to-proj
+        uses: paketo-buildpacks/github-config/actions/issue/add-to-project@main
+        with:
+          # Paketo buildpacks project -https://github.com/orgs/paketo-buildpacks/projects/20
+          project-org: paketo-buildpacks
+          project-num: 20
+          field-name: Workstream
+          option-name: Buildpack Releases
+          issue-node-id: ${{ steps.file-issue.outputs.node-id }}
+          token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

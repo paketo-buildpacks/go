@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
           repo: ${{ github.repository }}
-          issue_title: "Week of (${{ steps.date.outputs.day_of_month }}): Cut buildpack releases"
+          issue_title: "Week of ${{ steps.date.outputs.day_of_month }}: Cut buildpack releases"
           issue_body: ""
 
       - name: Add issue to project

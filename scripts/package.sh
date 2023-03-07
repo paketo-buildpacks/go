@@ -15,7 +15,8 @@ source "${ROOT_DIR}/scripts/.util/tools.sh"
 source "${ROOT_DIR}/scripts/.util/print.sh"
 
 function main {
-  local version output
+  local version output token
+  token=""
 
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -26,6 +27,11 @@ function main {
 
       --output|-o)
         output="${2}"
+        shift 2
+        ;;
+
+      --token|-t)
+        token="${2}"
         shift 2
         ;;
 
@@ -57,7 +63,7 @@ function main {
 
   repo::prepare
 
-  util::tools::pack::install --directory "${BIN_DIR}"
+  tools::install "${token}"
 
   buildpack::archive "${version}"
   buildpackage::create "${output}"
@@ -73,6 +79,7 @@ OPTIONS
   --help               -h            prints the command usage
   --version <version>  -v <version>  specifies the version number to use when packaging the buildpack
   --output <output>    -o <output>   location to output the packaged buildpackage artifact (default: ${ROOT_DIR}/build/buildpackage.cnb)
+  --token <token>                    Token used to download assets from GitHub (e.g. jam, pack, etc) (optional)
 USAGE
 }
 
@@ -87,13 +94,24 @@ function repo::prepare() {
   export PATH="${BIN_DIR}:${PATH}"
 }
 
+function tools::install() {
+  local token
+  token="${1}"
+
+  util::tools::jam::install \
+    --directory "${BIN_DIR}" \
+    --token "${token}"
+
+  util::tools::pack::install \
+    --directory "${BIN_DIR}" \
+    --token "${token}"
+}
+
 function buildpack::archive() {
   local version
   version="${1}"
 
   util::print::title "Packaging buildpack into ${BUILD_DIR}/buildpack.tgz..."
-
-  util::tools::jam::install --directory "${BIN_DIR}"
 
   jam pack \
     --buildpack "${ROOT_DIR}/buildpack.toml" \

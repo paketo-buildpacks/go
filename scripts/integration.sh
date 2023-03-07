@@ -15,8 +15,10 @@ source "${PROGDIR}/.util/print.sh"
 source "${PROGDIR}/.util/builders.sh"
 
 function main() {
-  local builderArray
+  local builderArray token
   builderArray=()
+  token=""
+
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
       --help|-h)
@@ -27,6 +29,12 @@ function main() {
 
       --builder|-b)
         builderArray+=("${2}")
+        shift 2
+        ;;
+
+
+      --token|-t)
+        token="${2}"
         shift 2
         ;;
 
@@ -44,7 +52,7 @@ function main() {
     util::print::warn "** WARNING  No Integration tests **"
   fi
 
-  tools::install
+  tools::install "${token}"
 
   if [ ${#builderArray[@]} -eq 0 ]; then
     util::print::title "No builders provided. Finding builders in integration.json..."
@@ -83,15 +91,21 @@ OPTIONS
   --help           -h         prints the command usage
   --builder <name> -b <name>  sets the name of the builder(s) that are pulled / used for testing.
                               Defaults to "builders" array in integration.json, if present.
+  --token <token>             Token used to download assets from GitHub (e.g. jam, pack, etc) (optional)
 USAGE
 }
 
 function tools::install() {
+  local token
+  token="${1}"
+
   util::tools::pack::install \
-    --directory "${BUILDPACKDIR}/.bin"
+    --directory "${BUILDPACKDIR}/.bin" \
+    --token "${token}"
 
   util::tools::jam::install \
-    --directory "${BUILDPACKDIR}/.bin"
+    --directory "${BUILDPACKDIR}/.bin" \
+    --token "${token}"
 }
 
 function images::pull() {

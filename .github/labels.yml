@@ -16,6 +16,9 @@
 - name: documentation
   description: This issue relates to writing documentation
   color: D4C5F9
+- name: help wanted
+  description: Extra attention is needed
+  color: 008672
 - name: semver:major
   description: A change requiring a major version bump
   color: 6b230e

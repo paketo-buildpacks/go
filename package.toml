@@ -9,7 +9,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.5.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/git@1.0.4"
+  uri = "urn:cnb:registry:paketo-buildpacks/git@1.0.5"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.0.14"
@@ -18,7 +18,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.3.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.12"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.13"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.4.1"

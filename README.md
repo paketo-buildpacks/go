@@ -17,6 +17,7 @@ their dependencies. Usage examples can be found in the
 - [Paketo Jammy Full Builder](https://github.com/paketo-buildpacks/builder-jammy-full)
 - [Paketo Jammy Base Builder](https://github.com/paketo-buildpacks/builder-jammy-base)
 - [Paketo Jammy Tiny Builder](https://github.com/paketo-buildpacks/builder-jammy-tiny)
+- [Paketo Jammy Static Buildpackless Builder](https://github.com/paketo-buildpacks/builder-jammy-buildpackless-static)†
 - [Paketo Full Builder](https://github.com/paketo-buildpacks/full-builder)
 - [Paketo Base Builder](https://github.com/paketo-buildpacks/base-builder)
 - [Paketo Tiny Builder](https://github.com/paketo-buildpacks/tiny-builder)
@@ -29,3 +30,14 @@ This buildpack also includes the following utility buildpacks:
 - [CA Certificates CNB](https://github.com/paketo-buildpacks/ca-certificates)
 
 Check out the [Go Paketo Buildpack docs](https://paketo.io/docs/buildpacks/language-family-buildpacks/go/) for more information.
+
+† To build with the static buildpackless builder, use the following command:
+
+```
+pack build \
+  --builder paketobuildpacks/builder-jammy-buildpackless-static \
+  --buildpack paketo-buildpacks/go \
+  --env "CGO_ENABLED=0" \
+  --env "BP_GO_BUILD_FLAGS=-buildmode=default"
+  <app-name>
+```

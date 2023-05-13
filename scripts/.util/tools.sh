@@ -6,6 +6,42 @@ set -o pipefail
 # shellcheck source=SCRIPTDIR/print.sh
 source "$(dirname "${BASH_SOURCE[0]}")/print.sh"
 
+function util::tools::os() {
+  case "$(uname)" in
+    "Darwin")
+      echo "${1:-darwin}"
+      ;;
+
+    "Linux")
+      echo "linux"
+      ;;
+
+    *)
+      util::print::error "Unknown OS \"$(uname)\""
+      exit 1
+  esac
+}
+
+function util::tools::arch() {
+  case "$(uname -m)" in
+    arm64|aarch64)
+      echo "arm64"
+      ;;
+
+    amd64|x86_64)
+      if [[ "${1:-}" == "--blank-amd64" ]]; then
+        echo ""
+      else
+        echo "amd64"
+      fi
+      ;;
+
+    *)
+      util::print::error "Unknown Architecture \"$(uname -m)\""
+      exit 1
+  esac
+}
+
 function util::tools::path::export() {
   local dir
   dir="${1}"
@@ -37,26 +73,11 @@ function util::tools::jam::install() {
     esac
   done
 
-  local os
-  case "$(uname)" in
-    "Darwin")
-      os="darwin"
-      ;;
-
-    "Linux")
-      os="linux"
-      ;;
-
-    *)
-      echo "Unknown OS \"$(uname)\""
-      exit 1
-  esac
-
   mkdir -p "${dir}"
   util::tools::path::export "${dir}"
 
   if [[ ! -f "${dir}/jam" ]]; then
-    local version curl_args
+    local version curl_args os arch
 
     version="$(jq -r .jam "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
 
@@ -71,10 +92,12 @@ function util::tools::jam::install() {
       curl_args+=("--header" "Authorization: Token ${token}")
     fi
 
-
     util::print::title "Installing jam ${version}"
 
-    curl "https://github.com/paketo-buildpacks/jam/releases/download/${version}/jam-${os}" \
+    os=$(util::tools::os)
+    arch=$(util::tools::arch)
+
+    curl "https://github.com/paketo-buildpacks/jam/releases/download/${version}/jam-${os}-${arch}" \
       "${curl_args[@]}"
 
     chmod +x "${dir}/jam"
@@ -107,23 +130,8 @@ function util::tools::pack::install() {
   mkdir -p "${dir}"
   util::tools::path::export "${dir}"
 
-  local os
-  case "$(uname)" in
-    "Darwin")
-      os="macos"
-      ;;
-
-    "Linux")
-      os="linux"
-      ;;
-
-    *)
-      echo "Unknown OS \"$(uname)\""
-      exit 1
-  esac
-
   if [[ ! -f "${dir}/pack" ]]; then
-    local version curl_args
+    local version curl_args os arch
 
     version="$(jq -r .pack "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
 
@@ -141,7 +149,10 @@ function util::tools::pack::install() {
 
     util::print::title "Installing pack ${version}"
 
-    curl "https://github.com/buildpacks/pack/releases/download/${version}/pack-${version}-${os}.tgz" \
+    os=$(util::tools::os macos)
+    arch=$(util::tools::arch --blank-amd64)
+
+    curl "https://github.com/buildpacks/pack/releases/download/${version}/pack-${version}-${os}${arch:+-$arch}.tgz" \
       "${curl_args[@]}"
 
     tar xzf "${tmp_location}" -C "${dir}"

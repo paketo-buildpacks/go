@@ -6,7 +6,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.6.1"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.5.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.5.2"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/git@1.0.6"

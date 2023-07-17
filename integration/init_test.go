@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/paketo-buildpacks/occam"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 
@@ -16,7 +15,6 @@ import (
 var goBuildpack string
 
 func TestIntegration(t *testing.T) {
-	pack := occam.NewPack()
 	Expect := NewWithT(t).Expect
 
 	output, err := exec.Command("bash", "-c", "../scripts/package.sh --version 1.2.3").CombinedOutput()
@@ -31,11 +29,5 @@ func TestIntegration(t *testing.T) {
 	suite("Build", testBuild)
 	suite("GoMod", testGoMod)
 	suite("ReproducibleBuilds", testReproducibleBuilds)
-
-	// Only perform the graceful stack upgrade test on stacks that aren't jammy
-	builder, _ := pack.Builder.Inspect.Execute()
-	if builder.LocalInfo.Stack.ID == "io.buildpacks.stacks.bionic" {
-		suite("StackUpgrades", testGracefulStackUpgrades)
-	}
 	suite.Run(t)
 }

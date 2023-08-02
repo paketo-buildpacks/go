@@ -12,13 +12,13 @@
   uri = "urn:cnb:registry:paketo-buildpacks/git@1.0.6"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.0.22"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.0.23"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.3.10"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.3.11"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.21"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.22"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.5.2"

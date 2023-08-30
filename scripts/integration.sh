@@ -60,17 +60,20 @@ function main() {
     local builders
     builders="$(util::builders::list "${BUILDPACKDIR}/integration.json" | jq -r '.[]' )"
 
+    util::print::info "Found the following builders:"
+    util::print::info "${builders}"
+
     # shellcheck disable=SC2206
     IFS=$'\n' builderArray=(${builders})
     unset IFS
   fi
 
-  # shellcheck disable=SC2068
-  images::pull ${builderArray[@]}
-
   local testout
   testout=$(mktemp)
   for builder in "${builderArray[@]}"; do
+    util::print::title "Getting images for builder: '${builder}'"
+    builder_images::pull "${builder}"
+
     util::print::title "Setting default pack builder image..."
     pack config default-builder "${builder}"
 
@@ -108,27 +111,28 @@ function tools::install() {
     --token "${token}"
 }
 
-function images::pull() {
-  for builder in "${@}"; do
-    util::print::title "Pulling builder image ${builder}..."
-    docker pull "${builder}"
+function builder_images::pull() {
+  local builder
+  builder="${1}"
 
-    local run_image lifecycle_image
-    run_image="$(
-      pack inspect-builder "${builder}" --output json \
-        | jq -r '.remote_info.run_images[0].name'
-    )"
-    lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
-      pack inspect-builder "${builder}" --output json \
-        | jq -r '.remote_info.lifecycle.version'
-    )"
+  util::print::title "Pulling builder image ${builder}..."
+  docker pull "${builder}"
 
-    util::print::title "Pulling run image..."
-    docker pull "${run_image}"
+  local run_image lifecycle_image
+  run_image="$(
+    pack inspect-builder "${builder}" --output json \
+      | jq -r '.remote_info.run_images[0].name'
+  )"
+  lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
+    pack inspect-builder "${builder}" --output json \
+      | jq -r '.remote_info.lifecycle.version'
+  )"
 
-    util::print::title "Pulling lifecycle image..."
-    docker pull "${lifecycle_image}"
-  done
+  util::print::title "Pulling run image..."
+  docker pull "${run_image}"
+
+  util::print::title "Pulling lifecycle image..."
+  docker pull "${lifecycle_image}"
 }
 
 function tests::run() {

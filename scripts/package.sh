@@ -15,7 +15,7 @@ source "${ROOT_DIR}/scripts/.util/tools.sh"
 source "${ROOT_DIR}/scripts/.util/print.sh"
 
 function main {
-  local version output token
+  local version output token flags
   token=""
 
   while [[ "${#}" != 0 ]]; do
@@ -32,6 +32,11 @@ function main {
 
       --token|-t)
         token="${2}"
+        shift 2
+        ;;
+
+      --label)
+        flags+=("--label" "${2}")
         shift 2
         ;;
 
@@ -66,7 +71,7 @@ function main {
   tools::install "${token}"
 
   buildpack::archive "${version}"
-  buildpackage::create "${output}"
+  buildpackage::create "${output}" "${flags[@]}"
 }
 
 function usage() {
@@ -121,15 +126,23 @@ function buildpack::archive() {
 }
 
 function buildpackage::create() {
-  local output
+  local output flags
   output="${1}"
+  flags=("${@:2}")
 
   util::print::title "Packaging buildpack..."
 
+  args=(
+      --config "${ROOT_DIR}/package.toml"
+      --format file
+    )
+
+
+  args+=("${flags[@]}")
+
   pack \
     buildpack package "${output}" \
-      --config "${ROOT_DIR}/package.toml" \
-      --format file
+    "${args[@]}"
 }
 
 main "${@:-}"

@@ -2,7 +2,7 @@ name: Create reminder issue for buildpack releases
 
 on:
   schedule:
-    - cron: '0 3 * * MON '
+    - cron: '54 3 * * MON' # every Monday at 3:54am UTC
   workflow_dispatch: {}
 
 jobs:

@@ -43,10 +43,9 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.20.x
+        go-version: 'stable'
     - name: Checkout
       uses: actions/checkout@v3
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Run Integration Tests
       env:
         TMPDIR: "${{ runner.temp }}"
@@ -59,7 +58,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
+      with:
+        fetch-tags: true
     - name: Reset Draft Release
       id: reset
       uses: paketo-buildpacks/github-config/actions/release/reset-draft@main

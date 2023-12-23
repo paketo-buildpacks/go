@@ -3,7 +3,7 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.6.6"
+  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.6.7"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.5.6"
@@ -24,7 +24,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.5.5"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.6.7"
+  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.6.8"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.8.6"
+  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.8.7"

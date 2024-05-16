@@ -16,3 +16,8 @@ updates:
       update-types:
       - "minor"
       - "patch"
+      exclude-patterns:
+      - "github.com/anchore/stereoscope"
+      - "github.com/testcontainers/testcontainers-go"
+      - "github.com/docker/docker"
+      - "github.com/containerd/containerd"

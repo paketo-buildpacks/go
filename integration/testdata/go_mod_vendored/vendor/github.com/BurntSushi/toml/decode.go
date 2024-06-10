@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"math"
 	"os"
 	"reflect"
@@ -90,7 +89,7 @@ const (
 // UnmarshalText method. See the Unmarshaler example for a demonstration with
 // email addresses.
 //
-// Key mapping
+// # Key mapping
 //
 // TOML keys can map to either keys in a Go map or field names in a Go struct.
 // The special `toml` struct tag can be used to map TOML keys to struct fields
@@ -147,7 +146,7 @@ func (dec *Decoder) Decode(v interface{}) (MetaData, error) {
 
 	// TODO: parser should read from io.Reader? Or at the very least, make it
 	// read from []byte rather than string
-	data, err := ioutil.ReadAll(dec.r)
+	data, err := io.ReadAll(dec.r)
 	if err != nil {
 		return MetaData{}, err
 	}

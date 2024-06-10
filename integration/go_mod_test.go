@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -187,7 +187,7 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 				source, err = occam.Source(filepath.Join("testdata", "ca_certificate_apps"))
 				Expect(err).NotTo(HaveOccurred())
 
-				caCert, err := ioutil.ReadFile(filepath.Join(source, "client_certs", "ca.pem"))
+				caCert, err := os.ReadFile(filepath.Join(source, "client_certs", "ca.pem"))
 				Expect(err).ToNot(HaveOccurred())
 
 				caCertPool := x509.NewCertPool()
@@ -251,7 +251,7 @@ func testGoMod(t *testing.T, context spec.G, it spec.S) {
 					}
 					defer response.Body.Close()
 
-					content, err := ioutil.ReadAll(response.Body)
+					content, err := io.ReadAll(response.Body)
 					if err != nil {
 						return ""
 					}

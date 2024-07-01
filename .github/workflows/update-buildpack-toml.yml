@@ -22,6 +22,7 @@ jobs:
         branch: automation/buildpack.toml/update
 
     - name: Update buildpack.toml
+      id: update
       uses: paketo-buildpacks/github-config/actions/buildpack/update@main
 
     - name: Commit
@@ -39,13 +40,22 @@ jobs:
       with:
         branch: automation/buildpack.toml/update
 
-    - name: Open Pull Request
-      if: ${{ steps.commit.outputs.commit_sha != '' }}
+    - name: Open Pull Request (no semver label)
+      if: ${{ steps.commit.outputs.commit_sha != ''  && steps.update.outputs.semver_bump == '' }}
       uses: paketo-buildpacks/github-config/actions/pull-request/open@main
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         title: "Updates buildpacks in buildpack.toml"
         branch: automation/buildpack.toml/update
+
+    - name: Open Pull Request
+      if: ${{ steps.commit.outputs.commit_sha != '' && steps.update.outputs.semver_bump != '' }}
+      uses: paketo-buildpacks/github-config/actions/pull-request/open@main
+      with:
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        title: "Updates buildpacks in buildpack.toml"
+        branch: automation/buildpack.toml/update
+        label: "semver:${{ steps.update.outputs.semver_bump }}"
 
   failure:
     name: Alert on Failure

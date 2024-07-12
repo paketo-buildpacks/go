@@ -27,7 +27,7 @@ jobs:
         id: current-go-version
         uses: paketo-buildpacks/github-config/actions/update-go-mod-version@main
         with:
-          toolchain-version: ${{ steps.setup-go.outputs.go-version }}
+          go-version: ${{ steps.setup-go.outputs.go-version }}
       - name: Go mod tidy
         run: |
           #!/usr/bin/env bash
@@ -54,7 +54,7 @@ jobs:
         id: commit
         uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
         with:
-          message: "Updates go mod toolchain version to ${{ steps.setup-go.outputs.go-version }}"
+          message: "Updates go mod version to ${{ steps.setup-go.outputs.go-version }}"
           pathspec: "."
           keyid: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY_ID }}
           key: ${{ secrets.PAKETO_BOT_GPG_SIGNING_KEY }}
@@ -70,7 +70,7 @@ jobs:
         uses: paketo-buildpacks/github-config/actions/pull-request/open@main
         with:
           token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-          title: "Updates go mod toolchain version to ${{ steps.setup-go.outputs.go-version }}"
+          title: "Updates go mod version to ${{ steps.setup-go.outputs.go-version }}"
           branch: automation/go-mod-update/update-main
 
   failure:

@@ -28,20 +28,20 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "2.6.7"
+    version = "2.6.8"
 
   [[order.group]]
     id = "paketo-buildpacks/git"
     optional = true
-    version = "1.0.26"
+    version = "1.0.27"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
-    version = "1.0.43"
+    version = "1.0.44"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "2.2.16"
+    version = "2.2.17"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -72,16 +72,16 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "2.6.7"
+    version = "2.6.8"
 
   [[order.group]]
     id = "paketo-buildpacks/git"
     optional = true
-    version = "1.0.26"
+    version = "1.0.27"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "2.2.16"
+    version = "2.2.17"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"

@@ -3,7 +3,7 @@ module github.com/paketo-buildpacks/go
 go 1.23.4
 
 require (
-	github.com/onsi/gomega v1.36.1
+	github.com/onsi/gomega v1.36.2
 	github.com/paketo-buildpacks/occam v0.20.0
 	github.com/sclevine/spec v1.4.0
 )

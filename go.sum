@@ -713,8 +713,8 @@ github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/DataDog/zstd v1.4.5/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
 github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24/go.mod h1:4UJr5HIiMZrwgkSPdsjy2uOQExX/WEILpIrO9UPGuXs=
-github.com/ForestEckhardt/freezer v0.1.0 h1:1Av1G+uJTmhhJGuV8MkVLdiEH8ljuiBaV+Cgy30QbRE=
-github.com/ForestEckhardt/freezer v0.1.0/go.mod h1:fQApI/B3u/Pu6DD4rxmzBJQUBDc9EDu7ieqM6l4JvZA=
+github.com/ForestEckhardt/freezer v0.1.1 h1:ELpuDAAq2oLRXfddigV2TWbFloXu+mYkHjiHe8E9Ljk=
+github.com/ForestEckhardt/freezer v0.1.1/go.mod h1:fQApI/B3u/Pu6DD4rxmzBJQUBDc9EDu7ieqM6l4JvZA=
 github.com/GoogleCloudPlatform/cloudsql-proxy v0.0.0-20191009163259-e802c2cb94ae/go.mod h1:mjwGPas4yKduTyubHvD1Atl9r1rUq8DfVy+gkVvZ+oo=
 github.com/GoogleCloudPlatform/cloudsql-proxy v1.27.0/go.mod h1:bn9iHmAjogMoIPkqBGyJ9R1m9cXGCjBE/cuhBs3oEsQ=
 github.com/GoogleCloudPlatform/docker-credential-gcr v2.0.5+incompatible/go.mod h1:BB1eHdMLYEFuFdBlRMb0N7YGVdM5s6Pt0njxgvfbGGs=

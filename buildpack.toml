@@ -46,7 +46,7 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.10.2"
+    version = "5.10.3"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
@@ -86,7 +86,7 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.10.2"
+    version = "5.10.3"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"

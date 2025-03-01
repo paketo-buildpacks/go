@@ -24,7 +24,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.8.1"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.10.2"
+  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.10.3"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.4.1"

@@ -15,7 +15,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.2.29"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.6.23"
+  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.7.0"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.0.57"

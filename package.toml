@@ -27,4 +27,4 @@
   uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.11.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.1"

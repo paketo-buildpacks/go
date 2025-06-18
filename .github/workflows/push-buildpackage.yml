@@ -4,12 +4,17 @@ on:
   release:
     types:
     - published
+env:
+  REGISTRIES_FILENAME: "registries.json"
 
 jobs:
   push:
     name: Push
     runs-on: ubuntu-22.04
     steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
 
     - name: Parse Event
       id: event
@@ -23,11 +28,32 @@ jobs:
         echo "download_url=$(jq -r '.release.assets[] | select(.name | endswith(".cnb")) | .url' "${GITHUB_EVENT_PATH}")" >> "$GITHUB_OUTPUT"
 
     - name: Download
+      id: download
       uses: paketo-buildpacks/github-config/actions/release/download-asset@main
       with:
         url: ${{ steps.event.outputs.download_url }}
         output: "/github/workspace/buildpackage.cnb"
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+
+    - name: Parse Configs
+      id: parse_configs
+      run: |
+        registries_filename="${{ env.REGISTRIES_FILENAME }}"
+
+        push_to_dockerhub=true
+        push_to_gcr=false
+
+        if [[ -f $registries_filename ]]; then
+          if jq 'has("dockerhub")' $registries_filename > /dev/null; then
+            push_to_dockerhub=$(jq '.dockerhub' $registries_filename)
+          fi
+          if jq 'has("GCR")' $registries_filename > /dev/null; then
+            push_to_gcr=$(jq '.GCR' $registries_filename)
+          fi
+        fi
+
+        echo "push_to_dockerhub=${push_to_dockerhub}" >> "$GITHUB_OUTPUT"
+        echo "push_to_gcr=${push_to_gcr}" >> "$GITHUB_OUTPUT"
 
     - name: Validate version
       run: |
@@ -39,8 +65,8 @@ jobs:
         fi
 
     - name: Push to GCR
+      if: ${{  steps.parse_configs.outputs.push_to_gcr == 'true' }}
       env:
-        GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         GCR_PUSH_BOT_JSON_KEY: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
       run: |
         echo "${GCR_PUSH_BOT_JSON_KEY}" | sudo skopeo login --username _json_key --password-stdin gcr.io
@@ -50,6 +76,7 @@ jobs:
         sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://gcr.io/${{ github.repository }}:latest"
 
     - name: Push to DockerHub
+      if: ${{  steps.parse_configs.outputs.push_to_dockerhub == 'true' }}
       id: push
       env:
         DOCKERHUB_USERNAME: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}

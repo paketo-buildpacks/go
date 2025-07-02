@@ -19,12 +19,12 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "3.10.2"
+    version = "3.10.3"
 
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "3.5.2"
+    version = "3.5.3"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
@@ -33,7 +33,7 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/git"
     optional = true
-    version = "1.0.54"
+    version = "1.0.56"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
@@ -46,29 +46,29 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.11.1"
+    version = "5.11.2"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
     optional = true
-    version = "4.9.1"
+    version = "4.9.2"
 
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "4.10.0"
+    version = "4.10.1"
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "3.10.2"
+    version = "3.10.3"
 
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "3.5.2"
+    version = "3.5.3"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
@@ -77,7 +77,7 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/git"
     optional = true
-    version = "1.0.54"
+    version = "1.0.56"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
@@ -86,14 +86,14 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.11.1"
+    version = "5.11.2"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
     optional = true
-    version = "4.9.1"
+    version = "4.9.2"
 
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "4.10.0"
+    version = "4.10.1"

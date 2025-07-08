@@ -10,7 +10,7 @@ jobs:
     synchronize:
         name: Synchronize Labels
         runs-on:
-            - ubuntu-22.04
+            - ubuntu-24.04
         steps:
             - uses: actions/checkout@v3
             - uses: micnncim/action-label-syncer@v1

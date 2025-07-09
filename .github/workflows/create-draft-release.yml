@@ -17,7 +17,7 @@ concurrency: release
 jobs:
   builders:
     name: Get Builders for Testing
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       builders: ${{ steps.builders.outputs.builders }}
     steps:
@@ -33,7 +33,7 @@ jobs:
         printf "builders=%s\n" "${builders}" >> "$GITHUB_OUTPUT"
   integration:
     name: Integration Tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [builders]
     strategy:
       matrix:
@@ -53,7 +53,7 @@ jobs:
 
   release:
     name: Release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: integration
     steps:
     - name: Checkout
@@ -111,7 +111,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ integration, release ]
     if: ${{ always() && needs.integration.result == 'failure' || needs.release.result == 'failure' }}
     steps:

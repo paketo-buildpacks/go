@@ -10,7 +10,7 @@ concurrency: github_config_update
 jobs:
   build:
     name: Create PR to update shared files
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
 
     - name: Checkout
@@ -63,7 +63,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [build]
     if: ${{ always() && needs.build.result == 'failure' }}
     steps:

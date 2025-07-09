@@ -75,7 +75,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [update-go]
     if: ${{ always() && needs.update-go.result == 'failure' }}
     steps:

@@ -18,7 +18,7 @@ jobs:
       builders: ${{ steps.builders.outputs.builders }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Get builders from integration.json
       id: builders
       run: |
@@ -43,7 +43,7 @@ jobs:
         go-version: 'stable'
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Integration Tests
       env:

@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Check Minimal Semver Labels
-      uses: mheap/github-action-required-labels@v3
+      uses: mheap/github-action-required-labels@v5
       with:
         count: 1
         labels: semver:major, semver:minor, semver:patch

@@ -13,12 +13,12 @@ concurrency:
 jobs:
   builders:
     name: Get Builders for Testing
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       builders: ${{ steps.builders.outputs.builders }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Get builders from integration.json
       id: builders
       run: |
@@ -30,7 +30,7 @@ jobs:
 
   integration:
     name: Integration Tests with Builders
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [builders]
     strategy:
       matrix:
@@ -38,12 +38,12 @@ jobs:
       fail-fast: false  # don't cancel all test jobs when one fails
     steps:
     - name: Setup Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v5
       with:
         go-version: 'stable'
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Integration Tests
       env:
@@ -53,7 +53,7 @@ jobs:
   roundup:
     name: Integration Tests
     if: ${{ always() }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: integration
     steps:
     - run: |
@@ -68,7 +68,7 @@ jobs:
 
   upload:
     name: Upload Workflow Event Payload
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4

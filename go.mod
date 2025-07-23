@@ -3,7 +3,7 @@ module github.com/paketo-buildpacks/go
 go 1.24.5
 
 require (
-	github.com/onsi/gomega v1.37.0
+	github.com/onsi/gomega v1.38.0
 	github.com/paketo-buildpacks/occam v0.28.0
 	github.com/sclevine/spec v1.4.0
 )
@@ -74,6 +74,5 @@ require (
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
-	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

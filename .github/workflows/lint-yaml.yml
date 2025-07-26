@@ -8,18 +8,18 @@ on:
 
 jobs:
   lintYaml:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Checkout github-config
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: paketo-buildpacks/github-config
         path: github-config
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.8
 

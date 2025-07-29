@@ -1806,8 +1806,8 @@ github.com/pact-foundation/pact-go v1.0.4/go.mod h1:uExwJY4kCzNPcHRj+hCR/HBbOOIw
 github.com/paketo-buildpacks/occam v0.28.0 h1:Qmd4jVspsSWcpbH93Kc4+1MoxQpQk2/od9PsRz2+fa8=
 github.com/paketo-buildpacks/occam v0.28.0/go.mod h1:BQ1V+2xBY68ulDFEbHR9f9a07fWeOuQcoJ7QJuN8X4M=
 github.com/paketo-buildpacks/packit/v2 v2.6.1/go.mod h1:iBArWOfC5xZQF01o+zwnVKS+/hUBuFG+O1jCvzqBujs=
-github.com/paketo-buildpacks/packit/v2 v2.22.0 h1:COsxvzDhXW/PkQwZXqjP+j8YuQbtVnFA7JvDqjEdmd8=
-github.com/paketo-buildpacks/packit/v2 v2.22.0/go.mod h1:uikRJtkM1kFcOjw4gmRrMKb9KFNfZU32IOo8xlgfVqQ=
+github.com/paketo-buildpacks/packit/v2 v2.23.0 h1:9v01l0wymOMCvSIfflPa5vy+NmeFU2egU8qRL4PtYYs=
+github.com/paketo-buildpacks/packit/v2 v2.23.0/go.mod h1:Sd7qAaRFYnGk75FFxY6rGJqhKmTEd+5q2gTUHGFYW+w=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pascaldekloe/goe v0.1.0/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pborman/uuid v1.2.0/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtPdI/k=

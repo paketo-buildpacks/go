@@ -40,12 +40,12 @@ jobs:
         builder: ${{ fromJSON(needs.builders.outputs.builders) }}
       fail-fast: false  # don't cancel all test jobs when one fails
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Setup Go
       uses: actions/setup-go@v5
       with:
-        go-version: 'stable'
-    - name: Checkout
-      uses: actions/checkout@v4
+        go-version-file: go.mod
     - name: Run Integration Tests
       env:
         TMPDIR: "${{ runner.temp }}"

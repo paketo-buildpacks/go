@@ -22,7 +22,7 @@ jobs:
         id: setup-go
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version-file: go.mod
       - name: Get current go toolchain version
         id: current-go-version
         uses: paketo-buildpacks/github-config/actions/update-go-mod-version@main

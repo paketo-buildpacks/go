@@ -143,6 +143,11 @@ function buildpackage::create() {
   pack \
     buildpack package "${output}" \
     "${args[@]}"
+
+  if [[ -e "${BUILD_DIR}/buildpackage-linux-amd64.cnb" ]]; then
+    echo "Copying linux-amd64 buildpackage to buildpackage.cnb"
+    cp "${BUILD_DIR}/buildpackage-linux-amd64.cnb" "${BUILD_DIR}/buildpackage.cnb"
+  fi
 }
 
 main "${@:-}"

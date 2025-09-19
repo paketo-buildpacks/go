@@ -52,7 +52,7 @@ jobs:
 
     - name: Checkout
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Approve
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'

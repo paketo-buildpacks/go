@@ -13,14 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Checkout PR Branch
         uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
         with:
           branch: automation/go-mod-update/update-main
       - name: Setup Go
         id: setup-go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
       - name: Get current go toolchain version

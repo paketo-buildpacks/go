@@ -6,6 +6,12 @@ on:
     - published
 env:
   REGISTRIES_FILENAME: "registries.json"
+  GCR_REGISTRY: "gcr.io"
+  GCR_PASSWORD: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
+  GCR_USERNAME: "_json_key"
+  DOCKERHUB_REGISTRY: docker.io
+  DOCKERHUB_USERNAME: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
+  DOCKERHUB_PASSWORD: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
 
 jobs:
   push:
@@ -25,14 +31,13 @@ jobs:
         echo "tag_full=${FULL_VERSION}" >> "$GITHUB_OUTPUT"
         echo "tag_minor=${MINOR_VERSION}" >> "$GITHUB_OUTPUT"
         echo "tag_major=${MAJOR_VERSION}" >> "$GITHUB_OUTPUT"
-        echo "download_url=$(jq -r '.release.assets[] | select(.name | endswith(".cnb")) | .url' "${GITHUB_EVENT_PATH}")" >> "$GITHUB_OUTPUT"
+        echo "download_tgz_file_url=$(jq -r '.release.assets[] | select(.name | endswith(".tgz")) | .url' "${GITHUB_EVENT_PATH}")" >> "$GITHUB_OUTPUT"
 
-    - name: Download
-      id: download
+    - name: Download .tgz buildpack release artifact
       uses: paketo-buildpacks/github-config/actions/release/download-asset@main
       with:
-        url: ${{ steps.event.outputs.download_url }}
-        output: "/github/workspace/buildpackage.cnb"
+        url: ${{ steps.event.outputs.download_tgz_file_url }}
+        output: "/github/workspace/buildpack-release-artifact.tgz"
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
     - name: Parse Configs
@@ -55,50 +60,69 @@ jobs:
         echo "push_to_dockerhub=${push_to_dockerhub}" >> "$GITHUB_OUTPUT"
         echo "push_to_gcr=${push_to_gcr}" >> "$GITHUB_OUTPUT"
 
+    - name: Install yj and crane
+      uses: buildpacks/github-actions/setup-tools@v5.5.4
+
     - name: Validate version
       run: |
-        buidpackTomlVersion=$(sudo skopeo inspect "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" | jq -r '.Labels."io.buildpacks.buildpackage.metadata" | fromjson | .version')
+        buidpackTomlVersion=$(tar -xzf buildpack-release-artifact.tgz --to-stdout buildpack.toml | yj -tj | jq -r .buildpack.version)
         githubReleaseVersion="${{ steps.event.outputs.tag_full }}"
         if [[ "$buidpackTomlVersion" != "$githubReleaseVersion" ]]; then
           echo "Version in buildpack.toml ($buidpackTomlVersion) and github release ($githubReleaseVersion) are not identical"
           exit 1
         fi
 
+    - name: Docker login docker.io
+      uses: docker/login-action@v3
+      with:
+        username: ${{ env.DOCKERHUB_USERNAME }}
+        password: ${{ env.DOCKERHUB_PASSWORD }}
+        registry: ${{ env.DOCKERHUB_REGISTRY }}
+
+    - name: Docker login gcr.io
+      uses: docker/login-action@v3
+      if: ${{ steps.parse_configs.outputs.push_to_gcr == 'true' }}
+      with:
+        username: ${{ env.GCR_USERNAME }}
+        password: ${{ env.GCR_PASSWORD }}
+        registry: ${{ env.GCR_REGISTRY }}
+
     - name: Push to GCR
       if: ${{  steps.parse_configs.outputs.push_to_gcr == 'true' }}
-      env:
-        GCR_PUSH_BOT_JSON_KEY: ${{ secrets.GCR_PUSH_BOT_JSON_KEY }}
       run: |
-        echo "${GCR_PUSH_BOT_JSON_KEY}" | sudo skopeo login --username _json_key --password-stdin gcr.io
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_full }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_minor }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_major }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://gcr.io/${{ github.repository }}:latest"
+        ./scripts/publish.sh \
+          --archive-path buildpack-release-artifact.tgz \
+          --image-ref "gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_full }}"
+
+        crane copy "gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_full }}" "gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_minor }}"
+        crane copy "gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_full }}" "gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_major }}"
+        crane copy "gcr.io/${{ github.repository }}:${{ steps.event.outputs.tag_full }}" "gcr.io/${{ github.repository }}:latest"
 
     - name: Push to DockerHub
       if: ${{  steps.parse_configs.outputs.push_to_dockerhub == 'true' }}
       id: push
-      env:
-        DOCKERHUB_USERNAME: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_USERNAME }}
-        DOCKERHUB_PASSWORD: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
-        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
       run: |
-        REPOSITORY="${GITHUB_REPOSITORY_OWNER/-/}/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" # translates 'paketo-buildpacks/bundle-install' to 'paketobuildpacks/bundle-install'
-        IMAGE="index.docker.io/${REPOSITORY}"
-        echo "${DOCKERHUB_PASSWORD}" | sudo skopeo login --username "${DOCKERHUB_USERNAME}" --password-stdin index.docker.io
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:${{ steps.event.outputs.tag_full }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:${{ steps.event.outputs.tag_minor }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:${{ steps.event.outputs.tag_major }}"
-        sudo skopeo copy "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" "docker://${IMAGE}:latest"
+        IMAGE="${GITHUB_REPOSITORY_OWNER/-/}/${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" # translates 'paketo-buildpacks/bundle-install' to 'paketobuildpacks/bundle-install'
+
+        ./scripts/publish.sh \
+          --archive-path buildpack-release-artifact.tgz \
+          --image-ref "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_full }}"
+
+        pushed_image_index_digest=$(crane digest "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_full }}" | xargs)
+
+        crane copy "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_full }}" "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_minor }}"
+        crane copy "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_full }}" "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_major }}"
+        crane copy "${DOCKERHUB_REGISTRY}/${IMAGE}:${{ steps.event.outputs.tag_full }}" "${DOCKERHUB_REGISTRY}/${IMAGE}:latest"
+
         echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
-        echo "digest=$(sudo skopeo inspect "oci-archive:${GITHUB_WORKSPACE}/buildpackage.cnb" | jq -r .Digest)" >> "$GITHUB_OUTPUT"
+        echo "digest=$pushed_image_index_digest" >> "$GITHUB_OUTPUT"
 
     - name: Register with CNB Registry
       uses: docker://ghcr.io/buildpacks/actions/registry/request-add-entry:main
       with:
         id: ${{ github.repository }}
         version: ${{ steps.event.outputs.tag_full }}
-        address: ${{ steps.push.outputs.image }}@${{ steps.push.outputs.digest }}
+        address: index.docker.io/${{ steps.push.outputs.image }}@${{ steps.push.outputs.digest }}
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
   failure:

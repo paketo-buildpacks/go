@@ -164,6 +164,60 @@ function util::tools::pack::install() {
   fi
 }
 
+function util::tools::yj::install() {
+  local dir token
+  token=""
+
+  while [[ "${#}" != 0 ]]; do
+    case "${1}" in
+      --directory)
+        dir="${2}"
+        shift 2
+        ;;
+
+      --token)
+        token="${2}"
+        shift 2
+        ;;
+
+      *)
+        util::print::error "unknown argument \"${1}\""
+    esac
+  done
+
+  mkdir -p "${dir}"
+  util::tools::path::export "${dir}"
+
+  if [[ ! -f "${dir}/yj" ]]; then
+    local version curl_args os arch
+
+    version="$(jq -r .yj "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
+
+    curl_args=(
+      "--fail"
+      "--silent"
+      "--location"
+      "--output" "${dir}/yj"
+    )
+
+    if [[ "${token}" != "" ]]; then
+      curl_args+=("--header" "Authorization: Token ${token}")
+    fi
+
+    util::print::title "Installing yj ${version}"
+
+    os=$(util::tools::os macos)
+    arch=$(util::tools::arch)
+
+    curl "https://github.com/sclevine/yj/releases/download/${version}/yj-${os}-${arch}" \
+      "${curl_args[@]}"
+
+    chmod +x "${dir}/yj"
+  else
+    util::print::info "Using yj $("${dir}"/yj -v)"
+  fi
+}
+
 function util::tools::tests::checkfocus() {
   testout="${1}"
   if grep -q 'Focused: [1-9]' "${testout}"; then

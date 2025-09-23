@@ -116,6 +116,7 @@ function buildpack::publish() {
 
   util::print::info "Publishing buildpack to ${image_ref}"
 
+  current_dir=$(pwd)
   cd $tmp_dir
 
   # If package.toml has no targets we must specify one on the command line, otherwise pack will complain.
@@ -135,7 +136,7 @@ function buildpack::publish() {
     --publish \
     ${targets}
 
-  cd $ROOT_DIR
+  cd $current_dir
   rm -rf $tmp_dir
 }
 

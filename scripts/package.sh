@@ -111,6 +111,10 @@ function tools::install() {
   util::tools::pack::install \
     --directory "${BIN_DIR}" \
     --token "${token}"
+
+  util::tools::yj::install \
+    --directory "${BIN_DIR}" \
+    --token "${token}"
 }
 
 function buildpack::archive() {
@@ -131,7 +135,7 @@ function buildpack::release::archive() {
 
   util::print::title "Packaging buildpack into ${BUILD_DIR}/buildpack-release-artifact.tgz..."
 
-  tmp_dir=$(mktemp -d -p $ROOT_DIR)
+  tmp_dir=$(mktemp -d -p $BUILD_DIR)
 
   cat <<'README_EOF' > $tmp_dir/README.md
 # Composite buildpack release artifact
@@ -143,7 +147,7 @@ It contains the following files:
 * `buildpack.toml` - this is needed because it contains the buildpacks and ordering information for the composite buildpack
 * `package.toml` - this is needed because it contains the dependencies (and URIs) that let pack know where to find the buildpacks referenced in `buildpack.toml`.
   * `package.toml` can contain targets (platforms) for multi-arch support
-* `build/buildpack.tgz` - this is needed because it contains the actual buildpack referenced in `package.toml`
+* `build/buildpack.tgz` - this is added because it is referenced in `package.toml` by some buildpacks
 
 ## package locally
 
@@ -173,36 +177,54 @@ README_EOF
   # add the buildpack.toml from the tgz file because it has the version populated
   tar -xzf ${BUILD_DIR}/buildpack.tgz -C $tmp_dir/ buildpack.toml
 
-  tar -cvzf ${BUILD_DIR}/buildpack-release-artifact.tgz -C $tmp_dir $(ls $tmp_dir)
+  tar -czf ${BUILD_DIR}/buildpack-release-artifact.tgz -C $tmp_dir $(ls $tmp_dir)
   rm -rf $tmp_dir
 }
 
 function buildpackage::create() {
-  local output flags
+  local output flags release_archive_path tmp_dir
   output="${1}"
   flags=("${@:2}")
+  release_archive_path="${BUILD_DIR}/buildpack-release-artifact.tgz"
 
   util::print::title "Packaging buildpack..."
 
+  util::print::info "Extracting release archive..."
+  tmp_dir=$(mktemp -d -p $BUILD_DIR)
+  tar -xvf $release_archive_path -C $tmp_dir
+
+  current_dir=$(pwd)
+  cd $tmp_dir
+
   args=(
-      --config "${ROOT_DIR}/package.toml"
+      --config package.toml
       --format file
     )
 
-
   args+=("${flags[@]}")
-
-  pack \
-    buildpack package "${output}" \
-    ${args[@]}
 
   # Use the local architecture to support running locally and in CI, which will be linux/amd64 by default.
   arch=$(util::tools::arch)
+
+  # If package.toml has no targets we must specify one on the command line, otherwise pack will complain.
+  # This is here for backward compatibility but eventually all package.toml files should have targets defined.
+  if cat package.toml | yj -tj | jq -r .targets | grep -q null; then
+    echo "package.toml has no targets so --target linux/${arch} will be passed to pack"
+    args+=("--target linux/${arch}")
+  fi
+
+  set -x
+  pack \
+    buildpack package "${output}" \
+    ${args[@]}
 
   if [[ -e "${BUILD_DIR}/buildpackage-linux-${arch}.cnb" ]]; then
     echo "Copying linux-${arch} buildpackage to buildpackage.cnb"
     cp "${BUILD_DIR}/buildpackage-linux-${arch}.cnb" "${BUILD_DIR}/buildpackage.cnb"
   fi
+
+  cd $current_dir
+  rm -rf $tmp_dir
 }
 
 main "${@:-}"

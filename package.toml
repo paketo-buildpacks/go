@@ -3,28 +3,36 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.10.4"
+  uri = "docker://docker.io/paketobuildpacks/ca-certificates:3.10.4"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.9.3"
+  uri = "docker://docker.io/paketobuildpacks/environment-variables:4.9.3"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/git@1.1.1"
+  uri = "docker://docker.io/paketobuildpacks/git:1.1.1"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-build@2.3.0"
+  uri = "docker://docker.io/paketobuildpacks/go-build:2.3.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-dist@2.9.0"
+  uri = "docker://docker.io/paketobuildpacks/go-dist:2.9.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/go-mod-vendor@1.1.0"
+  uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.10.2"
+  uri = "docker://docker.io/paketobuildpacks/image-labels:4.10.2"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.11.3"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.11.3"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.4"
+  uri = "docker://docker.io/paketobuildpacks/watchexec:3.5.4"
+
+[[targets]]
+  arch = "amd64"
+  os = "linux"
+
+[[targets]]
+  arch = "arm64"
+  os = "linux"

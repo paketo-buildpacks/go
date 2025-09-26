@@ -213,7 +213,6 @@ function buildpackage::create() {
     args+=("--target linux/${arch}")
   fi
 
-  set -x
   pack \
     buildpack package "${output}" \
     ${args[@]}

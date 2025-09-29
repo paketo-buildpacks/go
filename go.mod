@@ -4,7 +4,7 @@ go 1.24.6
 
 require (
 	github.com/onsi/gomega v1.38.2
-	github.com/paketo-buildpacks/occam v0.30.0
+	github.com/paketo-buildpacks/occam v0.30.1
 	github.com/sclevine/spec v1.4.0
 )
 

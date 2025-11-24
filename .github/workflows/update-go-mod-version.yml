@@ -21,8 +21,9 @@ jobs:
       - name: Setup Go
         id: setup-go
         uses: actions/setup-go@v6
+        # Fetching the latest stable Go version
         with:
-          go-version-file: go.mod
+          go-version-file: stable
       - name: Get current go toolchain version
         id: current-go-version
         uses: paketo-buildpacks/github-config/actions/update-go-mod-version@main

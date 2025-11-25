@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-go@v6
         # Fetching the latest stable Go version
         with:
-          go-version-file: stable
+          go-version: stable
       - name: Get current go toolchain version
         id: current-go-version
         uses: paketo-buildpacks/github-config/actions/update-go-mod-version@main

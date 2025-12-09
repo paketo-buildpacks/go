@@ -14,12 +14,12 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
     - name: Checkout github-config
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: paketo-buildpacks/github-config
         path: github-config

@@ -10,10 +10,10 @@ jobs:
   lintYaml:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Checkout github-config
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: paketo-buildpacks/github-config
         path: github-config

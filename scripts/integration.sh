@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -eu
 set -o pipefail
 
@@ -32,7 +33,6 @@ function main() {
         shift 2
         ;;
 
-
       --token|-t)
         token="${2}"
         shift 2
@@ -49,7 +49,7 @@ function main() {
   done
 
   if [[ ! -d "${BUILDPACKDIR}/integration" ]]; then
-    util::print::warn "** WARNING  No Integration tests **"
+      util::print::warn "** WARNING  No Integration tests **"
   fi
 
   tools::install "${token}"
@@ -109,6 +109,17 @@ function tools::install() {
   util::tools::jam::install \
     --directory "${BUILDPACKDIR}/.bin" \
     --token "${token}"
+
+  util::tools::libpak-tools::install \
+    --directory "${BUILDPACKDIR}/.bin"
+
+  util::tools::create-package::install \
+    --directory "${BUILDPACKDIR}/.bin"
+
+  if [[ -f "${BUILDPACKDIR}/.libbuildpack" ]]; then
+    util::tools::packager::install \
+      --directory "${BUILDPACKDIR}/.bin"
+  fi
 }
 
 function builder_images::pull() {
@@ -123,10 +134,16 @@ function builder_images::pull() {
     pack inspect-builder "${builder}" --output json \
       | jq -r '.remote_info.run_images[0].name'
   )"
-  lifecycle_image="index.docker.io/buildpacksio/lifecycle:$(
+
+  os=$(util::tools::os)
+  arch=$(util::tools::arch --format-amd64-x86-64)
+
+  lifecycle_version="$(
     pack inspect-builder "${builder}" --output json \
       | jq -r '.remote_info.lifecycle.version'
   )"
+
+  lifecycle_image="index.docker.io/buildpacksio/lifecycle:${lifecycle_version}-${os}-${arch}"
 
   util::print::title "Pulling run image..."
   docker pull "${run_image}"
@@ -141,7 +158,6 @@ function tests::run() {
 
   export CGO_ENABLED=0
   pushd "${BUILDPACKDIR}" > /dev/null
-    #shellcheck disable=SC2068
     if GOMAXPROCS="${GOMAXPROCS:-4}" go test -count=1 -timeout 0 ./integration/... -v -run Integration | tee "${2}"; then
       util::print::info "** GO Test Succeeded with ${1}**"
     else

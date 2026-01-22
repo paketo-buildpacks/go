@@ -15,7 +15,7 @@
   uri = "docker://docker.io/paketobuildpacks/go-build:2.4.11"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-dist:2.9.16"
+  uri = "docker://docker.io/paketobuildpacks/go-dist:2.9.17"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.13"

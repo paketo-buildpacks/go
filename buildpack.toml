@@ -28,7 +28,7 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "2.9.16"
+    version = "2.9.17"
 
   [[order.group]]
     id = "paketo-buildpacks/git"
@@ -72,7 +72,7 @@ api = "0.7"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "2.9.16"
+    version = "2.9.17"
 
   [[order.group]]
     id = "paketo-buildpacks/git"

@@ -46,6 +46,13 @@ jobs:
       uses: actions/setup-go@v6
       with:
         go-version-file: go.mod
+
+    # Causes errors with integration tests
+    - name: Disable containerd snapshotter
+      run: |
+        echo '{"features": {"containerd-snapshotter": false}}' | sudo tee /etc/docker/daemon.json
+        sudo systemctl restart docker
+
     - name: Run Integration Tests
       env:
         TMPDIR: "${{ runner.temp }}"

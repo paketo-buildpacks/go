@@ -217,7 +217,7 @@ function util::tools::yj::install() {
 
     util::print::title "Installing yj ${version}"
 
-    os=$(util::tools::os)
+    os=$(util::tools::os, macos)
     arch=$(util::tools::arch)
 
     curl "https://github.com/sclevine/yj/releases/download/${version}/yj-${os}-${arch}" \

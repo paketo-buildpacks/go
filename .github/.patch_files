@@ -1,8 +1,3 @@
-.github/.patch_files
-.github/.syncignore
-.github/CODEOWNERS
-.github/dependabot.yml
-.github/labels.yml
 .github/workflows/approve-bot-pr.yml
 .github/workflows/codeql-analysis.yml
 .github/workflows/create-draft-release.yml
@@ -16,6 +11,11 @@
 .github/workflows/update-buildpack-toml.yml
 .github/workflows/update-github-config.yml
 .github/workflows/update-go-mod-version.yml
+.github/.patch_files
+.github/.syncignore
+.github/CODEOWNERS
+.github/dependabot.yml
+.github/labels.yml
 .gitignore
 LICENSE
 NOTICE
@@ -26,6 +26,8 @@ scripts/.util/builders.sh
 scripts/.util/print.sh
 scripts/.util/tools.json
 scripts/.util/tools.sh
+scripts/.syncignore
 scripts/integration.sh
+scripts/options.json
 scripts/package.sh
 scripts/publish.sh

@@ -15,7 +15,7 @@
   uri = "docker://docker.io/paketobuildpacks/go-build:2.4.14"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-dist:2.9.19"
+  uri = "docker://docker.io/paketobuildpacks/go-dist:2.10.0"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.15"
@@ -27,7 +27,7 @@
   uri = "docker://docker.io/paketobuildpacks/procfile:5.13.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/watchexec:3.7.0"
+  uri = "docker://docker.io/paketobuildpacks/watchexec:3.8.0"
 
 [[targets]]
   arch = "amd64"

@@ -27,7 +27,7 @@
   uri = "docker://docker.io/paketobuildpacks/procfile:5.13.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/watchexec:3.8.0"
+  uri = "docker://docker.io/paketobuildpacks/watchexec:3.9.0"
 
 [[targets]]
   arch = "amd64"

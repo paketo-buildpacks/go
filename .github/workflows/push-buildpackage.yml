@@ -73,14 +73,14 @@ jobs:
         fi
 
     - name: Docker login docker.io
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         username: ${{ env.DOCKERHUB_USERNAME }}
         password: ${{ env.DOCKERHUB_PASSWORD }}
         registry: ${{ env.DOCKERHUB_REGISTRY }}
 
     - name: Docker login gcr.io
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       if: ${{ steps.parse_configs.outputs.push_to_gcr == 'true' }}
       with:
         username: ${{ env.GCR_USERNAME }}

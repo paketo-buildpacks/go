@@ -16,3 +16,8 @@ updates:
       update-types:
       - "minor"
       - "patch"
+      exclude-patterns:
+      # go-diskfs 1.8 broke API wrt 1.7 which is in use by syft
+      # at the time of writing
+      # keep until https://github.com/anchore/syft/pull/4719 is merged or issue resolved.
+      - "github.com/diskfs/go-diskfs"

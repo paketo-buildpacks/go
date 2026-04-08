@@ -12,13 +12,13 @@
   uri = "docker://docker.io/paketobuildpacks/git:1.1.18"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-build:2.4.17"
+  uri = "docker://docker.io/paketobuildpacks/go-build:2.4.18"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-dist:2.10.5"
+  uri = "docker://docker.io/paketobuildpacks/go-dist:2.10.6"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.18"
+  uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.19"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/image-labels:4.12.1"

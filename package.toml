@@ -3,31 +3,31 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/ca-certificates:3.12.2"
+  uri = "docker://docker.io/paketobuildpacks/ca-certificates:3.12.6"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/environment-variables:4.11.2"
+  uri = "docker://docker.io/paketobuildpacks/environment-variables:4.11.6"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/git:1.1.18"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-build:2.4.20"
+  uri = "docker://docker.io/paketobuildpacks/go-build:2.4.35"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-dist:2.10.9"
+  uri = "docker://docker.io/paketobuildpacks/go-dist:2.10.24"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.21"
+  uri = "docker://docker.io/paketobuildpacks/go-mod-vendor:1.1.35"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/image-labels:4.12.2"
+  uri = "docker://docker.io/paketobuildpacks/image-labels:4.12.6"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.13.2"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.13.6"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/watchexec:3.9.3"
+  uri = "docker://docker.io/paketobuildpacks/watchexec:3.9.7"
 
 [[targets]]
   arch = "amd64"

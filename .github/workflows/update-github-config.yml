@@ -2,7 +2,7 @@ name: Update shared github-config
 
 on:
   schedule:
-  - cron: '20 17 * * *' # daily at 17:20 UTC
+  - cron: '20 17 * * *'  # daily at 17:20 UTC
   workflow_dispatch: {}
 
 concurrency: github_config_update
@@ -14,12 +14,12 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
     - name: Checkout github-config
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: paketo-buildpacks/github-config
         path: github-config

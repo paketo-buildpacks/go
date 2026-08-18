@@ -1,9 +1,6 @@
 name: Lint
 
 on:
-  push:
-    branches:
-    - main
   pull_request:
     branches:
     - main
@@ -13,16 +10,16 @@ jobs:
     name: lint
     runs-on: ubuntu-24.04
     steps:
-    - name: Setup Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: 'stable'
-
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
+
+    - name: Setup Go
+      uses: actions/setup-go@v6
+      with:
+        go-version-file: go.mod
 
     - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3
+      uses: golangci/golangci-lint-action@v9
       with:
         version: latest
         args: --timeout 3m0s

@@ -2,7 +2,7 @@ name: Update buildpack.toml
 
 on:
   schedule:
-  - cron: '1 6 * * *' # daily at 06:01 UTC
+  - cron: '1 6 * * *'  # daily at 06:01 UTC
   workflow_dispatch: {}
 
 concurrency: buildpack_update
@@ -14,7 +14,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Checkout Branch
       uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main

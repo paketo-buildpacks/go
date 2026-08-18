@@ -1,4 +1,7 @@
 {
-  "jam": "v2.12.0",
-  "pack": "v0.38.2"
+  "createpackage": "v1.73.0",
+  "jam": "v2.18.0",
+  "libpaktools": "v0.6.0",
+  "pack": "v0.40.8",
+  "yj": "v5.1.0"
 }

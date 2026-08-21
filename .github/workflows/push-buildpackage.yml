@@ -20,7 +20,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Parse Event
       id: event
@@ -61,7 +61,7 @@ jobs:
         echo "push_to_gcr=${push_to_gcr}" >> "$GITHUB_OUTPUT"
 
     - name: Install yj and crane
-      uses: buildpacks/github-actions/setup-tools@v5.12.1
+      uses: buildpacks/github-actions/setup-tools@v6.1.0
 
     - name: Validate version
       run: |

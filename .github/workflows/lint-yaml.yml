@@ -10,16 +10,16 @@ jobs:
   lintYaml:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Checkout github-config
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: paketo-buildpacks/github-config
         path: github-config
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7
       with:
         python-version: 3.14
 

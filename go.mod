@@ -51,7 +51,7 @@ require (
 	github.com/paketo-buildpacks/freezer v0.2.3 // indirect
 	github.com/paketo-buildpacks/packit/v2 v2.25.7 // indirect
 	github.com/power-devops/perfstat v0.0.0-20240221224432-82ca36839d55 // indirect
-	github.com/shirou/gopsutil/v4 v4.26.7 // indirect
+	github.com/shirou/gopsutil/v4 v4.26.8 // indirect
 	github.com/sirupsen/logrus v1.10.2 // indirect
 	github.com/stretchr/testify v1.12.1 // indirect
 	github.com/testcontainers/testcontainers-go v0.44.0 // indirect

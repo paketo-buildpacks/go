@@ -22,7 +22,7 @@ jobs:
       builders: ${{ steps.builders.outputs.builders }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
     - name: Get builders from integration.json
       id: builders
       run: |
@@ -41,9 +41,9 @@ jobs:
       fail-fast: false  # don't cancel all test jobs when one fails
     steps:
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
     - name: Setup Go
-      uses: actions/setup-go@v7
+      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
       with:
         go-version-file: go.mod
 
@@ -65,19 +65,19 @@ jobs:
     needs: integration
     steps:
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       with:
         fetch-tags: true
     - name: Reset Draft Release
       id: reset
-      uses: paketo-buildpacks/github-config/actions/release/reset-draft@main
+      uses: paketo-buildpacks/github-config/actions/release/reset-draft@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         repo: ${{ github.repository }}
         token: ${{ github.token }}
     - name: Calculate Semver Tag
       if: github.event.inputs.version == ''
       id: semver
-      uses: paketo-buildpacks/github-config/actions/tag/calculate-semver@main
+      uses: paketo-buildpacks/github-config/actions/tag/calculate-semver@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         repo: ${{ github.repository }}
         token: ${{ github.token }}
@@ -94,12 +94,12 @@ jobs:
       run: ./scripts/package.sh --version "${{ steps.tag.outputs.tag }}"
     - name: Create Release Notes
       id: create-release-notes
-      uses: paketo-buildpacks/github-config/actions/release/notes@main
+      uses: paketo-buildpacks/github-config/actions/release/notes@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         repo: ${{ github.repository }}
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
     - name: Create Draft Release
-      uses: paketo-buildpacks/github-config/actions/release/create@main
+      uses: paketo-buildpacks/github-config/actions/release/create@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         repo: ${{ github.repository }}
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
@@ -129,7 +129,7 @@ jobs:
     if: ${{ always() && needs.integration.result == 'failure' || needs.release.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      uses: paketo-buildpacks/github-config/actions/issue/file@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: ${{ github.repository }}

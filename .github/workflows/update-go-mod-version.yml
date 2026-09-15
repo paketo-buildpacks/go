@@ -13,22 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
       - name: Checkout PR Branch
-        uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
+        uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@95db4417114813f5661189259ba2caa93f76c6b9 # main
         with:
           branch: automation/go-mod-update/update-main
       - name: Setup Go
         id: setup-go
-        uses: actions/setup-go@v7
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         # Fetching the latest stable Go version
         with:
           go-version: stable
       - name: Get current go toolchain version
         id: current-go-version
-        uses: paketo-buildpacks/github-config/actions/update-go-mod-version@main
+        uses: paketo-buildpacks/github-config/actions/update-go-mod-version@95db4417114813f5661189259ba2caa93f76c6b9 # main
         with:
           go-version: ${{ steps.setup-go.outputs.go-version }}
       - name: Go mod tidy
@@ -55,7 +55,7 @@ jobs:
           git diff
       - name: Commit
         id: commit
-        uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
+        uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@95db4417114813f5661189259ba2caa93f76c6b9 # main
         with:
           message: "Updates go mod version to ${{ steps.setup-go.outputs.go-version }}"
           pathspec: "."
@@ -64,13 +64,13 @@ jobs:
 
       - name: Push Branch
         if: ${{ steps.commit.outputs.commit_sha != '' }}
-        uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
+        uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@95db4417114813f5661189259ba2caa93f76c6b9 # main
         with:
           branch: automation/go-mod-update/update-main
 
       - name: Open Pull Request
         if: ${{ steps.commit.outputs.commit_sha != '' }}
-        uses: paketo-buildpacks/github-config/actions/pull-request/open@main
+        uses: paketo-buildpacks/github-config/actions/pull-request/open@95db4417114813f5661189259ba2caa93f76c6b9 # main
         with:
           token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
           title: "Updates go mod version to ${{ steps.setup-go.outputs.go-version }}"
@@ -83,7 +83,7 @@ jobs:
     if: ${{ always() && needs.update-go.result == 'failure' }}
     steps:
       - name: File Failure Alert Issue
-        uses: paketo-buildpacks/github-config/actions/issue/file@main
+        uses: paketo-buildpacks/github-config/actions/issue/file@95db4417114813f5661189259ba2caa93f76c6b9 # main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}

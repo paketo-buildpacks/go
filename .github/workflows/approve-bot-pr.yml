@@ -16,7 +16,7 @@ jobs:
       pr-number: ${{ steps.pr-data.outputs.number }}
     steps:
     - name: 'Download artifact'
-      uses: paketo-buildpacks/github-config/actions/pull-request/download-artifact@main
+      uses: paketo-buildpacks/github-config/actions/pull-request/download-artifact@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         name: "event-payload"
         repo: ${{ github.repository }}
@@ -36,7 +36,7 @@ jobs:
     steps:
     - name: Check Commit Verification
       id: unverified-commits
-      uses: paketo-buildpacks/github-config/actions/pull-request/check-unverified-commits@main
+      uses: paketo-buildpacks/github-config/actions/pull-request/check-unverified-commits@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         token: ${{ secrets.PAKETO_BOT_REVIEWER_GITHUB_TOKEN }}
         repo: ${{ github.repository }}
@@ -44,7 +44,7 @@ jobs:
 
     - name: Check for Human Commits
       id: human-commits
-      uses: paketo-buildpacks/github-config/actions/pull-request/check-human-commits@main
+      uses: paketo-buildpacks/github-config/actions/pull-request/check-human-commits@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         token: ${{ secrets.PAKETO_BOT_REVIEWER_GITHUB_TOKEN }}
         repo: ${{ github.repository }}
@@ -52,11 +52,11 @@ jobs:
 
     - name: Checkout
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
     - name: Approve
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
-      uses: paketo-buildpacks/github-config/actions/pull-request/approve@main
+      uses: paketo-buildpacks/github-config/actions/pull-request/approve@95db4417114813f5661189259ba2caa93f76c6b9 # main
       with:
         token: ${{ secrets.PAKETO_BOT_REVIEWER_GITHUB_TOKEN }}
         number: ${{ needs.download.outputs.pr-number }}

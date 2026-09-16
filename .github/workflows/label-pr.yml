@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
     - name: Check Minimal Semver Labels
-      uses: mheap/github-action-required-labels@23e10fde7e062233401931a0eece796cd9bf3177 # v5
+      uses: mheap/github-action-required-labels@v5
       with:
         count: 1
         labels: semver:major, semver:minor, semver:patch
@@ -28,6 +28,6 @@ jobs:
 
     - name: Auto-label Semver
       if: ${{ failure() }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/auto-semver-label@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/auto-semver-label@main
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}

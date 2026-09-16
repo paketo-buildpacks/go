@@ -14,22 +14,22 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      uses: actions/checkout@v7
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
     - name: Checkout Branch
-      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
       with:
         branch: automation/buildpack.toml/update
 
     - name: Update buildpack.toml
       id: update
-      uses: paketo-buildpacks/github-config/actions/buildpack/update@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/buildpack/update@main
 
     - name: Commit
       id: commit
-      uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@main
       with:
         message: "Updating buildpacks in buildpack.toml"
         pathspec: "."
@@ -38,13 +38,13 @@ jobs:
 
     - name: Push Branch
       if: ${{ steps.commit.outputs.commit_sha != '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
       with:
         branch: automation/buildpack.toml/update
 
     - name: Open Pull Request (no semver label)
       if: ${{ steps.commit.outputs.commit_sha != ''  && steps.update.outputs.semver_bump == '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/open@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/open@main
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         title: "Updates buildpacks in buildpack.toml"
@@ -52,7 +52,7 @@ jobs:
 
     - name: Open Pull Request
       if: ${{ steps.commit.outputs.commit_sha != '' && steps.update.outputs.semver_bump != '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/open@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/open@main
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         title: "Updates buildpacks in buildpack.toml"
@@ -66,7 +66,7 @@ jobs:
     if: ${{ always() && needs.update-buildpack-toml.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: paketo-buildpacks/github-config/actions/issue/file@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: ${{ github.repository }}

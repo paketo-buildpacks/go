@@ -8,6 +8,9 @@ on:
 concurrency:
   group: publish-release
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     name: Publish
@@ -25,17 +28,20 @@ jobs:
     name: Alert on Failure
     runs-on: ubuntu-24.04
     needs: [ publish ]
+    permissions:
+      contents: read
+      issues: write
     if: ${{ always() && needs.publish.result == 'failure' }}
     steps:
-      - name: File Failure Alert Issue
-        uses: paketo-buildpacks/github-config/actions/issue/file@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.repository }}
-          label: "failure:release"
-          comment_if_exists: true
-          issue_title: "Failure: Publish draft releases"
-          issue_body: |
-            Publish All Draft Releases workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
-          comment_body: |
-             Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
+    - name: File Failure Alert Issue
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        label: "failure:release"
+        comment_if_exists: true
+        issue_title: "Failure: Publish draft releases"
+        issue_body: |
+          Publish All Draft Releases workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
+        comment_body: |
+           Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}

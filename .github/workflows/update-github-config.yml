@@ -5,22 +5,31 @@ on:
   - cron: '20 17 * * *'  # daily at 17:20 UTC
   workflow_dispatch: {}
 
-concurrency: github_config_update
+concurrency:
+  group: github_config_update
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   build:
     name: Create PR to update shared files
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        persist-credentials: false
 
     - name: Checkout github-config
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
+        persist-credentials: false
         repository: paketo-buildpacks/github-config
         path: github-config
 
@@ -66,6 +75,8 @@ jobs:
     runs-on: ubuntu-24.04
     needs: [build]
     if: ${{ always() && needs.build.result == 'failure' }}
+    permissions:
+      contents: read
     steps:
     - name: File Failure Alert Issue
       uses: paketo-buildpacks/github-config/actions/issue/file@main

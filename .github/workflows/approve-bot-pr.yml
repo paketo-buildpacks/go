@@ -6,6 +6,13 @@ on:
     types:
     - completed
 
+concurrency:
+  group: approve-bot-pr-${{ github.event.workflow_run.pull_requests[0].number }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
 jobs:
   download:
     name: Download PR Artifact
@@ -52,7 +59,9 @@ jobs:
 
     - name: Checkout
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
 
     - name: Approve
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
@@ -64,6 +73,7 @@ jobs:
     - name: Enable Auto-Merge
       if: steps.human-commits.outputs.human_commits == 'false' && steps.unverified-commits.outputs.unverified_commits == 'false'
       run: |
-        gh pr merge ${{ needs.download.outputs.pr-number }} --auto --rebase
+        gh pr merge "${PR_NUMBER}" --auto --rebase
       env:
         GITHUB_TOKEN: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        PR_NUMBER: ${{ needs.download.outputs.pr-number }}

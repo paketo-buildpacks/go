@@ -5,24 +5,32 @@ on:
     - cron: '13 4 * * MON'  # every monday at 4:13 UTC
   workflow_dispatch:
 
-concurrency: update-go
+concurrency:
+  group: update-go
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   update-go:
     name: Update go toolchain in go.mod
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+          persist-credentials: false
       - name: Checkout PR Branch
         uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
         with:
           branch: automation/go-mod-update/update-main
       - name: Setup Go
         id: setup-go
-        uses: actions/setup-go@v7
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         # Fetching the latest stable Go version
         with:
           go-version: stable
@@ -80,17 +88,17 @@ jobs:
     name: Alert on Failure
     runs-on: ubuntu-24.04
     needs: [update-go]
+    permissions:
+      contents: read
     if: ${{ always() && needs.update-go.result == 'failure' }}
     steps:
-      - name: File Failure Alert Issue
-        uses: paketo-buildpacks/github-config/actions/issue/file@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.repository }}
-          label: "failure:update-go-version"
-          comment_if_exists: true
-          issue_title: "Failure: Update Go Mod Version workflow"
-          issue_body: |
-            Update Go Mod Version workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
-          comment_body: |
-            Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
+    - name: File Failure Alert Issue
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        label: "failure:update-go-version"
+        comment_if_exists: true
+        issue_title: "Failure: Update Go Mod Version workflow"
+        comment_body: |
+          Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}

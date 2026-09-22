@@ -5,18 +5,26 @@ on:
   - cron: '1 6 * * *'  # daily at 06:01 UTC
   workflow_dispatch: {}
 
-concurrency: buildpack_update
+concurrency:
+  group: buildpack_update
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   update-buildpack-toml:
     runs-on: ubuntu-24.04
     name: Update buildpack.toml
+    permissions:
+      contents: read
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
+        persist-credentials: false
 
     - name: Checkout Branch
       uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
@@ -63,6 +71,8 @@ jobs:
     name: Alert on Failure
     runs-on: ubuntu-24.04
     needs: [update-buildpack-toml]
+    permissions:
+      contents: read
     if: ${{ always() && needs.update-buildpack-toml.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue

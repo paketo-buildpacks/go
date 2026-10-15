@@ -146,6 +146,7 @@ jobs:
     needs: [ integration, release ]
     permissions:
       contents: read
+      issues: write
     if: ${{ always() && needs.integration.result == 'failure' || needs.release.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue

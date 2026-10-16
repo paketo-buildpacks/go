@@ -23,7 +23,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
-        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
         persist-credentials: false
 
     - name: Checkout github-config
@@ -37,6 +36,7 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
       with:
         branch: automation/github-config/update
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Run the sync action
       uses: paketo-buildpacks/github-config/actions/sync@main
@@ -61,6 +61,7 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@main
       with:
         branch: automation/github-config/update
+        token: ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
 
     - name: Open Pull Request
       if: ${{ steps.commit.outputs.commit_sha != '' }}
@@ -77,6 +78,7 @@ jobs:
     if: ${{ always() && needs.build.result == 'failure' }}
     permissions:
       contents: read
+      issues: write
     steps:
     - name: File Failure Alert Issue
       uses: paketo-buildpacks/github-config/actions/issue/file@main

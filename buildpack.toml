@@ -19,34 +19,34 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "3.14.2"
+    version = "3.14.3"
 
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "3.11.3"
+    version = "3.11.4"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "2.10.34"
+    version = "2.11.0"
 
   [[order.group]]
     id = "paketo-buildpacks/git"
     optional = true
-    version = "1.1.18"
+    version = "1.1.19"
 
   [[order.group]]
     id = "paketo-buildpacks/go-mod-vendor"
-    version = "1.1.45"
+    version = "1.1.46"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "2.4.45"
+    version = "2.4.46"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.15.4"
+    version = "5.15.5"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
@@ -56,37 +56,37 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "4.14.3"
+    version = "4.14.4"
 
 [[order]]
 
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "3.14.2"
+    version = "3.14.3"
 
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "3.11.3"
+    version = "3.11.4"
 
   [[order.group]]
     id = "paketo-buildpacks/go-dist"
-    version = "2.10.34"
+    version = "2.11.0"
 
   [[order.group]]
     id = "paketo-buildpacks/git"
     optional = true
-    version = "1.1.18"
+    version = "1.1.19"
 
   [[order.group]]
     id = "paketo-buildpacks/go-build"
-    version = "2.4.45"
+    version = "2.4.46"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.15.4"
+    version = "5.15.5"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
@@ -96,4 +96,4 @@ api = "0.7"
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "4.14.3"
+    version = "4.14.4"

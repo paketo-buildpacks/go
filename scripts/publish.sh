@@ -132,6 +132,7 @@ function buildpack::publish() {
   pack \
     buildpack package "${image_ref}" \
     --config package.toml \
+    --flatten \
     --format image \
     --publish \
     ${targets}

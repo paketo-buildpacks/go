@@ -17,81 +17,81 @@ include-files = ['buildpack.toml']
 [[order]]
 [[order.group]]
 id = 'paketo-buildpacks/ca-certificates'
-version = '3.14.6'
+version = '3.14.7'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/watchexec'
-version = '3.11.7'
+version = '3.11.8'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/go-dist'
-version = '2.11.3'
+version = '2.11.4'
 
 [[order.group]]
 id = 'paketo-buildpacks/git'
-version = '1.1.22'
+version = '1.1.23'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/go-mod-vendor'
-version = '1.1.49'
+version = '1.1.50'
 
 [[order.group]]
 id = 'paketo-buildpacks/go-build'
-version = '2.4.49'
+version = '2.4.50'
 
 [[order.group]]
 id = 'paketo-buildpacks/procfile'
-version = '5.15.8'
+version = '5.15.9'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/environment-variables'
-version = '4.12.3'
+version = '4.12.4'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/image-labels'
-version = '4.14.7'
+version = '4.14.8'
 optional = true
 
 [[order]]
 [[order.group]]
 id = 'paketo-buildpacks/ca-certificates'
-version = '3.14.6'
+version = '3.14.7'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/watchexec'
-version = '3.11.7'
+version = '3.11.8'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/go-dist'
-version = '2.11.3'
+version = '2.11.4'
 
 [[order.group]]
 id = 'paketo-buildpacks/git'
-version = '1.1.22'
+version = '1.1.23'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/go-build'
-version = '2.4.49'
+version = '2.4.50'
 
 [[order.group]]
 id = 'paketo-buildpacks/procfile'
-version = '5.15.8'
+version = '5.15.9'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/environment-variables'
-version = '4.12.3'
+version = '4.12.4'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/image-labels'
-version = '4.14.7'
+version = '4.14.8'
 optional = true
